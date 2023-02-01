@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/07 14:52:36 by marvin            #+#    #+#              #
-#    Updated: 2022/12/02 09:40:33 by nlibano-         ###   ########.fr        #
+#    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
+#    Updated: 2022/12/15 03:59:00 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,31 +15,38 @@ NAME		= minishell
 SRCSDIR		= srcs
 OBJSDIR		= objs
 EXTLIB		= libft
+READLINE_DIR = /usr/local/Cellar/readline/8.2.1
+#READLINE_DIR = ${HOME}/.brew/opt/readline
 
 
-SRCS		= main.c \ #builtin.c parse.c exebash.c stack.c in_out.c cd.c execv.c lexer.c reorder.c\
-
+SRCS	= main.c\
+		env.c\
+		lst_env.c\
+		signal.c\
+		
 # Compiler options
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g3 #-fsanitize=address
-DFLAG		= -lreadline
+CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
+F_READLINE	= -I$(READLINE_DIR)/include
+DFLAG		= -lreadline -L$(READLINE_DIR)/lib
 
 ###################################################
 # The rest is done by the MakeFile automatically, #
 # you should not have to modify it				  #
 ###################################################
-OBJS	= $(SRCS:%.c=$(OBJSDIR)/%.o)
 
-all: $(NAME)
+OBJS = $(SRCS:%.c=$(OBJSDIR)/%.o)
+
+all:$(NAME)
 
 $(NAME): $(OBJS) $(EXTLIB)/$(EXTLIB).a
 	@echo "Assembling $@"
-	@$(CC) $(CFLAGS) $(DFLAG) -o $@  $^
+	@$(CC) $(CFLAGS) -o $@  $(DFLAG)   $^
 
 $(OBJS): $(OBJSDIR)/%.o: $(SRCSDIR)/%.c
 	@mkdir -p $(@D)
 	@echo Compiling $<
-	@$(CC) $(CFLAGS) -I$(EXTLIB)/incs -c $< -o $@
+	$(CC) $(CFLAGS) $(F_READLINE) -I$(EXTLIB)/incs -c $< -o $@
 
 $(EXTLIB)/$(EXTLIB).a:
 	@echo "Compiling $@"
@@ -55,4 +62,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
+
