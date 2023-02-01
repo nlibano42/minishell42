@@ -29,13 +29,12 @@ typedef struct	s_shell
 	int				quit_status;
 	int				pid;
 	char			*readl;
-} t_shell
+} t_shell;
 
 t_shell g_shell;
 
-
 //main.c
-int main(int argc, char **argv, char **argv);
+int main(int argc, char **argv, char **env);
 
 //env.c
 void	init_env(t_env **envi, char **env);
@@ -48,5 +47,8 @@ void	ft_lstclear(t_env **lst);
 void	ft_lstdelone(t_env *lst);
 t_env	*ft_lstlast(t_env *lst);
 
+//signal.c
+void	ft_suppress_output(void);
+void	sighandler(int sig);
 
 #endif

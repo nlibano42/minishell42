@@ -74,4 +74,3 @@ t_env	*ft_lstlast(t_env *lst)
 	}
 	return (lst);
 }
-
