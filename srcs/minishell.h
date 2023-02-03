@@ -15,6 +15,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <stdio.h>
 
 typedef struct  s_env
 {
@@ -50,5 +51,8 @@ t_env	*ft_lstlast(t_env *lst);
 //signal.c
 void	ft_suppress_output(void);
 void	sighandler(int sig);
+
+//free_params.c
+void    free_split(char **s);
 
 #endif

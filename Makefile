@@ -15,8 +15,8 @@ NAME		= minishell
 SRCSDIR		= srcs
 OBJSDIR		= objs
 EXTLIB		= libft
-READLINE_DIR = /usr/local/Cellar/readline/8.2.1
-#READLINE_DIR = ${HOME}/.brew/opt/readline
+#READLINE_DIR = /usr/local/Cellar/readline/8.2.1
+READLINE_DIR = ${HOME}/.brew/opt/readline
 
 
 SRCS	= main.c\

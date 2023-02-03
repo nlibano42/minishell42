@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "../libft/libft.h"
 
 void	init_env(t_env **envi, char **env)
 {
@@ -24,7 +25,7 @@ void	init_env(t_env **envi, char **env)
         values = ft_split(env[i], '=');
 		new = ft_lstnew(values[0], values[1]);
         ft_lstadd_back(envi, new);
-		clear(values);
+		free_split(values);
     }
 }
 

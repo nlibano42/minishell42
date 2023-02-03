@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "../libft/libft.h"
 
 t_env	*ft_lstnew(char *name, char *val)
 {
