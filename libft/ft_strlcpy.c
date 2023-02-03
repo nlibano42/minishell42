@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_params.c                                      :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlibano- <nlibano-@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 22:05:45 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/03 22:05:50 by nlibano-         ###   ########.fr       */
+/*   Created: 2021/10/26 19:20:43 by nlibano-          #+#    #+#             */
+/*   Updated: 2021/10/26 19:21:01 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void    free_split(char **s)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-    int i;
+	size_t	i;
+	size_t	src_size;
 
-    i = -1;
-    while (s[++i])
-        free(s[i]);
-    free(s);
+	src_size = 0;
+	while (src[src_size] != '\0')
+		src_size++;
+	if (dstsize == 0)
+		return (src_size);
+	i = 0;
+	while (i < dstsize && src[i] != 0)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (i == dstsize)
+		dst[dstsize - 1] = '\0';
+	else
+		dst[i] = '\0';
+	return (src_size);
 }
