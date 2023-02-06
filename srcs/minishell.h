@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2022/12/15 04:07:31 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:14:12 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct  s_env
 typedef struct	s_shell
 {
 	struct s_env	*env;
+	char			**cmd;
 	int				quit_status;
 	int				pid;
 	char			*readl;
@@ -49,6 +50,7 @@ t_shell g_shell;
 
 //main.c
 int main(int argc, char **argv, char **env);
+int linecontrol(char *readl);
 
 //env.c
 void	init_env(t_env **envi, char **env);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+         #
+#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2022/12/15 03:59:00 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/02/06 19:14:36 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,16 @@ NAME		= minishell
 SRCSDIR		= srcs
 OBJSDIR		= objs
 EXTLIB		= libft
-READLINE_DIR = /usr/local/Cellar/readline/8.2.1
-#READLINE_DIR = ${HOME}/.brew/opt/readline
+#READLINE_DIR = /usr/local/Cellar/readline/8.2.1
+READLINE_DIR = ${HOME}/.brew/opt/readline
 
 
 SRCS	= main.c\
 		env.c\
 		lst_env.c\
 		signal.c\
-		free_params.c
+		free_params.c\
+		linecontrol.c\
 		
 # Compiler options
 CC			= gcc

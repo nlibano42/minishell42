@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2022/12/15 04:04:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:26:51 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	init_env(&(g_shell.env), env);
+	ft_suppress_output();
 	signal(SIGINT, sighandler);
 	signal(SIGQUIT, sighandler);
 	while (1)
@@ -31,7 +32,10 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (ft_strlen(g_shell.readl) > 0)
 		{
-
+			if(linecontrol(g_shell.readl))
+			{
+				
+			}
 		}
 		//pdte liberar (t_env) env
 	}

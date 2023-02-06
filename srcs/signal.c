@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2022/12/15 05:01:45 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:24:23 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_suppress_output(void)
 
 void	sighandler(int sig)
 {
-	ft_suppress_output();
+	//ft_suppress_output();
 	if (sig == SIGINT && g_shell.pid == 0)
 	{
 		printf("\n");
