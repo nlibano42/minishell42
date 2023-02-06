@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../incs/minishell.h"
 #include <termios.h>
 
 void	ft_suppress_output(void)

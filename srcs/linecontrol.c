@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../incs/minishell.h"
 
 char *ft_controlcomillas(char *readl)
 {
@@ -44,15 +44,15 @@ int linecontrol(char *readl)
 {
 	char	*aux;
 	char	*aux_cmd;
-	char	**split_cmd;
+//	char	**split_cmd;
 	
 	aux = readl;
 	aux_cmd = ft_controlcomillas(aux);
-	expand(ft_split(aux_cmd, ","));
+	//expand(ft_split(aux_cmd, ","));
 	return (1);
 } 
 
-int	expand(char **readl)
+/* int	expand(char **readl)
 {
 	int	i;
 	int	j;
@@ -63,4 +63,4 @@ int	expand(char **readl)
 		
 	}
 	return (0);
-}
+} */
