@@ -26,8 +26,13 @@ void	ft_suppress_output(void)
 
 void	sighandler(int sig)
 {
-	//ft_suppress_output();
-	if (sig == SIGINT && g_shell.pid == 0)
+	if (sig == SIGQUIT && g_shell.pid == 0)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else if (sig == SIGINT && g_shell.pid == 0)
 	{
 		printf("\n");
 		rl_on_new_line();
