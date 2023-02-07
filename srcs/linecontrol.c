@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/07 18:31:14 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:13:19 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ char	*ft_controlcomillas(char *readl)
 			simple_flag = 0;
 		else if (readl[i] == '\\' && (readl[i + 1] == '"' || readl[i + 1] == '\'' || readl[i +1] == '\\'))
 			i++;
-		 //mirar lo que es el NULL del final
 	}
+	readl[i] = '\0';
 	return(readl);
 }
 
 int	linecontrol(char *readl, t_env *envp)
 {
 	char	*aux;
-	char	*aux_cmd;	
-	
+	char	*aux_cmd;
+
 	aux = readl;
 	aux_cmd = ft_controlcomillas(aux);
 	expand(ft_split(aux_cmd, ','), envp);
@@ -63,7 +63,7 @@ int	expand(char **aux, t_env *envp)
 		j = -1;
 		while (aux[i][++j])
 		{
-			if(aux[i][j] == '$' || (aux[i][j - 1] == '"' && aux[i][ft_strlen(aux[i])] == '"'))
+			if(aux[i][j] == '$')
 			{
 				aux[i] = ft_lstfind_env_val(envp, aux[i]);
 				printf("-->%s", aux[i]);
@@ -73,4 +73,4 @@ int	expand(char **aux, t_env *envp)
 		i++;
 	}
 	return (0);
-} 
+}

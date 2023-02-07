@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/07 18:41:17 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:57:35 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_signal()
 int	main(int argc, char **argv, char **env)
 {	
 	t_cmd	*cmd;
-	t_env	*envp;
+	t_env	*envp = NULL;
 
 	(void)argc;
 	(void)argv;
