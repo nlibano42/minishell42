@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2022/12/15 04:35:45 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:34:34 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ void	init_env(t_env **envi, char **env)
 
 char	*ft_lstfind_env_val(t_env *lst, char *name)
 {
+	printf("lsdtfind--entra\n");
+	name = "PATH";
 
 	while (lst)
 	{
+		printf("name: %s\n", lst->name);
+		printf("val: %s\n", lst->val);
+		
 		if (lst->name == name)
 			return (lst->val);
 		lst = lst->next;

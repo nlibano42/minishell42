@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nlibano- <nlibano-@student.42urduli>       +#+  +:+       +#+         #
+#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 20:13:39 by nlibano-          #+#    #+#              #
-#    Updated: 2021/11/09 11:50:26 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/02/07 20:56:32 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,9 @@ SRC = ft_strlen.c \
 	  ft_split.c \
 	  ft_memcpy.c \
 	  ft_strlcpy.c \
-	  ft_strdup.c
-
+	  ft_strdup.c \
+	  ft_substr.c \
+	
 	#   ft_isdigit.c \
 	#   ft_isalnum.c \
 	#   ft_isascii.c \
@@ -45,7 +46,6 @@ SRC = ft_strlen.c \
 	#   ft_strnstr.c \
 	#   ft_atoi.c \
 	#   ft_calloc.c \
-	#   ft_substr.c \
 	#   ft_strjoin.c \
 	#   ft_strtrim.c \
 	#   ft_itoa.c \

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/07 19:13:19 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:29:01 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,21 @@ char	*ft_controlcomillas(char *readl)
 	int i;
 	int simple_flag;
 	int double_flag;
+	char *output;
 
 	simple_flag = 0;
 	double_flag = 0;
+	output = malloc(sizeof(char) * ft_strlen(readl) + 5);
+	if(!output)
+		return(NULL);
 	i = -1;
 	while(readl[++i])
 	{
 		if(readl[i] == ' ' && (double_flag == 0 && simple_flag == 0))
-			readl[i] = ',';
+		{
+			output[i] = ',';
+			continue ;
+		}
 		if(readl[i] == '"' && (double_flag == 0 && simple_flag == 0))
 			double_flag = 1;		
 		else if(readl[i] == '\'' && (double_flag == 0 && simple_flag == 0))
@@ -34,43 +41,51 @@ char	*ft_controlcomillas(char *readl)
 			double_flag = 0;
 		else if(readl[i] == '\'' && simple_flag == 1)
 			simple_flag = 0;
-		else if (readl[i] == '\\' && (readl[i + 1] == '"' || readl[i + 1] == '\'' || readl[i +1] == '\\'))
+		else if (readl[i] == '\\' && (readl[i + 1] == '"' || readl[i + 1] == '\'' || readl[i + 1] == '\\'))
 			i++;
+		output[i] = readl[i];
 	}
-	readl[i] = '\0';
-	return(readl);
+	output[i] = ',';
+	output[i + 1] = '\0';
+	return(output);
 }
 
 int	linecontrol(char *readl, t_env *envp)
 {
 	char	*aux;
 	char	*aux_cmd;
-
+	
 	aux = readl;
 	aux_cmd = ft_controlcomillas(aux);
+	free(aux);
 	expand(ft_split(aux_cmd, ','), envp);
 	return (1);
 } 
 
-int	expand(char **aux, t_env *envp)
+int	expand(char **dolar, t_env *envp)
 {
 	int	i;
 	int	j;
-
+	char *aux;
+	
 	i = -1;
-	while (aux[++i])
+	while (dolar[++i])
 	{
 		j = -1;
-		while (aux[i][++j])
+		while (dolar[i][++j])
 		{
-			if(aux[i][j] == '$')
+			if(dolar[i][j] == '$')
 			{
-				aux[i] = ft_lstfind_env_val(envp, aux[i]);
-				printf("-->%s", aux[i]);
-			}
-			j++;
+				if(dolar[i][j + 1])
+				{
+					printf("---->entra\n");
+					dolar[i] = ft_substr(dolar[i], 1, ft_strlen(dolar[i] - 1));
+				}
+				printf("---->%s\n", dolar[i]);
+				aux = ft_lstfind_env_val(envp, dolar[i]);
+				printf("------>%s\n", aux);
+			} 
 		}
-		i++;
 	}
 	return (0);
 }

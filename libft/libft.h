@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.      +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2021/11/20 12:42:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:56:56 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_strdup(const char *s);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 // int		ft_isalpha(int c);
 // int		ft_isdigit(int c);
@@ -42,7 +43,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 // char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 // int		ft_atoi(const char *str);
 // void	*ft_calloc(size_t nmemb, size_t size);
-// char	*ft_substr(char const *s, unsigned int start, size_t len);
 // char	*ft_strjoin(char const *s1, char const *s2);
 // char	*ft_strtrim(char const *s1, char const *set);
 // char	*ft_itoa(int n);
