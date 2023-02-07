@@ -18,14 +18,21 @@ char	*ft_controlcomillas(char *readl)
 	int i;
 	int simple_flag;
 	int double_flag;
+	char *output;
 
 	simple_flag = 0;
 	double_flag = 0;
+	output = malloc(sizeof(char) * ft_strlen(readl) + 5);
+	if (!output)
+		return (NULL);
 	i = -1;
 	while(readl[++i])
 	{
 		if(readl[i] == ' ' && (double_flag == 0 && simple_flag == 0))
-			readl[i] = ',';
+			{
+				output[i] = ',';
+				continue ;
+				}
 		if(readl[i] == '"' && (double_flag == 0 && simple_flag == 0))
 			double_flag = 1;		
 		else if(readl[i] == '\'' && (double_flag == 0 && simple_flag == 0))
@@ -36,8 +43,10 @@ char	*ft_controlcomillas(char *readl)
 			simple_flag = 0;
 		else if (readl[i] == '\\' && (readl[i + 1] == '"' || readl[i + 1] == '\'' || readl[i +1] == '\\'))
 			i++;
+			output[i] = readl[i];
 	}
-	readl[i] = '\0';
+	output[i] = ',';
+	output[i + 1] = '\0';
 	return(readl);
 }
 
