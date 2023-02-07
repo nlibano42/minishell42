@@ -6,33 +6,51 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/06 18:26:51 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:41:17 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	init_cmd(t_cmd *cmd)
+{
+	cmd->cmd = NULL;
+	cmd->readl = NULL;
+}
+
+void	ft_signal()
 {	
-	(void)argc;
-	(void)argv;
-	init_env(&(g_shell.env), env);
 	ft_suppress_output();
 	signal(SIGINT, sighandler);
-	signal(SIGQUIT, sighandler);
+	signal(SIGQUIT, sighandler);	
+}
+
+int	main(int argc, char **argv, char **env)
+{	
+	t_cmd	*cmd;
+	t_env	*envp;
+
+	(void)argc;
+	(void)argv;
+	init_env(&(envp), env);
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	if(!cmd)
+		return (-1);
+	init_cmd(cmd);
+	ft_signal();
 	while (1)
 	{
-		g_shell.readl = readline("Minishell $> ");
-		add_history(g_shell.readl);
-		if (!g_shell.readl)
+		cmd->readl = readline("Minishell $> ");
+		add_history(cmd->readl);
+		if (!cmd->readl)
 		{
 			printf("exit\n");
 			//usar nuestro builtin de exit en lugar de exit()
 			exit(g_shell.quit_status);
 		}
-		if (ft_strlen(g_shell.readl) > 0)
+		if (ft_strlen(cmd->readl) > 0)
 		{
-			if(linecontrol(g_shell.readl))
+			if(linecontrol(cmd->readl, envp))
 			{
 				
 			}

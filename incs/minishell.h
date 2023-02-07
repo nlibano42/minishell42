@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/06 19:14:12 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:36:53 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,28 @@ typedef struct  s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct	s_shell
+typedef struct s_cmd
 {
 	struct s_env	*env;
-	char			**cmd;
+	char			**cmd;	
+	char			*readl;
+}t_cmd;
+
+typedef struct	s_shell
+{
 	int				quit_status;
 	int				pid;
-	char			*readl;
 } t_shell;
 
 t_shell g_shell;
 
 //main.c
 int main(int argc, char **argv, char **env);
-int linecontrol(char *readl);
+
+//linecontrol.c
+int		linecontrol(char *readl, t_env *envp);
+char	*ft_controlcomillas(char *readl);
+int		expand(char **readl, t_env *envp);
 
 //env.c
 void	init_env(t_env **envi, char **env);

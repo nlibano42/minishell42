@@ -6,13 +6,14 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/06 20:03:38 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:31:14 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-char *ft_controlcomillas(char *readl)
+
+char	*ft_controlcomillas(char *readl)
 {
 	int i;
 	int simple_flag;
@@ -40,27 +41,36 @@ char *ft_controlcomillas(char *readl)
 	return(readl);
 }
 
-int linecontrol(char *readl)
+int	linecontrol(char *readl, t_env *envp)
 {
 	char	*aux;
-	char	*aux_cmd;
-//	char	**split_cmd;
+	char	*aux_cmd;	
 	
 	aux = readl;
 	aux_cmd = ft_controlcomillas(aux);
-	//expand(ft_split(aux_cmd, ","));
+	expand(ft_split(aux_cmd, ','), envp);
 	return (1);
 } 
 
-/* int	expand(char **readl)
+int	expand(char **aux, t_env *envp)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (readl[++i])
+	while (aux[++i])
 	{
-		
+		j = -1;
+		while (aux[i][++j])
+		{
+			if(aux[i][j] == '$' || (aux[i][j - 1] == '"' && aux[i][ft_strlen(aux[i])] == '"'))
+			{
+				aux[i] = ft_lstfind_env_val(envp, aux[i]);
+				printf("-->%s", aux[i]);
+			}
+			j++;
+		}
+		i++;
 	}
 	return (0);
-} */
+} 
