@@ -30,15 +30,10 @@ void	init_env(t_env **envi, char **env)
 
 char	*ft_lstfind_env_val(t_env *lst, char *name)
 {
-	printf("lsdtfind--entra\n");
-	name = "PATH";
-
 	while (lst)
 	{
-		printf("name: %s\n", lst->name);
-		printf("val: %s\n", lst->val);
-		
-		if (lst->name == name)
+		if (ft_strlen(lst->name) == ft_strlen(name) && \
+				ft_strncmp(lst->name, name, ft_strlen(name)) == 0)
 			return (lst->val);
 		lst = lst->next;
 	}

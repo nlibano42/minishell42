@@ -83,7 +83,15 @@ int	expand(char **dolar, t_env *envp)
 				}
 				printf("---->%s\n", dolar[i]);
 				aux = ft_lstfind_env_val(envp, dolar[i]);
-				printf("------>%s\n", aux);
+				if (!aux)
+					dolar[i] = "";
+				else
+				{
+					free(dolar[i]);
+					dolar[i] = ft_strdup(aux);
+				printf("------>%s\n", dolar[i]);
+					break ;
+				}
 			} 
 		}
 	}
