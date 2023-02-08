@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/06 18:24:23 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:42:45 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_suppress_output(void)
 
 	if (tcgetattr(0, &config))
 		perror("minishell: tcsetattr");
-	config.c_lflag &= ~ECHOCTL;
+		config.c_lflag &= ~ECHOCTL;
 	if (tcsetattr(0, 0, &config))
 		perror("minishell: tcsetattr");
 }

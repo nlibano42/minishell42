@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 20:13:39 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/07 20:56:32 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/08 19:52:58 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRC = ft_strlen.c \
 	  ft_strdup.c \
 	  ft_substr.c \
 	  ft_strncmp.c \
-	
+	  ft_strjoin.c \
+	  ft_strlcat.c \
+	  ft_strchr.c \
 	#   ft_isdigit.c \
 	#   ft_isalnum.c \
 	#   ft_isascii.c \
@@ -36,17 +38,14 @@ SRC = ft_strlen.c \
 	#   ft_memset.c \
 	#   ft_bzero.c \
 	#   ft_memmove.c \
-	#   ft_strlcat.c \
 	#   ft_toupper.c \
 	#   ft_tolower.c \
-	#   ft_strchr.c \
 	#   ft_strrchr.c \
 	#   ft_memchr.c \
 	#   ft_memcmp.c \
 	#   ft_strnstr.c \
 	#   ft_atoi.c \
 	#   ft_calloc.c \
-	#   ft_strjoin.c \
 	#   ft_strtrim.c \
 	#   ft_itoa.c \
 	#   ft_strmapi.c \

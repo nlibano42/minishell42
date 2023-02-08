@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/07 21:34:34 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/08 21:24:36 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ char	*ft_lstfind_env_val(t_env *lst, char *name)
 			return (lst->val);
 		lst = lst->next;
 	}
-	return (NULL);
+	return ("");
 }

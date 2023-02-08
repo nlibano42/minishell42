@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/07 18:36:53 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/08 21:09:46 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ t_shell g_shell;
 
 //main.c
 int main(int argc, char **argv, char **env);
+
+//utils.c
+char	*find_change_str(char *s, t_env *env);
 
 //linecontrol.c
 int		linecontrol(char *readl, t_env *envp);
