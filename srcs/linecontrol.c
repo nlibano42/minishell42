@@ -134,7 +134,10 @@ int	expand(char **dolar, t_env *envp)
 						free(split_dolar[j]);
 						split_dolar[j] = aux;
 					}
+					//unir todas las partes para completar dolar[i] 
+					//dolar[i] = 
 					printf("%s  -  %s  -  %s\n", split_dolar[0], split_dolar[1], split_dolar[2]);
+					free_split(split_dolar);
 				}
 					 
 			}
