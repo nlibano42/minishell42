@@ -121,13 +121,20 @@ int	expand(char **dolar, t_env *envp)
 				else
 				{
 					split_dolar = ft_split(dolar[i], '$');
-					while(--dolar_cont >= 0)
+					if (dolar[i][0] != '$')
 					{
-						aux = find_change_str(split_dolar[dolar_cont], envp);
-						free(split_dolar[dolar_cont]);
-						split_dolar[dolar_cont] = aux;
+						j = 0;
+						dolar_cont++;
 					}
-					printf("%s   %s\n", split_dolar[0], split_dolar[1]);
+					else
+						j = -1;
+					while(++j < dolar_cont)
+					{
+						aux = find_change_str(split_dolar[j], envp);
+						free(split_dolar[j]);
+						split_dolar[j] = aux;
+					}
+					printf("%s  -  %s  -  %s\n", split_dolar[0], split_dolar[1], split_dolar[2]);
 				}
 					 
 			}

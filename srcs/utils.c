@@ -20,7 +20,7 @@ char	*find_change_str(char *s, t_env *env)
 	if (s[0] == '$')
 		aux = ft_substr(s, 1, ft_strlen(s) - 1);
 	else
-		aux = ft_substr(s, 0, ft_strlen(s) - 1);
+		aux = ft_substr(s, 0, ft_strlen(s));
 	val = ft_strdup(ft_lstfind_env_val(env, aux));
 	free(aux);
 	return (val);
