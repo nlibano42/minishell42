@@ -6,12 +6,26 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/08 22:12:43 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:33:16 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
+void	ft_control(char *readl, int *s_f, int *d_f, int i)
+{
+	if(readl[i] == '"' && (*d_f == 0 && *s_f == 0))
+		*d_f = 1;		
+	else if(readl[i] == '\'' && (*d_f == 0 && *s_f == 0))
+		*s_f = 1;
+	else if(readl[i] == '"' && *d_f == 1)
+		*d_f = 0;
+	else if(readl[i] == '\'' && *s_f == 1)
+		*s_f = 0;
+	else if (readl[i] == '\\' && (readl[i + 1] == '"' || \
+		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
+		i++;
+}
 
 char	*ft_controlcomillas(char *readl)
 {
@@ -33,16 +47,7 @@ char	*ft_controlcomillas(char *readl)
 			output[i] = ',';
 			continue ;
 		}
-		if(readl[i] == '"' && (double_flag == 0 && simple_flag == 0))
-			double_flag = 1;		
-		else if(readl[i] == '\'' && (double_flag == 0 && simple_flag == 0))
-			simple_flag = 1;
-		else if(readl[i] == '"' && double_flag == 1)
-			double_flag = 0;
-		else if(readl[i] == '\'' && simple_flag == 1)
-			simple_flag = 0;
-		else if (readl[i] == '\\' && (readl[i + 1] == '"' || readl[i + 1] == '\'' || readl[i + 1] == '\\'))
-			i++;
+		ft_control(readl, &double_flag, &simple_flag, i);
 		output[i] = readl[i];
 	}
 	output[i] = ',';
@@ -66,23 +71,19 @@ int	expand(char **dolar, t_env *envp)
 {
 	int	i;
 	int	j;
-//	int cont;
 	int simple_flag;
 	int double_flag;
-	char *aux;
-	char *aux_join;
-	//char *val;
 	char **split_dolar;
 	int	d_quotes;
 	int	s_quotes;
 	int dolar_cont;
 	
-	i = -1;
 	simple_flag = 0;
 	double_flag = 0;
 	d_quotes = 0;
 	s_quotes = 0;
 	dolar_cont = 0;
+	i = -1;
 	while (dolar[++i])
 	{
 		j = -1;
@@ -101,45 +102,32 @@ int	expand(char **dolar, t_env *envp)
 			{
 				if (dolar_cont == 1)
 				{
-					if (dolar[0][0] == '$' && dolar[0][1] !='\0')
-						aux = find_change_str(ft_substr(dolar[i], 0, ft_strlen(dolar[i])), envp);
-					else
-					{
-						aux = find_change_str(ft_strchr(dolar[0], 36), envp);
-					}
-					if (dolar[0][0] != '$')
-					{
-						split_dolar = ft_split(dolar[i], '$');
-						aux_join = ft_strjoin(split_dolar[0], aux);
-						free(aux);
-						aux = aux_join;
-					}
-					free(dolar[i]);				
-					dolar[i] = ft_strdup(aux);
-					free(aux);
+					ft_one_dolar(&dolar[i], envp);
+					dolar_cont = 0;
 				}
 				else
 				{
 					split_dolar = ft_split(dolar[i], '$');
-					if (dolar[i][0] != '$')
+					ft_multi_dolar(&dolar[i], envp, split_dolar, dolar_cont);
+					dolar_cont = 0;
+				}
+			}
+			else if (s_quotes == 1 && d_quotes == 0) //solo hay comillas simples
+			{
+				if (is_inside_quotes('\'', dolar[i]) == 0)
+				{
+					if (dolar_cont == 1)
 					{
-						j = 0;
-						dolar_cont++;
+						ft_one_dolar(&dolar[i], envp);
+						dolar_cont = 0;
 					}
 					else
-						j = -1;
-					while(++j < dolar_cont)
 					{
-						aux = find_change_str(split_dolar[j], envp);
-						free(split_dolar[j]);
-						split_dolar[j] = aux;
+						split_dolar = ft_split(dolar[i], '$');
+						ft_multi_dolar(&dolar[i], envp, split_dolar, dolar_cont);
+						dolar_cont = 0;
 					}
-					//unir todas las partes para completar dolar[i] 
-					//dolar[i] = 
-					printf("%s  -  %s  -  %s\n", split_dolar[0], split_dolar[1], split_dolar[2]);
-					free_split(split_dolar);
 				}
-					 
 			}
 		}
 		printf("%s\n", dolar[i]);
@@ -150,8 +138,8 @@ int	expand(char **dolar, t_env *envp)
 				cont++;
 			aux_join = ft_substr(dolar[i], 0, cont);
 			dolar[i] = ft_substr(dolar[i], cont + 1, ft_strlen(dolar[i]) - cont);
-		} */
-/* 		j = -1;
+		}
+		j = -1;
 		while (dolar[i][++j])
 		{
 			if(dolar[i][j] == '\'')
@@ -185,11 +173,7 @@ int	expand(char **dolar, t_env *envp)
 					break ;
 				}
 			} 
-		}
-		if(aux_join)
-		{
-			dolar[i] = ft_strjoin(aux_join, dolar[i]);
-		} */
+		}*/
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/08 21:10:54 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/09 17:45:12 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS	= main.c\
 		free_params.c\
 		linecontrol.c\
 		utils.c\
-		
+		solodolar.c\
 # Compiler options
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
