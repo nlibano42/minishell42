@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/09 21:05:45 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:55:04 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "../libft/libft.h"
+
 //# include <stdbool.h>
 //# include <stdlib.h>
 // # include <stddef.h>
@@ -29,7 +30,7 @@
 // # include <errno.h>
 // # include <termios.h>
 
-typedef struct  s_env
+typedef struct s_env
 {
 	char			*name;
 	char			*val;
@@ -43,31 +44,27 @@ typedef struct s_cmd
 	char			*readl;
 }t_cmd;
 
-typedef struct	s_shell
+typedef struct s_shell
 {
 	int				quit_status;
 	int				pid;
-} t_shell;
+}	t_shell;
 
-t_shell g_shell;
-
-//main.c
-int main(int argc, char **argv, char **env);
-
-//utils.c
-char	*find_change_str(char *s, t_env *env);
-int		is_inside_quotes(char quotes, char *s);
+t_shell	g_shell;
 
 //linecontrol.c
 int		linecontrol(char *readl, t_env *envp);
 char	*ft_controlcomillas(char *readl);
-int		expand(char **readl, t_env *envp);
+void	expand(char **s, t_env *env);
 void	ft_control(char *readl, int *s_f, int *d_f, int i);
+char	*ft_parching_dolar(char **s, t_env *env, int i, char *join_str);
+char	*ft_control_expand(char **s, t_env *env, char *join_str, int *i);
 
-//solodolar.c
-void	ft_one_dolar(char **dolar, t_env *envp);
-void	ft_multi_dolar(char **dolar, t_env *envp, char **s_d, int d_c);
-void	ft_dolar_join(char **dolar, char *s_d);
+//utils.c
+char	*find_change_str(char *s, t_env *env);
+int		find_str(char c, char *s);
+char	*ft_join_str(char *s1, char *s2);
+int		find_fin_str(char *s, int i);
 
 //env.c
 void	init_env(t_env **envi, char **env);
@@ -85,6 +82,6 @@ void	ft_suppress_output(void);
 void	sighandler(int sig);
 
 //free_params.c
-void    free_split(char **s);
+void	free_split(char **s);
 
 #endif
