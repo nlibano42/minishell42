@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/13 17:30:58 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:24:07 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ char	*ft_parching_dolar(char *s, t_env *env, int i, char *join_str);
 //char	*ft_control_expand(char **s, t_env *env, char *join_str, int *i);
 char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i);
 int		join_split(t_cmd *cmd);
+
+//pipecontrol.c
+void	ft_pipecontrol(char *cmd);
 
 //env.c
 void	init_env(t_env **envi, char **env);

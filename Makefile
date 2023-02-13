@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/11 19:54:14 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/13 18:20:53 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRCS	= main.c\
 		free_params.c\
 		linecontrol.c\
 		utils.c\
+		pipecontrol.c\
+		
 # Compiler options
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
