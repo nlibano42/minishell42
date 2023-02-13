@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/11 19:55:04 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:30:58 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@
 // # include <errno.h>
 // # include <termios.h>
 
+typedef struct s_quotes
+{
+	int		flag_d;
+	int		flag_s;
+	char	*join_str;
+}	t_quotes;
+
 typedef struct s_env
 {
 	char			*name;
@@ -41,8 +48,9 @@ typedef struct s_cmd
 {
 	struct s_env	*env;
 	char			**cmd;	
+	char			*cmd_line;
 	char			*readl;
-}t_cmd;
+}	t_cmd;
 
 typedef struct s_shell
 {
@@ -52,19 +60,25 @@ typedef struct s_shell
 
 t_shell	g_shell;
 
-//linecontrol.c
-int		linecontrol(char *readl, t_env *envp);
-char	*ft_controlcomillas(char *readl);
-void	expand(char **s, t_env *env);
-void	ft_control(char *readl, int *s_f, int *d_f, int i);
-char	*ft_parching_dolar(char **s, t_env *env, int i, char *join_str);
-char	*ft_control_expand(char **s, t_env *env, char *join_str, int *i);
+//main.c
+void	init_cmd(t_cmd *cmd);
+void	ft_signal(void);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
 int		find_str(char c, char *s);
 char	*ft_join_str(char *s1, char *s2);
 int		find_fin_str(char *s, int i);
+
+//linecontrol.c
+int		linecontrol(t_cmd *cmd, t_env *envp);
+char	*ft_controlcomillas(char *readl);
+void	expand(char **s, t_env *env);
+void	ft_control(char *readl, int *s_f, int *d_f, int i);
+char	*ft_parching_dolar(char *s, t_env *env, int i, char *join_str);
+//char	*ft_control_expand(char **s, t_env *env, char *join_str, int *i);
+char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i);
+int		join_split(t_cmd *cmd);
 
 //env.c
 void	init_env(t_env **envi, char **env);

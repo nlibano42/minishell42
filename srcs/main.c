@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/11 19:55:27 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:59:35 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,43 @@ void	init_cmd(t_cmd *cmd)
 	cmd->readl = NULL;
 }
 
-void	ft_signal()
+void	ft_signal(void)
 {	
 	ft_suppress_output();
 	signal(SIGINT, sighandler);
-	signal(SIGQUIT, sighandler);	
+	signal(SIGQUIT, sighandler);
 }
 
 int	main(int argc, char **argv, char **env)
 {	
-	t_cmd	*cmd;
-	t_env	*envp = NULL;
+	t_cmd	cmd;
+	t_env	*envp;
 
 	(void)argc;
 	(void)argv;
+	envp = NULL;
 	init_env(&(envp), env);
-	cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	if(!cmd)
-		return (-1);
-	init_cmd(cmd);
+//	cmd = malloc(sizeof(t_cmd));
+//	if (!cmd)
+//		return (-1);
+	init_cmd(&cmd);
 	ft_signal();
 	while (1)
 	{
-		cmd->readl = readline("Minishell $> ");
-		add_history(cmd->readl);
-		if (!cmd->readl)
+		cmd.readl = readline("Minishell $> ");
+		add_history(cmd.readl);
+		if (!cmd.readl)
 		{
 			printf("exit\n");
 			//usar nuestro builtin de exit en lugar de exit()
 			exit(g_shell.quit_status);
 		}
-		if (ft_strlen(cmd->readl) > 0)
+		//EXIT debe ir en el buitin
+		//if(!ft_strncmp(cmd->readl, "exit", 4))
+		//	break ;
+		if (ft_strlen(cmd.readl) > 0)
 		{
-			if(linecontrol(cmd->readl, envp))
+			if (linecontrol(&cmd, envp))
 			{
 				
 			}

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/08 19:52:45 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:12:16 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strchr(const char *s, int c);
-
+int		ft_isalnum(int c);
 // int		ft_isalpha(int c);
 // int		ft_isdigit(int c);
-// int		ft_isalnum(int c);
 // int		ft_isascii(int c);
 // int		ft_isprint(int c);
 // void	*ft_memset(void *b, int c, size_t len);

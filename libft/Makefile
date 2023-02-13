@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 20:13:39 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/08 19:52:58 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/13 17:01:56 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ SRC = ft_strlen.c \
 	  ft_strjoin.c \
 	  ft_strlcat.c \
 	  ft_strchr.c \
-	#   ft_isdigit.c \
-	#   ft_isalnum.c \
+	  ft_isalnum.c \
+	#   ft_isdigit.c \  
 	#   ft_isascii.c \
 	#   ft_isprint.c \
 	#   ft_strlen.c \
@@ -53,7 +53,7 @@ SRC = ft_strlen.c \
 	#   ft_putchar_fd.c \
 	#   ft_putstr_fd.c \
 	#   ft_putendl_fd.c \
-	#   ft_putnbr_fd.c
+	#   ft_putnbr_fd.c\
 
 OBJ = $(SRC:%.c=%.o)
 

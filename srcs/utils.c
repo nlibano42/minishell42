@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/11 20:02:54 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:31:06 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	find_fin_str(char *s, int i)
 {
 	while (s[++i])
 	{
-		if (find_str(s[i], "|\"\'$?>< ") == 1)
+		if (ft_isalnum(s[i]) == 0) 
 			return (i);
 	}
 	return (i);
