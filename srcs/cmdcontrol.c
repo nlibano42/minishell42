@@ -6,47 +6,46 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/14 21:32:50 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/15 00:39:23 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
+int	open_file(char *file, char *flag)
+{
+	int	fd;
+
+	fd = -1;
+	fd = open(file, flag);
+	if (fd == -1)
+	{
+		g_shell.quit_status = 1; //mirar que numero debe devolver.
+		exit (1);
+	}
+	return (fd);
+}
+
 void	ft_cmdcontrol(char *s)
 {
-	int i;
-	char ** cmd_split;
-	int fd;
+	int		i;
+	char	**cmd_split;
+	int		fd;
+	char	*flag;
 
 	cmd_split = ft_split(s, ',');
 	i = -1;
-	while(cmd_split[++i])
+	while (cmd_split[++i])
 	{
-		if(cmd_split[i] == '>')
-		{
-			fd = open(cmd_split[i + 1], O_CREAT | O_TRUNC | O_WRONLY);
-			if(fd == -1 )
-				return (-1);
-		}
-		if(cmd_split[i] == '<')
-		{
-			fd = open(cmd_split[i + i], O_RDONLY);
-			if(fd == -1)
-				return (-1);
-		}
-		if(cmd_split[i] == '>>')
-		{
-			fd = open(cmd_split[i + i], O_CREAT | O_APPEND | O_WRONLY);
-			if(fd == -1)
-				return (-1);
-		}
-		if(cmd_split[i] == '<<')
-		{
-			fd = open(cmd_split[i + i], O_RDONLY);
-			if(fd == -1)
-				return(-1);
-		}
+		if (cmd_split[i] == '>')
+			flag = "O_CREAT | O_TRUNC | O_WRONLY";
+		if (cmd_split[i] == '<')
+			flag = "O_RDONLY";
+		if (cmd_split[i] == '>>')
+			flag = "O_CREAT | O_APPEND | O_WRONLY";
+		if (cmd_split[i] == '<<')
+			flag = "O_RDONLY";
+		fd = open_file(cmd_split[i + 1], flag);
 		printf("%s\n", cmd_split[i]);
 	}
-	
 }

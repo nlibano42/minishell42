@@ -34,9 +34,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	envp = NULL;
 	init_env(&(envp), env);
-//	cmd = malloc(sizeof(t_cmd));
-//	if (!cmd)
-//		return (-1);
 	init_cmd(&cmd);
 	ft_signal();
 	while (1)
