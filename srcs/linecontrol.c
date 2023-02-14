@@ -68,11 +68,11 @@ int	linecontrol(t_cmd *cmd, t_env *envp)
 	while (cmd->cmd[++i])
 	{
 		expand(&(cmd->cmd[i]), envp);
-printf("%s\n", cmd->cmd[i]);
+//printf("%s\n", cmd->cmd[i]);
 	}
 	join_split(cmd);
 	ft_pipecontrol(cmd->cmd_line);
-printf("%s\n", cmd->cmd_line);
+//printf("%s\n", cmd->cmd_line);
 	return (1);
 }
 
