@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/14 18:01:27 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:31:33 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "../libft/libft.h"
+# include <fcntl.h>
 
 //# include <stdbool.h>
 //# include <stdlib.h>
 // # include <stddef.h>
-// # include <fcntl.h>
 // # include <unistd.h>
 // # include <stdarg.h>
 // # include <string.h>
@@ -86,6 +86,9 @@ void	ft_quotes_crontol(char *s, t_quotes *quotes, int *i);
 
 //deletequotes.c
 char	*ft_deletequotes(char *s);
+
+//cmdcontrol.c
+void	ft_cmdcontrol(char *s);
 
 //env.c
 void	init_env(t_env **envi, char **env);

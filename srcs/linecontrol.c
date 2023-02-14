@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/14 18:04:34 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:44:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,12 @@ int	linecontrol(t_cmd *cmd, t_env *envp)
 	cmd->cmd = ft_split(cmd->cmd_line, '\n');
 	i = -1;
 	while (cmd->cmd[++i])
-	{
 		expand(&(cmd->cmd[i]), envp);
-//printf("%s\n", cmd->cmd[i]);
-	}
 	join_split(cmd);
 	cmd->cmd_line = ft_pipecontrol(cmd->cmd_line);
+	ft_cmdcontrol(cmd->cmd_line);
 	cmd->cmd_line = ft_deletequotes(cmd->cmd_line);
-printf("%s\n", cmd->cmd_line);
+//printf("%s\n", cmd->cmd_line);
 	return (1);
 }
 
@@ -95,7 +93,6 @@ int	join_split(t_cmd *cmd)
 
 void	expand(char **s, t_env *env)
 {
-// OJO!!! $USER! -> nlibano!
 	int			i;
 	t_quotes	quotes;
 
