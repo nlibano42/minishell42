@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/15 15:25:08 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:10:33 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,12 @@ int	linecontrol(t_cmd *cmd, t_env *envp)
 		expand(&(cmd->cmd[i]), envp);
 	join_split(cmd);
 	cmd->cmd_line = ft_pipecontrol(cmd->cmd_line);
+	if (ft_access(cmd->cmd_line) == -1)
+		return (g_shell.quit_status = 1); 
+		//devolvemos el error con el quit_status, luego podemos hacer
+		//segun el error el status un write que diga cual es el error, veremos.
 //printf("---->>>> %s\n", cmd->cmd_line);
-	return (1);
+	return (g_shell.quit_status = 0);
 }
 
 int	join_split(t_cmd *cmd)

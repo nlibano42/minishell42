@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 22:29:43 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/16 00:11:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void	ft_quotes_crontol(char *s, t_quotes *quotes, int *i);
 char	*ft_deletequotes(char *s);
 
 //redirections.c
-void	redirections(char *s);
+int	redirections(char *input);
+int ft_access(char *input);
 
 //env.c
 void	init_env(t_env **envi, char **env);

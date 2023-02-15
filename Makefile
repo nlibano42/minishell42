@@ -6,7 +6,7 @@
 #    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/15 23:55:03 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/02/16 00:10:38 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS	= main.c\
 		init.c\
 		check.c\
 		split.c\
-#		redirections.c\
+		redirections.c\
 		
 # Compiler options
 CC			= gcc
