@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 15:27:35 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/15 22:45:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-
-void	init_cmd(t_cmd *cmd)
-{
-	cmd->cmd = NULL;
-	cmd->readl = NULL;
-}
-
-void	ft_signal(void)
-{	
-	ft_suppress_output();
-	signal(SIGINT, sighandler);
-	signal(SIGQUIT, sighandler);
-}
 
 int	main(int argc, char **argv, char **env)
 {	
@@ -52,6 +39,10 @@ int	main(int argc, char **argv, char **env)
 		if (ft_strlen(cmd.readl) > 0)
 		{
 			linecontrol(&cmd, envp);
+			
+			//estoy probando si funciona. TODO: hacer que funcione.
+			split(cmd.cmd_line, '|');
+			
 			//esta ando errores
 			//redirections(cmd->cmd_line);
 // Esto debe ir en otra parte, donde necesitemos:

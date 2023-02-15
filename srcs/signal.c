@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 15:14:45 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:29:54 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 #include <termios.h>
+
+void	ft_signal(void)
+{	
+	ft_suppress_output();
+	signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
+}
 
 void	ft_suppress_output(void)
 {

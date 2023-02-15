@@ -1,11 +1,12 @@
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 15:20:30 by nlibano-         ###   ########.fr       */
+/*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/02/15 22:29:43 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +71,13 @@ typedef struct s_shell
 t_shell	g_shell;
 
 //main.c
+
+//init.c
 void	init_cmd(t_cmd *cmd);
-void	ft_signal(void);
+void	init_quotes_flags(t_quotes *quotes);
+
+//checks.c
+void	check_quotes_flags(t_quotes *quotes, char c);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
@@ -79,13 +85,15 @@ int		find_str(char c, char *s);
 char	*ft_join_str(char *s1, char *s2);
 int		find_fin_str(char *s, int i);
 
+//split.c
+char	**split(char const *s, char c);
+
 //linecontrol.c
 int		linecontrol(t_cmd *cmd, t_env *envp);
 char	*ft_controlcomillas(char *readl);
 void	expand(char **s, t_env *env);
 void	ft_control(char *readl, int *s_f, int *d_f, int i);
 char	*ft_parching_dolar(char *s, t_env *env, int i, char *join_str);
-//char	*ft_control_expand(char **s, t_env *env, char *join_str, int *i);
 char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i);
 int		join_split(t_cmd *cmd);
 
@@ -114,6 +122,7 @@ t_env	*ft_lstlast(t_env *lst);
 void	ft_suppress_output(void);
 void	sighandler(int sig);
 void	show_readline(void);
+void	ft_signal(void);
 
 //free_params.c
 void	free_split(char **s);

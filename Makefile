@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/14 20:11:58 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/15 23:55:03 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,10 @@ SRCS	= main.c\
 		utils.c\
 		pipecontrol.c\
 		deletequotes.c\
-		cmdcontrol.c\
+		init.c\
+		check.c\
+		split.c\
+#		redirections.c\
 		
 # Compiler options
 CC			= gcc
