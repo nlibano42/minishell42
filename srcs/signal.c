@@ -24,20 +24,21 @@ void	ft_suppress_output(void)
 		perror("minishell: tcsetattr");
 }
 
+void	show_readline(void)
+{
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 void	sighandler(int sig)
 {
 	if (sig == SIGQUIT && g_shell.pid == 0)
-	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+		show_readline();
 	else if (sig == SIGINT && g_shell.pid == 0)
 	{
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		show_readline();
 	}
 	if (sig == SIGINT && g_shell.pid == 1)
 	{
