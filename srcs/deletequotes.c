@@ -23,7 +23,7 @@ char	*ft_deletequotes(char *s)
 	quotes.flag_s = 0;
 	start = 0;
 	i = -1;
-	while(s[++i])
+	while (s[++i])
 	{
 		ft_quotes_crontol(s, &quotes, &i);
 		if ((s[i] == '"' && quotes.flag_s == 0) || (s[i] == '\'' && quotes.flag_d == 0))
@@ -37,5 +37,5 @@ char	*ft_deletequotes(char *s)
 	free(s);
 	s = ft_strdup(quotes.join_str);
 	free(quotes.join_str);
-	return(s);
+	return (s);
 }

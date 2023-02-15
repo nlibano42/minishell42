@@ -1,12 +1,11 @@
-/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/14 20:31:33 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:33:33 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +17,11 @@
 # include <signal.h>
 # include "../libft/libft.h"
 # include <fcntl.h>
+# include <unistd.h>
 
 //# include <stdbool.h>
 //# include <stdlib.h>
 // # include <stddef.h>
-// # include <unistd.h>
 // # include <stdarg.h>
 // # include <string.h>
 // # include <dirent.h>
@@ -44,12 +43,22 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+//estructura de los comandos. Command + options + arguments
+typedef struct s_pipe
+{
+	char	*cmd;
+	char	*opt;
+	char	*args;
+}	t_pipe;
+
 typedef struct s_cmd
 {
 	struct s_env	*env;
 	char			**cmd;	
 	char			*cmd_line;
 	char			*readl;
+	int				num_pipes;
+	struct s_pipe	pipe;
 }	t_cmd;
 
 typedef struct s_shell

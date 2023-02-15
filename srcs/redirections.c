@@ -26,14 +26,17 @@ int	open_file(char *file, char *flag)
 	return (fd);
 }
 
-void	ft_cmdcontrol(char *s)
+/* redirections
+*	s: readline (parse)
+*/
+void	redirections(char *input, char *file)
 {
 	int		i;
 	char	**cmd_split;
 	int		fd;
 	char	*flag;
 
-	cmd_split = ft_split(s, ',');
+	cmd_split = ft_split(input, ',');
 	i = -1;
 	while (cmd_split[++i])
 	{
