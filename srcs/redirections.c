@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmdcontrol.c                                       :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/15 00:39:23 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:20:23 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	open_file(char *file, char *flag)
 	if (fd == -1)
 	{
 		g_shell.quit_status = 1; //mirar que numero debe devolver.
-		exit (1);
+		return (1);
 	}
 	return (fd);
 }
@@ -44,9 +44,9 @@ void	redirections(char *input, char *file)
 			flag = "O_CREAT | O_TRUNC | O_WRONLY";
 		if (cmd_split[i] == '<')
 			flag = "O_RDONLY";
-		if (cmd_split[i] == '>>')
+		if (cmd_split[i] == ">>")
 			flag = "O_CREAT | O_APPEND | O_WRONLY";
-		if (cmd_split[i] == '<<')
+		if (ft_strncmp(cmd_split[i], "<<", 2))
 			flag = "O_RDONLY";
 		fd = open_file(cmd_split[i + 1], flag);
 		printf("%s\n", cmd_split[i]);

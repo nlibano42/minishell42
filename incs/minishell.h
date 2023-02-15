@@ -5,7 +5,7 @@
 /*   By: nlibano- <nlibano-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 14:33:33 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:20:30 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	ft_quotes_crontol(char *s, t_quotes *quotes, int *i);
 //deletequotes.c
 char	*ft_deletequotes(char *s);
 
-//cmdcontrol.c
-void	ft_cmdcontrol(char *s);
+//redirections.c
+void	redirections(char *s);
 
 //env.c
 void	init_env(t_env **envi, char **env);
@@ -113,6 +113,7 @@ t_env	*ft_lstlast(t_env *lst);
 //signal.c
 void	ft_suppress_output(void);
 void	sighandler(int sig);
+void	show_readline(void);
 
 //free_params.c
 void	free_split(char **s);

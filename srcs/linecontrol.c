@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/14 20:44:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:25:08 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,29 @@ void	ft_control(char *readl, int *s_f, int *d_f, int i)
 
 char	*ft_controlcomillas(char *readl)
 {
+	t_quotes	quotes;
 	int		i;
-	int		simple_flag;
-	int		double_flag;
 	char	*output;
 
-	simple_flag = 0;
-	double_flag = 0;
+	quotes.flag_d = 0;
+	quotes.flag_s = 0;
 	output = malloc(sizeof(char) * ft_strlen(readl) + 5);
 	if (!output)
 		return (NULL);
 	i = -1;
 	while (readl[++i])
 	{
-		if (readl[i] == ' ' && (double_flag == 0 && simple_flag == 0))
+		if (readl[i] == ' ' && (quotes.flag_d == 0 && quotes.flag_s == 0))
 		{
 			output[i] = '\n';
 			continue ;
 		}
-		ft_control(readl, &double_flag, &simple_flag, i);
+		ft_control(readl, &quotes.flag_d, &quotes.flag_s, i);
 		output[i] = readl[i];
 	}
 	output[i] = '\n';
 	output[i + 1] = '\0';
+//printf("-->> %s\n", output);
 	return (output);
 }
 
@@ -69,9 +69,7 @@ int	linecontrol(t_cmd *cmd, t_env *envp)
 		expand(&(cmd->cmd[i]), envp);
 	join_split(cmd);
 	cmd->cmd_line = ft_pipecontrol(cmd->cmd_line);
-	ft_cmdcontrol(cmd->cmd_line);
-	cmd->cmd_line = ft_deletequotes(cmd->cmd_line);
-//printf("%s\n", cmd->cmd_line);
+//printf("---->>>> %s\n", cmd->cmd_line);
 	return (1);
 }
 
