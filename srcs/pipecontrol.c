@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:14:45 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/14 17:15:39 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/16 00:48:44 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-
-void ft_quotes_crontol(char *s, t_quotes *quotes, int *i)
-{
-	if (s[*i] == '\'' && quotes->flag_d == 0 && quotes->flag_s == 0)
-		quotes->flag_s = 1;
-	else if (s[*i] == '"' && quotes->flag_d == 0 && quotes->flag_s == 0)
-		quotes->flag_d = 1;
-	else if (s[*i] == '"' && quotes->flag_d == 1 && quotes->flag_s == 0)
-		quotes->flag_d = 0;
-	else if (s[*i] == '\'' && quotes->flag_d == 0 && quotes->flag_s == 1)
-		quotes->flag_s = 0;
-}
 
 char	*ft_pipecontrol(char *s)
 {
@@ -31,14 +19,13 @@ char	*ft_pipecontrol(char *s)
 	int			i;
 	char		*s1;
 
+	init_quotes_flags(&quotes);
 	quotes.join_str = ft_strdup("");
-	quotes.flag_d = 0;
-	quotes.flag_s = 0;
 	start = 0;
 	i = -1;
 	while(s[++i])
 	{
-		ft_quotes_crontol(s, &quotes, &i);
+		check_quotes_flags(&quotes, s[i]);
 		if((s[i] == '|' || s[i] == '<'  || s[i] == '>') && quotes.flag_d == 0  && quotes.flag_s == 0)
 		{
 			s1 = ft_substr(s, start, i - start);

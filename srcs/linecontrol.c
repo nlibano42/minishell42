@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/15 20:10:33 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/16 00:33:37 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ void	expand(char **s, t_env *env)
 	int			i;
 	t_quotes	quotes;
 
-	quotes.join_str = NULL;
-	quotes.flag_d = 0;
-	quotes.flag_s = 0;
+//	quotes.join_str = NULL;
+//	quotes.flag_d = 0;
+//	quotes.flag_s = 0;
+	init_quotes_flags(&quotes);
 	i = -1;
 	while ((*s)[++i] != '\0')
 		quotes.join_str = ft_control_expand(*s, env, &quotes, &i);
