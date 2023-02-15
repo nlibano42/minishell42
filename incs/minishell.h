@@ -1,11 +1,12 @@
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 15:20:30 by nlibano-         ###   ########.fr       */
+/*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/02/15 19:35:33 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +98,8 @@ void	ft_quotes_crontol(char *s, t_quotes *quotes, int *i);
 char	*ft_deletequotes(char *s);
 
 //redirections.c
-void	redirections(char *s);
+int	redirections(char *input);
+int ft_access(char *input);
 
 //env.c
 void	init_env(t_env **envi, char **env);

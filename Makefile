@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/14 20:11:58 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/15 19:08:01 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS	= main.c\
 		utils.c\
 		pipecontrol.c\
 		deletequotes.c\
-		cmdcontrol.c\
+		redirections.c\
 		
 # Compiler options
 CC			= gcc

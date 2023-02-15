@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 15:27:35 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:09:33 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@ int	main(int argc, char **argv, char **env)
 		{
 			linecontrol(&cmd, envp);
 			//esta ando errores
-			//redirections(cmd->cmd_line);
+			//redirections(cmd->cmd_line); 
 // Esto debe ir en otra parte, donde necesitemos:
 //			cmd->cmd_line = ft_deletequotes(cmd->cmd_line);
-
 		}
 		//pdte liberar (t_env) env
 	}
