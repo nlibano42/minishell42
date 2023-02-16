@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/16 17:52:24 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:56:37 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,54 @@ static char	**split_add(const char *s, char **dst, size_t i, size_t len)
 		free(dst);
 		return (NULL);
 	}
-	ft_strlcpy(dst[i], s - len, len + 1);
+	ft_strlcpy(&dst[i], s - len, len + 1);
 	//printf("---%s\n", dst[i]);
 	return (dst);
+}
+
+static void split_while(const char *s, char c, size_t *i, char **dst)
+{
+	t_quotes	quotes;
+	size_t		len;
+	
+	init_quotes_flags(&quotes);
+	len = 0;
+	while(*s)
+	{
+		while ((*s != c || (*s == c && (quotes.flag_d == 1 || quotes.flag_s == 1))) && *s && s++)
+		{
+			check_quotes_flags(&quotes, *s);
+			len++;
+		}
+		if (len > 0)
+		{
+			dst = split_add(s, dst, *i, len);
+			*i += 1;
+		}
+		while ((*s == c && (quotes.flag_d == 0 && quotes.flag_s == 0)) && *s)
+		{
+			check_quotes_flags(&quotes, *s);
+			s++;
+		}
+	}
 }
 
 char	**split(char const *s, char c)
 {
 	char		**dst;
-	size_t		len;
+	//size_t		len;
 	size_t		i;
-	t_quotes	quotes;
+	//t_quotes	quotes;
 
-	init_quotes_flags(&quotes);
+	//init_quotes_flags(&quotes);
 	if (!s)
 		return (NULL);
 	dst = (char **)malloc(sizeof(char *) * (get_split_size(s, c) + 1));
 	if (!dst)
 		return (NULL);
 	i = 0;
-	while (*s)
+	split_while(s, c, &i, dst);
+	/*while (*s)
 	{
 		len = 0;
 		//check_quotes_flags(&quotes, *s);
@@ -86,8 +114,8 @@ char	**split(char const *s, char c)
 		{
 			check_quotes_flags(&quotes, *s);
 			s++;
-		}
-	}
+		} 
+	}*/
 	dst[i] = NULL;
 	i = -1;
 	while(dst[++i])
