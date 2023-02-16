@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:14:45 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/16 00:48:44 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:50:52 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_pipecontrol(char *s)
 		if((s[i] == '|' || s[i] == '<'  || s[i] == '>') && quotes.flag_d == 0  && quotes.flag_s == 0)
 		{
 			s1 = ft_substr(s, start, i - start);
-			if (s[i - 1] != ',')
+			if (i != 0 && s[i - 1] != ',')
 				s1 = ft_join_str(s1, ft_strdup(","));
 			quotes.join_str = ft_join_str(quotes.join_str, s1);
 			if((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i + 1] == '<'))
@@ -37,7 +37,7 @@ char	*ft_pipecontrol(char *s)
 			else
 				s1 = ft_substr(s, i, 1);
 			quotes.join_str = ft_join_str(quotes.join_str, s1);
-			if (s[i + 1] != ',')
+			if (i < 0 && s[i + 1] != ',')
 				quotes.join_str = ft_join_str(quotes.join_str, ft_strdup(","));
 			if((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i + 1] == '<'))
 			{
