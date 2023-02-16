@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/15 20:09:22 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:49:36 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int ft_access(char *input)
 			fd = open_file(cmd_split[i + 1], R_OK);
 		if(fd == -1)
 			return(fd);
-		printf("fd:%d\n", fd);
-		printf("%s\n", cmd_split[i]);
+		//printf("fd:%d\n", fd);
+		//printf("%s\n", cmd_split[i]);
 	}
 	return (fd);
 }
