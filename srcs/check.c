@@ -23,3 +23,16 @@ void	check_quotes_flags(t_quotes *quotes, char c)
 	else if (c == '\'' && quotes->flag_d == 0 && quotes->flag_s == 1)
 		quotes->flag_s = 0;
 }
+
+int is_quotes_opened(char *s)
+{
+	t_quotes quotes;
+	int i;
+
+	i = -1;
+	while (s[++i])
+		check_quotes_flags(&quotes, s[i]);
+	if (quotes.flag_s == 1 || quotes.flag_s == 1)
+		return (1);
+	return (0);
+}
