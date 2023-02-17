@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/16 00:33:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:42:01 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,8 @@
 
 void	ft_control(char *readl, t_quotes *quotes, int i)
 {
-/*	if (readl[i] == '"' && (*d_f == 0 && *s_f == 0))
-		*d_f = 1;
-	else if (readl[i] == '\'' && (*d_f == 0 && *s_f == 0))
-		*s_f = 1;
-	else if (readl[i] == '"' && *d_f == 1)
-		*d_f = 0;
-	else if (readl[i] == '\'' && *s_f == 1)
-		*s_f = 0;
-*/
 	check_quotes_flags(quotes, readl[i]);
-	else if (readl[i] == '\\' && (readl[i + 1] == '"' || \
+	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
 		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
 		i++;
 }
@@ -35,8 +26,6 @@ char	*ft_controlcomillas(char *readl)
 	int		i;
 	char	*output;
 
-//	quotes.flag_d = 0;
-//	quotes.flag_s = 0;
 	init_quotes_flags(&quotes);
 	output = malloc(sizeof(char) * ft_strlen(readl) + 5);
 	if (!output)
@@ -115,15 +104,6 @@ void	expand(char **s, t_env *env)
 
 char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i)
 {
-/*	if (s[*i] == '\'' && quotes->flag_d == 0 && quotes->flag_s == 0)
-		quotes->flag_s = 1;
-	else if (s[*i] == '"' && quotes->flag_d == 0 && quotes->flag_s == 0)
-		quotes->flag_d = 1;
-	else if (s[*i] == '\'' && quotes->flag_d == 1 && quotes->flag_s == 0)
-		quotes->flag_d = 0;
-	else if (s[*i] == '\'' && quotes->flag_d == 0 && quotes->flag_s == 1)
-		quotes->flag_s = 0;
-*/
 	check_quotes_flags(quotes, s[*i]);
 	if (s[*i] == '$' && quotes->flag_s == 0 && \
 			find_str(s[*i + 1], "|\"\'$?>< ") == 0) 

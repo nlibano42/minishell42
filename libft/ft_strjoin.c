@@ -6,13 +6,13 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:54:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2022/09/14 14:03:53 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:39:53 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dst;
 	size_t	lens1;

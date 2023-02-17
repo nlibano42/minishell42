@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/15 22:30:25 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:42:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,6 @@ int	find_str(char c, char *s)
 	}
 	return (0);
 }
-
-/*
-char	*ft_join_str(char *s1, char *s2)
-{
-	char	*aux;
-
-	aux = ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
-	return (aux);
-}
-*/
 
 int	find_fin_str(char *s, int i)
 {
