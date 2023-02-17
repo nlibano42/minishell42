@@ -18,15 +18,15 @@ void	ft_funcioncoma(char *s, int *i, t_quotes *quotes, int *start)
 	
 	s1 = ft_substr(s, *start, *i - *start);
 	if (*i != 0 && s[*i - 1] != ',')
-		s1 = ft_join_str(s1, ft_strdup(","));
-	quotes->join_str = ft_join_str(quotes->join_str, s1);
+		s1 = ft_strjoin(s1, ft_strdup(","));
+	quotes->join_str = ft_strjoin(quotes->join_str, s1);
 	if((s[*i] == '>' && s[*i + 1] == '>') || (s[*i] == '<' && s[*i + 1] == '<'))
 		s1 = ft_substr(s, *i, 2);
 	else
 		s1 = ft_substr(s, *i, 1);
-	quotes->join_str = ft_join_str(quotes->join_str, s1);
+	quotes->join_str = ft_strjoin(quotes->join_str, s1);
 	if (i < 0 && s[*i + 1] != ',')
-		quotes->join_str = ft_join_str(quotes->join_str, ft_strdup(","));
+		quotes->join_str = ft_strjoin(quotes->join_str, ft_strdup(","));
 	if((s[*i] == '>' && s[*i + 1] == '>') || (s[*i] == '<' && s[*i + 1] == '<'))
 	{
 		*start = *i + 2;
@@ -53,7 +53,7 @@ char	*ft_pipecontrol(char *s)
 			ft_funcioncoma(s, &i, &quotes, &start);
 	}
 	if (start < i)
-		quotes.join_str = ft_join_str(quotes.join_str, ft_substr(s, start, i - start));
+		quotes.join_str = ft_strjoin(quotes.join_str, ft_substr(s, start, i - start));
 	free(s);
 	s = ft_strdup(quotes.join_str);
 	free(quotes.join_str);

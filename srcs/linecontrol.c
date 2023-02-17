@@ -12,9 +12,9 @@
 
 #include "../incs/minishell.h"
 
-void	ft_control(char *readl, int *s_f, int *d_f, int i)
+void	ft_control(char *readl, t_quotes *quotes, int i)
 {
-	if (readl[i] == '"' && (*d_f == 0 && *s_f == 0))
+/*	if (readl[i] == '"' && (*d_f == 0 && *s_f == 0))
 		*d_f = 1;
 	else if (readl[i] == '\'' && (*d_f == 0 && *s_f == 0))
 		*s_f = 1;
@@ -22,6 +22,8 @@ void	ft_control(char *readl, int *s_f, int *d_f, int i)
 		*d_f = 0;
 	else if (readl[i] == '\'' && *s_f == 1)
 		*s_f = 0;
+*/
+	check_quotes_flags(quotes, readl[i]);
 	else if (readl[i] == '\\' && (readl[i + 1] == '"' || \
 		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
 		i++;
@@ -33,8 +35,9 @@ char	*ft_controlcomillas(char *readl)
 	int		i;
 	char	*output;
 
-	quotes.flag_d = 0;
-	quotes.flag_s = 0;
+//	quotes.flag_d = 0;
+//	quotes.flag_s = 0;
+	init_quotes_flags(&quotes);
 	output = malloc(sizeof(char) * ft_strlen(readl) + 5);
 	if (!output)
 		return (NULL);
@@ -46,7 +49,7 @@ char	*ft_controlcomillas(char *readl)
 			output[i] = '\n';
 			continue ;
 		}
-		ft_control(readl, &quotes.flag_d, &quotes.flag_s, i);
+		ft_control(readl, &quotes, i);
 		output[i] = readl[i];
 	}
 	output[i] = '\n';
@@ -55,7 +58,7 @@ char	*ft_controlcomillas(char *readl)
 	return (output);
 }
 
-int	linecontrol(t_cmd *cmd, t_env *envp)
+int	line_parse(t_cmd *cmd, t_env *envp)
 {
 	char	*aux;
 	int		i;
@@ -86,10 +89,10 @@ int	join_split(t_cmd *cmd)
 	i = -1;
 	while (cmd->cmd[++i])
 	{
-		cmd->cmd_line = ft_join_str(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
-		cmd->cmd_line = ft_join_str(cmd->cmd_line, ft_strdup(","));
+		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
+		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(","));
 	}	
-	cmd->cmd_line = ft_join_str(cmd->cmd_line, ft_strdup("NULL"));
+	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);
 }
 
@@ -98,9 +101,6 @@ void	expand(char **s, t_env *env)
 	int			i;
 	t_quotes	quotes;
 
-//	quotes.join_str = NULL;
-//	quotes.flag_d = 0;
-//	quotes.flag_s = 0;
 	init_quotes_flags(&quotes);
 	i = -1;
 	while ((*s)[++i] != '\0')
@@ -115,7 +115,7 @@ void	expand(char **s, t_env *env)
 
 char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i)
 {
-	if (s[*i] == '\'' && quotes->flag_d == 0 && quotes->flag_s == 0)
+/*	if (s[*i] == '\'' && quotes->flag_d == 0 && quotes->flag_s == 0)
 		quotes->flag_s = 1;
 	else if (s[*i] == '"' && quotes->flag_d == 0 && quotes->flag_s == 0)
 		quotes->flag_d = 1;
@@ -123,16 +123,18 @@ char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i)
 		quotes->flag_d = 0;
 	else if (s[*i] == '\'' && quotes->flag_d == 0 && quotes->flag_s == 1)
 		quotes->flag_s = 0;
-	else if (s[*i] == '$' && quotes->flag_s == 0 && \
+*/
+	check_quotes_flags(quotes, s[*i]);
+	if (s[*i] == '$' && quotes->flag_s == 0 && \
 			find_str(s[*i + 1], "|\"\'$?>< ") == 0) 
 	{
 		quotes->join_str = ft_strdup("");
-		quotes->join_str = ft_parching_dolar(s, env, *i, quotes->join_str);
+		quotes->join_str = change_env_val(s, env, *i, quotes->join_str);
 	}
 	return (quotes->join_str);
 }
 
-char	*ft_parching_dolar(char *s, t_env *env, int i, char *join_str)
+char	*change_env_val(char *s, t_env *env, int i, char *join_str)
 {
 	char	*str;
 	int		fin;
@@ -140,17 +142,17 @@ char	*ft_parching_dolar(char *s, t_env *env, int i, char *join_str)
 
 	// cogemos la primera parte del string si i != 0
 	if (i != 0)
-		join_str = ft_join_str(join_str, ft_substr(s, 0, i));
+		join_str = ft_strjoin(join_str, ft_substr(s, 0, i));
 	// cogemos la parte a sustituir ej: $USER
 	fin = find_fin_str(s, i);
 	str = ft_substr(s, i + 1, fin - (i + 1));
 	i += ft_strlen(str);
 	val = ft_strdup(ft_lstfind_env_val(env, str));
-	join_str = ft_join_str(join_str, val);
+	join_str = ft_strjoin(join_str, val);
 	free (str);
 	// cogemos la parte final del string si i != '\0'
 	if (s[i + 1])
-		join_str = ft_join_str(join_str,
-				ft_substr(s, i + 1, ft_strlen(s) - 1));
+		join_str = ft_strjoin(join_str, \
+		ft_substr(s, i + 1, ft_strlen(s) - 1));
 	return (join_str);
 }

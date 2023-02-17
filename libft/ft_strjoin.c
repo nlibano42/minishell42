@@ -27,5 +27,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (0);
 	ft_strlcpy(dst, s1, lens1 + 1);
 	ft_strlcat(&dst[lens1], s2, lens2 + 1);
+	free(s1);
+	free(s2);
 	return (dst);
 }

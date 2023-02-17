@@ -39,6 +39,7 @@ int	find_str(char c, char *s)
 	return (0);
 }
 
+/*
 char	*ft_join_str(char *s1, char *s2)
 {
 	char	*aux;
@@ -48,6 +49,7 @@ char	*ft_join_str(char *s1, char *s2)
 	free(s2);
 	return (aux);
 }
+*/
 
 int	find_fin_str(char *s, int i)
 {

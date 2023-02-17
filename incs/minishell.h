@@ -82,18 +82,18 @@ void	check_quotes_flags(t_quotes *quotes, char c);
 //utils.c
 char	*find_change_str(char *s, t_env *env);
 int		find_str(char c, char *s);
-char	*ft_join_str(char *s1, char *s2);
+//char	*ft_join_str(char *s1, char *s2);
 int		find_fin_str(char *s, int i);
 
 //split.c
 char	**split(char const *s, char c);
 
 //linecontrol.c
-int		linecontrol(t_cmd *cmd, t_env *envp);
+int		line_parse(t_cmd *cmd, t_env *envp);
 char	*ft_controlcomillas(char *readl);
 void	expand(char **s, t_env *env);
-void	ft_control(char *readl, int *s_f, int *d_f, int i);
-char	*ft_parching_dolar(char *s, t_env *env, int i, char *join_str);
+void	ft_control(char *readl, t_quotes *quotes, int i);
+char	*change_env_val(char *s, t_env *env, int i, char *join_str);
 char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i);
 int		join_split(t_cmd *cmd);
 

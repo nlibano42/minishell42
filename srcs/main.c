@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **env)
 		//	break ;
 		if (ft_strlen(cmd.readl) > 0)
 		{
-			linecontrol(&cmd, envp);
+			line_parse(&cmd, envp);
 			
 			//estoy probando si funciona. TODO: hacer que funcione.
 			split(cmd.cmd_line, '|');
