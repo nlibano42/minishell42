@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/17 16:42:01 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:55:20 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	ft_control(char *readl, t_quotes *quotes, int i)
 		i++;
 }
 
-char	*ft_controlcomillas(char *readl)
+char	*prepare_split(char *readl)
 {
 	t_quotes	quotes;
-	int		i;
-	char	*output;
+	int			i;
+	char		*output;
 
 	init_quotes_flags(&quotes);
 	output = malloc(sizeof(char) * ft_strlen(readl) + 5);
@@ -53,7 +53,7 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 	int		i;
 
 	aux = cmd->readl;
-	cmd->cmd_line = ft_controlcomillas(aux);
+	cmd->cmd_line = prepare_split(aux);
 	free(aux); //liberar readl? necesitaremos mas adelante este valor?
 	cmd->cmd = ft_split(cmd->cmd_line, '\n');
 	i = -1;
@@ -106,7 +106,7 @@ char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i)
 {
 	check_quotes_flags(quotes, s[*i]);
 	if (s[*i] == '$' && quotes->flag_s == 0 && \
-			find_str(s[*i + 1], "|\"\'$?>< ") == 0) 
+		find_str(s[*i + 1], "|\"\'$?>< ") == 0) 
 	{
 		quotes->join_str = ft_strdup("");
 		quotes->join_str = change_env_val(s, env, *i, quotes->join_str);

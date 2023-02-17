@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 16:52:14 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:06:03 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static size_t	get_split_size(char const *s, char c)
 	t_quotes	quotes;
 
 	init_quotes_flags(&quotes);
-	count = 0; 
+	count = 0;
 	while (*s)
 	{
 		//check_quotes_flags(&quotes, *s);
@@ -49,17 +49,17 @@ static char	**split_add(const char *s, char **dst, size_t i, size_t len)
 		free(dst);
 		return (NULL);
 	}
-	ft_strlcpy(dst[i], s - len , len + 1);
+	ft_strlcpy(dst[i], s - len, len + 1);
 	return (dst);
 }
 
-static void split_while(const char *s, char c, size_t *i, char **dst)
+static void	split_while(const char *s, char c, size_t *i, char **dst)
 {
 	t_quotes	quotes;
 	size_t		len;
 	
 	init_quotes_flags(&quotes);
-	while(*s)
+	while (*s)
 	{
 		len = 0;
 		while ((*s != c || (*s == c && (quotes.flag_d == 1 || quotes.flag_s == 1))) && *s && s++)
@@ -78,7 +78,7 @@ static void split_while(const char *s, char c, size_t *i, char **dst)
 			s++;
 		}
 	}
-} 
+}
 
 char	**split(char const *s, char c)
 {
@@ -91,10 +91,10 @@ char	**split(char const *s, char c)
 	if (!dst)
 		return (NULL);
 	i = 0;
-	split_while(s, c, &i, dst);	
+	split_while(s, c, &i, dst);
 	dst[i] = NULL;
 	i = -1;
-	while(dst[++i])
+	while (dst[++i])
 		printf("%s\n", dst[i]);
 	return (dst);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/17 16:42:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:06:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	find_fin_str(char *s, int i)
 {
 	while (s[++i])
 	{
-		if (ft_isalnum(s[i]) == 0) 
+		if (ft_isalnum(s[i]) == 0)
 			return (i);
 	}
 	return (i);

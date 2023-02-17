@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/16 20:45:55 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/18 00:01:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	redirections(char *input) //funciona  pero tenemos que saber cuando usarlo.
 			fd = open_file(cmd_split[i + 1], 'a');
 		if (!ft_strncmp(cmd_split[i], "<<", 2))
 			fd = open_file(cmd_split[i + 1], 'r');
-		if(fd == -1)
+		if (fd == -1)
 		{
 			printf("entra\n");
 			break ;
@@ -61,18 +61,17 @@ int	redirections(char *input) //funciona  pero tenemos que saber cuando usarlo.
 	return (fd);
 }
 
-int ft_access(char *input)
+int	ft_access(char *input)
 {
-	int i;
-	char **cmd_split;
-	int fd;
+	int		i;
+	char	**cmd_split;
+	int		fd;
 
 	cmd_split = ft_split(input, ',');
 	fd = -1;
 	i = -1;
 	while (cmd_split[++i])
 	{
-		
 		if (!ft_strncmp(cmd_split[i], ">", 1))
 			fd = access(cmd_split[i + 1], W_OK);
 		if (!ft_strncmp(cmd_split[i], "<", 1))
@@ -81,8 +80,8 @@ int ft_access(char *input)
 			fd = access(cmd_split[i + 1], W_OK);
 		if (!ft_strncmp(cmd_split[i], "<<", 2))
 			fd = open_file(cmd_split[i + 1], R_OK);
-		if(fd == -1)
-			return(fd);
+		if (fd == -1)
+			return (fd);
 		printf("fd:%d\n", fd);
 		//printf("%s\n", cmd_split[i]);
 	}

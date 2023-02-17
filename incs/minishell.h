@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/16 00:43:59 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:44:21 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,12 @@ void	init_quotes_flags(t_quotes *quotes);
 
 //checks.c
 void	check_quotes_flags(t_quotes *quotes, char c);
+int		is_quotes_opened(char *s);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
 int		find_str(char c, char *s);
+
 //char	*ft_join_str(char *s1, char *s2);
 int		find_fin_str(char *s, int i);
 
@@ -90,7 +92,7 @@ char	**split(char const *s, char c);
 
 //linecontrol.c
 int		line_parse(t_cmd *cmd, t_env *envp);
-char	*ft_controlcomillas(char *readl);
+char	*prepare_split(char *readl);
 void	expand(char **s, t_env *env);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 char	*change_env_val(char *s, t_env *env, int i, char *join_str);

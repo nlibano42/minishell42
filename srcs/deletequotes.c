@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:13:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/16 00:44:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:50:07 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_deletequotes(char *s)
 	t_quotes	quotes;
 	int			start;
 	int			i;
-	
+
 	init_quotes_flags(&quotes);
 	quotes.join_str = ft_strdup("");
 	start = 0;

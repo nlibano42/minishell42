@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/16 00:11:19 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:56:18 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	main(int argc, char **argv, char **env)
 		//	break ;
 		if (ft_strlen(cmd.readl) > 0)
 		{
+			if (is_quotes_opened(cmd.readl))
+				continue ;
 			line_parse(&cmd, envp);
 			
 			//estoy probando si funciona. TODO: hacer que funcione.
