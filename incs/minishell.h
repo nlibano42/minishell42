@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 04:07:27 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/06 19:14:12 by jdasilva         ###   ########.fr       */
+/*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/02/18 11:42:31 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "../libft/libft.h"
+# include <fcntl.h>
+# include <unistd.h>
 
 //# include <stdbool.h>
 //# include <stdlib.h>
 // # include <stddef.h>
-// # include <fcntl.h>
-// # include <unistd.h>
 // # include <stdarg.h>
 // # include <string.h>
 // # include <dirent.h>
@@ -30,27 +30,84 @@
 // # include <errno.h>
 // # include <termios.h>
 
-typedef struct  s_env
+typedef struct s_quotes
+{
+	int		flag_d;
+	int		flag_s;
+	char	*join_str;
+}	t_quotes;
+
+typedef struct s_env
 {
 	char			*name;
 	char			*val;
 	struct s_env	*next;
 }	t_env;
 
-typedef struct	s_shell
+//estructura de los comandos. Command + options + arguments
+typedef struct s_pipe
+{
+	char	*cmd;
+	char	*opt;
+	char	*args;
+}	t_pipe;
+
+typedef struct s_cmd
 {
 	struct s_env	*env;
-	char			**cmd;
+	char			**cmd;	
+	char			*cmd_line;
+	char			*readl;
+	int				num_pipes;
+	struct s_pipe	pipe;
+}	t_cmd;
+
+typedef struct s_shell
+{
 	int				quit_status;
 	int				pid;
-	char			*readl;
-} t_shell;
+}	t_shell;
 
-t_shell g_shell;
+t_shell	g_shell;
 
 //main.c
-int main(int argc, char **argv, char **env);
-int linecontrol(char *readl);
+
+//init.c
+void	init_cmd(t_cmd *cmd);
+void	init_quotes_flags(t_quotes *quotes);
+
+//checks.c
+void	check_quotes_flags(t_quotes *quotes, char c);
+int		is_quotes_opened(char *s);
+
+//utils.c
+char	*find_change_str(char *s, t_env *env);
+int		find_str(char c, char *s);
+
+//char	*ft_join_str(char *s1, char *s2);
+int		find_fin_str(char *s, int i);
+
+//split.c
+char	**split(char const *s, char c);
+
+//linecontrol.c
+int		line_parse(t_cmd *cmd, t_env *envp);
+char	*prepare_split(char *readl);
+void	expand(char **s, t_env *env);
+void	ft_control(char *readl, t_quotes *quotes, int i);
+char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
+char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
+int		join_split(t_cmd *cmd);
+
+//pipecontrol.c
+char	*expand_pipe_redir(char *cmd);
+
+//deletequotes.c
+char	*ft_deletequotes(char *s);
+
+//redirections.c
+int		redirections(char *input);
+int		ft_access(char *input);
 
 //env.c
 void	init_env(t_env **envi, char **env);
@@ -66,8 +123,10 @@ t_env	*ft_lstlast(t_env *lst);
 //signal.c
 void	ft_suppress_output(void);
 void	sighandler(int sig);
+void	show_readline(void);
+void	ft_signal(void);
 
 //free_params.c
-void    free_split(char **s);
+void	free_split(char **s);
 
 #endif

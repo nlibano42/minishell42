@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_params.c                                      :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 22:05:45 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 23:53:29 by nlibano-         ###   ########.fr       */
+/*   Created: 2023/02/15 19:05:57 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/02/15 22:01:02 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	free_split(char **s)
+void	init_cmd(t_cmd *cmd)
 {
-	int	i;
+	cmd->cmd = NULL;
+	cmd->readl = NULL;
+}
 
-	i = -1;
-	while (s[++i])
-		free(s[i]);
-	free(s);
+void	init_quotes_flags(t_quotes *quotes)
+{
+	quotes->flag_d = 0;
+	quotes->flag_s = 0;
+	quotes->join_str = NULL;
 }

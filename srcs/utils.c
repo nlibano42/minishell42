@@ -1,41 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 23:52:31 by nlibano-         ###   ########.fr       */
+/*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
+/*   Updated: 2023/02/18 00:06:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	init_env(t_env **envi, char **env)
+char	*find_change_str(char *s, t_env *env)
 {
-	t_env	*new;
-	char	**values;
-	int		i;
+	char	*aux;
+	char	*val;
 
-	i = -1;
-	while (env[++i])
-	{
-		values = ft_split(env[i], '=');
-		new = ft_lstnew(values[0], values[1]);
-		ft_lstadd_back(envi, new);
-		free_split(values);
-	}
+	if (s[0] == '$')
+		aux = ft_substr(s, 1, ft_strlen(s) - 1);
+	else
+		aux = ft_substr(s, 0, ft_strlen(s));
+	val = ft_strdup(ft_lstfind_env_val(env, aux));
+	free(aux);
+	return (val);
 }
 
-char	*ft_lstfind_env_val(t_env *lst, char *name)
+int	find_str(char c, char *s)
 {
-	while (lst)
+	int	i;
+
+	i = -1;
+	while (s[++i])
 	{
-		if (ft_strlen(lst->name) == ft_strlen(name) && \
-				ft_strncmp(lst->name, name, ft_strlen(name)) == 0)
-			return (lst->val);
-		lst = lst->next;
+		if (c == s[i])
+			return (1);
 	}
-	return ("");
+	return (0);
+}
+
+int	find_fin_str(char *s, int i)
+{
+	while (s[++i])
+	{
+		if (ft_isalnum(s[i]) == 0)
+			return (i);
+	}
+	return (i);
 }

@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_params.c                                      :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 22:05:45 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 23:53:29 by nlibano-         ###   ########.fr       */
+/*   Created: 2022/09/14 11:55:12 by jdasilva          #+#    #+#             */
+/*   Updated: 2022/09/14 12:19:39 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
-
-void	free_split(char **s)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		free(s[i]);
-	free(s);
+	while (*s && *s != (char)c)
+		s++;
+	if (*s == (char)c)
+		return ((char *)s);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:38:36 by nlibano-          #+#    #+#             */
-/*   Updated: 2022/12/15 04:38:38 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:55:47 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_env	*ft_lstnew(char *name, char *val)
 	list->next = NULL;
 	return (list);
 }
-
 
 void	ft_lstadd_back(t_env **lst, t_env *new)
 {

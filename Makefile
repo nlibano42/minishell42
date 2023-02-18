@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/06 19:14:36 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/16 00:10:38 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,13 @@ SRCS	= main.c\
 		signal.c\
 		free_params.c\
 		linecontrol.c\
+		utils.c\
+		pipecontrol.c\
+		deletequotes.c\
+		init.c\
+		check.c\
+		split.c\
+		redirections.c\
 		
 # Compiler options
 CC			= gcc

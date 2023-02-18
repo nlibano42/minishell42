@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_params.c                                      :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 22:05:45 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 23:53:29 by nlibano-         ###   ########.fr       */
+/*   Created: 2022/09/13 20:50:29 by jdasilva          #+#    #+#             */
+/*   Updated: 2022/09/13 21:12:09 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
-
-void	free_split(char **s)
+int	ft_isalnum(int c)
 {
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		free(s[i]);
-	free(s);
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+		|| (c >= '0' && c <= '9'))
+		return (1);
+	return (0);
 }

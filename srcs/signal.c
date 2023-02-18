@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/06 18:24:23 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:29:54 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 #include <termios.h>
+
+void	ft_signal(void)
+{	
+	ft_suppress_output();
+	signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
+}
 
 void	ft_suppress_output(void)
 {
@@ -19,25 +26,26 @@ void	ft_suppress_output(void)
 
 	if (tcgetattr(0, &config))
 		perror("minishell: tcsetattr");
-	config.c_lflag &= ~ECHOCTL;
+		config.c_lflag &= ~ECHOCTL;
 	if (tcsetattr(0, 0, &config))
 		perror("minishell: tcsetattr");
+}
+
+void	show_readline(void)
+{
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	sighandler(int sig)
 {
 	if (sig == SIGQUIT && g_shell.pid == 0)
-	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+		show_readline();
 	else if (sig == SIGINT && g_shell.pid == 0)
 	{
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		show_readline();
 	}
 	if (sig == SIGINT && g_shell.pid == 1)
 	{

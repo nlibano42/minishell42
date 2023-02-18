@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/06 18:26:51 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/17 23:56:18 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,41 @@
 
 int	main(int argc, char **argv, char **env)
 {	
+	t_cmd	cmd;
+	t_env	*envp;
+
 	(void)argc;
 	(void)argv;
-	init_env(&(g_shell.env), env);
-	ft_suppress_output();
-	signal(SIGINT, sighandler);
-	signal(SIGQUIT, sighandler);
+	envp = NULL;
+	init_env(&(envp), env);
+	init_cmd(&cmd);
+	ft_signal();
 	while (1)
 	{
-		g_shell.readl = readline("Minishell $> ");
-		add_history(g_shell.readl);
-		if (!g_shell.readl)
+		cmd.readl = readline("Minishell $> ");
+		add_history(cmd.readl);
+		if (!cmd.readl)
 		{
 			printf("exit\n");
 			//usar nuestro builtin de exit en lugar de exit()
 			exit(g_shell.quit_status);
 		}
-		if (ft_strlen(g_shell.readl) > 0)
+		//EXIT debe ir en el buitin
+		//if(!ft_strncmp(cmd->readl, "exit", 4))
+		//	break ;
+		if (ft_strlen(cmd.readl) > 0)
 		{
-			if(linecontrol(g_shell.readl))
-			{
-				
-			}
+			if (is_quotes_opened(cmd.readl))
+				continue ;
+			line_parse(&cmd, envp);
+			
+			//estoy probando si funciona. TODO: hacer que funcione.
+			split(cmd.cmd_line, '|');
+			
+			//esta ando errores
+			//redirections(cmd->cmd_line); 
+// Esto debe ir en otra parte, donde necesitemos:
+//			cmd->cmd_line = ft_deletequotes(cmd->cmd_line);
 		}
 		//pdte liberar (t_env) env
 	}
