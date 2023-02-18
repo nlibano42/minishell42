@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 00:06:03 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:41:42 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ static void	split_while(const char *s, char c, size_t *i, char **dst)
 	while (*s)
 	{
 		len = 0;
-		while ((*s != c || (*s == c && (quotes.flag_d == 1 || quotes.flag_s == 1))) && *s && s++)
+		while ((*s != c || (*s == c && (quotes.flag_d == 1 || quotes.flag_s == 1))) && *s)
 		{
 			check_quotes_flags(&quotes, *s);
 			len++;
+			s++;
 		}
 		if (len > 0)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 00:01:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:06:21 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_access(char *input)
 	int		fd;
 
 	cmd_split = ft_split(input, ',');
-	fd = -1;
+	fd = 0;
 	i = -1;
 	while (cmd_split[++i])
 	{
@@ -81,9 +81,10 @@ int	ft_access(char *input)
 		if (!ft_strncmp(cmd_split[i], "<<", 2))
 			fd = open_file(cmd_split[i + 1], R_OK);
 		if (fd == -1)
+		{
+			access_error(cmd_split[i + 1]);
 			return (fd);
-		printf("fd:%d\n", fd);
-		//printf("%s\n", cmd_split[i]);
+		}
 	}
 	return (fd);
 }

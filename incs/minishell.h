@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 11:42:31 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:59:20 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ int		is_quotes_opened(char *s);
 //utils.c
 char	*find_change_str(char *s, t_env *env);
 int		find_str(char c, char *s);
+
+//error.c
+void	access_error(char *input);
 
 //char	*ft_join_str(char *s1, char *s2);
 int		find_fin_str(char *s, int i);
