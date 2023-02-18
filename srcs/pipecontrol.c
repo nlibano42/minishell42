@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:14:45 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 11:42:31 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:38:18 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,20 @@ char	*expand_pipe_redir(char *s)
 	s = ft_strdup(quotes.join_str);
 	free(quotes.join_str);
 	return (s);
+}
+
+void	count_pipe(t_cmd *cmd, char *s)
+{
+	t_quotes	quotes;
+	int			i;
+	
+	cmd->num_pipes = 0;
+	init_quotes_flags(&quotes);
+	i = -1;
+	while(s[++i])
+	{
+		check_quotes_flags(&quotes, s[i]);
+		if(s[i] == '|' && quotes.flag_d == 0 && quotes.flag_s == 0)
+			cmd->num_pipes ++;
+	}
 }

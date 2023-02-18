@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 17:41:42 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:51:17 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,5 @@ char	**split(char const *s, char c)
 	i = 0;
 	split_while(s, c, &i, dst);
 	dst[i] = NULL;
-	i = -1;
-	while (dst[++i])
-		printf("%s\n", dst[i]);
 	return (dst);
 }

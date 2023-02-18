@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 18:25:46 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:34:43 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	init_quotes_flags(t_quotes *quotes);
 void	check_quotes_flags(t_quotes *quotes, char c);
 int		is_quotes_opened(char *s);
 int		is_two_pipes(char *s);
+int		is_open_pipe(char *s);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
@@ -103,7 +104,8 @@ char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
 
 //pipecontrol.c
 char	*expand_pipe_redir(char *cmd);
-
+void	join_with_coma(char *s, int *i, t_quotes *quotes, int *start);
+void	count_pipe(t_cmd *cmd, char *s);
 //deletequotes.c
 char	*ft_deletequotes(char *s);
 

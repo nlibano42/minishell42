@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 18:18:53 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:44:07 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,15 @@ int	main(int argc, char **argv, char **env)
 		//	break ;
 		if (ft_strlen(cmd.readl) > 0)
 		{
-			if (is_quotes_opened(cmd.readl) || is_two_pipes(cmd.readl) || line_parse(&cmd, envp))
+			if (is_quotes_opened(cmd.readl) || is_two_pipes(cmd.readl)\
+				|| is_open_pipe(cmd.readl) || line_parse(&cmd, envp))
 				continue ;
 			else
-				split(cmd.cmd_line, '|');
+			{
+				count_pipe(&cmd, cmd.cmd_line); //cuenta el numero de pipes para hacer los hijos
+				cmd.cmd = split(cmd.cmd_line, '|');
+				//printf("pipe:%d\n", cmd.num_pipes);
+			}
 			//estoy probando si funciona. TODO: hacer que funcione.
 			
 			//esta ando errores
