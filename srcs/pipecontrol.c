@@ -6,13 +6,13 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:14:45 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/17 23:58:42 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:42:31 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	ft_funcioncoma(char *s, int *i, t_quotes *quotes, int *start)
+void	join_with_coma(char *s, int *i, t_quotes *quotes, int *start)
 {
 	char	*s1;
 
@@ -36,7 +36,7 @@ void	ft_funcioncoma(char *s, int *i, t_quotes *quotes, int *start)
 		*start = *i + 1;
 }
 
-char	*ft_pipecontrol(char *s)
+char	*expand_pipe_redir(char *s)
 {
 	t_quotes	quotes;
 	int			start;
@@ -50,7 +50,7 @@ char	*ft_pipecontrol(char *s)
 	{
 		check_quotes_flags(&quotes, s[i]);
 		if ((s[i] == '|' || s[i] == '<' || s[i] == '>') && quotes.flag_d == 0 && quotes.flag_s == 0)
-			ft_funcioncoma(s, &i, &quotes, &start);
+			join_with_coma(s, &i, &quotes, &start);
 	}
 	if (start < i)
 		quotes.join_str = ft_strjoin(quotes.join_str, ft_substr(s, start, i - start));

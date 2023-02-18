@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/17 23:55:20 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:42:31 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 	while (cmd->cmd[++i])
 		expand(&(cmd->cmd[i]), envp);
 	join_split(cmd);
-	cmd->cmd_line = ft_pipecontrol(cmd->cmd_line);
+	cmd->cmd_line = expand_pipe_redir(cmd->cmd_line);
 	if (ft_access(cmd->cmd_line) == -1)
 		return (g_shell.quit_status = 1); 
 		//devolvemos el error con el quit_status, luego podemos hacer
@@ -93,7 +93,7 @@ void	expand(char **s, t_env *env)
 	init_quotes_flags(&quotes);
 	i = -1;
 	while ((*s)[++i] != '\0')
-		quotes.join_str = ft_control_expand(*s, env, &quotes, &i);
+		quotes.join_str = expand_dolar(*s, env, &quotes, &i);
 	if (quotes.join_str != NULL)
 	{
 		free (*s);
@@ -102,37 +102,37 @@ void	expand(char **s, t_env *env)
 	}
 }
 
-char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i)
+char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i)
 {
 	check_quotes_flags(quotes, s[*i]);
 	if (s[*i] == '$' && quotes->flag_s == 0 && \
 		find_str(s[*i + 1], "|\"\'$?>< ") == 0) 
 	{
 		quotes->join_str = ft_strdup("");
-		quotes->join_str = change_env_val(s, env, *i, quotes->join_str);
+		quotes->join_str = change_env_val(s, env, i, quotes->join_str);
 	}
 	return (quotes->join_str);
 }
 
-char	*change_env_val(char *s, t_env *env, int i, char *join_str)
+char	*change_env_val(char *s, t_env *env, int *i, char *join_str)
 {
 	char	*str;
 	int		fin;
 	char	*val;
 
 	// cogemos la primera parte del string si i != 0
-	if (i != 0)
-		join_str = ft_strjoin(join_str, ft_substr(s, 0, i));
+	if (*i != 0)
+		join_str = ft_strjoin(join_str, ft_substr(s, 0, *i));
 	// cogemos la parte a sustituir ej: $USER
-	fin = find_fin_str(s, i);
-	str = ft_substr(s, i + 1, fin - (i + 1));
-	i += ft_strlen(str);
+	fin = find_fin_str(s, *i);
+	str = ft_substr(s, *i + 1, fin - (*i + 1));
+	*i += ft_strlen(str);
 	val = ft_strdup(ft_lstfind_env_val(env, str));
 	join_str = ft_strjoin(join_str, val);
 	free (str);
 	// cogemos la parte final del string si i != '\0'
-	if (s[i + 1])
+	if (s[*i + 1])
 		join_str = ft_strjoin(join_str, \
-		ft_substr(s, i + 1, ft_strlen(s) - 1));
+		ft_substr(s, *i + 1, ft_strlen(s) - 1));
 	return (join_str);
 }

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 23:44:21 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:42:31 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ int		line_parse(t_cmd *cmd, t_env *envp);
 char	*prepare_split(char *readl);
 void	expand(char **s, t_env *env);
 void	ft_control(char *readl, t_quotes *quotes, int i);
-char	*change_env_val(char *s, t_env *env, int i, char *join_str);
-char	*ft_control_expand(char *s, t_env *env, t_quotes *quotes, int *i);
+char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
+char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
 int		join_split(t_cmd *cmd);
 
 //pipecontrol.c
-char	*ft_pipecontrol(char *cmd);
+char	*expand_pipe_redir(char *cmd);
 
 //deletequotes.c
 char	*ft_deletequotes(char *s);
