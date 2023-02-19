@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 18:51:17 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/19 00:56:17 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,18 @@ static size_t	get_split_size(char const *s, char c)
 	count = 0;
 	while (*s)
 	{
-		//check_quotes_flags(&quotes, *s);
 		while ((*s != c || (*s == c && (quotes.flag_d == 1 || quotes.flag_s == 1))) && *s)
 		{
 			check_quotes_flags(&quotes, *s);
 			s++;
 		}
 		count++;
-//		init_quotes_flags(&quotes);
 		while ((*s == c && quotes.flag_d == 0 && quotes.flag_s == 0) && *s)
 		{
 			check_quotes_flags(&quotes, *s);
 			s++;
 		}
 	}
-//printf (">>>nº>>> %zu\n", count);
 	return (count);
 }
 
