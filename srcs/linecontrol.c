@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 11:42:31 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:26:13 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-
-void	ft_control(char *readl, t_quotes *quotes, int i)
-{
-	check_quotes_flags(quotes, readl[i]);
-	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
-		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
-		i++;
-}
 
 char	*prepare_split(char *readl)
 {
@@ -66,22 +58,6 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 		//devolvemos el error con el quit_status, luego podemos hacer
 		//segun el error el status un write que diga cual es el error, veremos.
 //printf("---->>>> %s\n", cmd->cmd_line);
-	return (g_shell.quit_status = 0);
-}
-
-int	join_split(t_cmd *cmd)
-{
-	int		i;
-
-	free(cmd->cmd_line);
-	cmd->cmd_line = ft_strdup("");
-	i = -1;
-	while (cmd->cmd[++i])
-	{
-		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
-		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(","));
-	}	
-	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);
 }
 

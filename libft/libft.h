@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 16:40:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:53:30 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strchr(const char *s, int c);
 int		ft_isalnum(int c);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
 // int		ft_isalpha(int c);
 // int		ft_isdigit(int c);
 // int		ft_isascii(int c);
@@ -47,8 +49,6 @@ int		ft_isalnum(int c);
 // char	*ft_itoa(int n);
 // char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 // void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-// void	ft_putchar_fd(char c, int fd);
-// void	ft_putstr_fd(char *s, int fd);
 // void	ft_putendl_fd(char *s, int fd);
 // void	ft_putnbr_fd(int n, int fd);
 // void	ft_lstadd_front(t_list **lst, t_list *new);

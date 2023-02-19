@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 19:05:57 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 19:39:19 by jdasilva         ###   ########.fr       */
+/*   Created: 2022/09/14 17:23:02 by jdasilva          #+#    #+#             */
+/*   Updated: 2022/09/14 17:25:50 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include <unistd.h>
 
-void	init_cmd(t_cmd *cmd)
+void	ft_putchar_fd(char *s, int fd)
 {
-	cmd->cmd = NULL;
-	cmd->readl = NULL;
-	cmd->cmd_line = NULL;
-}
-
-void	init_quotes_flags(t_quotes *quotes)
-{
-	quotes->flag_d = 0;
-	quotes->flag_s = 0;
-	quotes->join_str = NULL;
+	write(fd, &s, 1);
 }

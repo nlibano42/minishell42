@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 00:06:27 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:24:57 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,28 @@ int	find_fin_str(char *s, int i)
 			return (i);
 	}
 	return (i);
+}
+
+int	join_split(t_cmd *cmd)
+{
+	int		i;
+
+	free(cmd->cmd_line);
+	cmd->cmd_line = ft_strdup("");
+	i = -1;
+	while (cmd->cmd[++i])
+	{
+		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
+		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(","));
+	}	
+	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
+	return (0);
+}
+
+void	ft_control(char *readl, t_quotes *quotes, int i)
+{
+	check_quotes_flags(quotes, readl[i]);
+	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
+		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
+		i++;
 }
