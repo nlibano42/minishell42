@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/20 20:01:58 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/21 00:20:06 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
 char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
 
 //pipecontrol.c
-char	*expand_pipe_redir(char *cmd);
-void	join_with_space(char *s, int *i, t_quotes *quotes, int *start);
+//char	*expand_pipe_redir(char *cmd);
+char	*expand_pipe_redir(t_cmd *cmd);
+void	join_with_nl(char *s, int *i, t_quotes *quotes, int *start);
 void	count_pipe(t_cmd *cmd, char *s);
 
 //deletequotes.c

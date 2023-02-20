@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 18:26:13 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/21 00:06:00 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 	while (cmd->cmd[++i])
 		expand(&(cmd->cmd[i]), envp);
 	join_split(cmd);
-	cmd->cmd_line = expand_pipe_redir(cmd->cmd_line);
+	cmd->cmd_line = expand_pipe_redir(cmd);
 	if (ft_access(cmd->cmd_line) == -1)
 		return (g_shell.quit_status = 1); 
 		//devolvemos el error con el quit_status, luego podemos hacer

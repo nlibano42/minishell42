@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/20 18:34:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/21 00:28:20 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	join_split(t_cmd *cmd)
 	while (cmd->cmd[++i])
 	{
 		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
-		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(" "));
+//		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(" "));
+		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("\n"));
 	}	
 	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);
