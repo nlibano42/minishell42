@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 19:34:43 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:02:10 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ typedef struct s_env
 //estructura de los comandos. Command + options + arguments
 typedef struct s_pipe
 {
-	char	*cmd;
-	char	*opt;
-	char	*args;
+	char			*full_cmd;
+	char			*path;
+//	char			*cmd;
+//	char			*opt;
+//	char			*args;
+	int				infile;
+	int				outfile;
+	struct s_pipe	*next;
 }	t_pipe;
 
 typedef struct s_cmd
@@ -71,6 +76,7 @@ typedef struct s_shell
 t_shell	g_shell;
 
 //main.c
+int		save_cmds(t_cmd *cmd);
 
 //init.c
 void	init_cmd(t_cmd *cmd);
