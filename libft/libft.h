@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 17:53:30 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:34:12 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*ft_strchr(const char *s, int c);
 int		ft_isalnum(int c);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
+char	*ft_strtrim(char const *s1, char const *set);
+
 // int		ft_isalpha(int c);
 // int		ft_isdigit(int c);
 // int		ft_isascii(int c);
@@ -45,7 +47,6 @@ void	ft_putchar_fd(char c, int fd);
 // char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 // int		ft_atoi(const char *str);
 // void	*ft_calloc(size_t nmemb, size_t size);
-// char	*ft_strtrim(char const *s1, char const *set);
 // char	*ft_itoa(int n);
 // char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 // void	ft_striteri(char *s, void (*f)(unsigned int, char*));
