@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 19:34:43 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:10:48 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_pipe
 typedef struct s_cmd
 {
 	struct s_env	*env;
-	char			**cmd;	
+	char			**cmd;
 	char			*cmd_line;
 	char			*readl;
 	int				num_pipes;
@@ -104,8 +104,9 @@ char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
 
 //pipecontrol.c
 char	*expand_pipe_redir(char *cmd);
-void	join_with_coma(char *s, int *i, t_quotes *quotes, int *start);
+void	join_with_space(char *s, int *i, t_quotes *quotes, int *start);
 void	count_pipe(t_cmd *cmd, char *s);
+
 //deletequotes.c
 char	*ft_deletequotes(char *s);
 

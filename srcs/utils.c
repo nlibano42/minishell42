@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 18:24:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:34:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	join_split(t_cmd *cmd)
 	while (cmd->cmd[++i])
 	{
 		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
-		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(","));
+		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(" "));
 	}	
 	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);

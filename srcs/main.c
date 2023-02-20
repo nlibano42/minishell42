@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 19:44:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:09:56 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,28 @@ int	main(int argc, char **argv, char **env)
 			{
 				count_pipe(&cmd, cmd.cmd_line); //cuenta el numero de pipes para hacer los hijos
 				cmd.cmd = split(cmd.cmd_line, '|');
+				int i = -1;
+				while(cmd.cmd[++i])
+				{
+					cmd.cmd[i] = ft_deletequotes(cmd.cmd[i]);
+					//printf("%s\n", cmd.cmd[i]);
+				}
+				if(cmd.num_pipes == 0)
+				{
+					char *path;
+					path = ft_lstfind_env_val(envp, cmd.cmd[0]);
+					printf("%s\n", path);
+				}
+				else
+				{
+					i = - 1;
+					while(++i <= cmd.num_pipes)
+					{
+						if(cmd.cmd[i][0] == ' ')
+							cmd.cmd[i] = ft_strtrim(cmd.cmd[i], " ");
+						printf("%s\n", cmd.cmd[i]);
+					}
+				}
 				//printf("pipe:%d\n", cmd.num_pipes);
 			}
 			//estoy probando si funciona. TODO: hacer que funcione.
@@ -51,7 +73,6 @@ int	main(int argc, char **argv, char **env)
 			//esta ando errores
 			//redirections(cmd->cmd_line); 
 // Esto debe ir en otra parte, donde necesitemos:
-//			cmd->cmd_line = ft_deletequotes(cmd->cmd_line);
 		}
 		//pdte liberar (t_env) env
 	}
