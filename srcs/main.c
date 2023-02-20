@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/20 19:09:56 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:35:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	main(int argc, char **argv, char **env)
 				while(cmd.cmd[++i])
 				{
 					cmd.cmd[i] = ft_deletequotes(cmd.cmd[i]);
-					//printf("%s\n", cmd.cmd[i]);
+					
+					printf("%s\n", cmd.cmd[i]);
 				}
 				if(cmd.num_pipes == 0)
 				{
-					char *path;
-					path = ft_lstfind_env_val(envp, cmd.cmd[0]);
+					ft_get_path(cmd.cmd[0], env);
 					printf("%s\n", path);
 				}
 				else

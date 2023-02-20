@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/20 19:10:48 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:40:15 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ typedef struct s_env
 //estructura de los comandos. Command + options + arguments
 typedef struct s_pipe
 {
-	char	*cmd;
-	char	*opt;
-	char	*args;
+	char			*full_cmd;
+	char			*path;
+//	char			*cmd;
+//	char			*opt;
+//	char			*args;
+	int				infile;
+	int				outfile;
+	struct s_pipe	*next;
 }	t_pipe;
 
 typedef struct s_cmd
