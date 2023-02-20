@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/20 19:40:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:49:15 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_shell
 t_shell	g_shell;
 
 //main.c
+int		save_cmds(t_cmd *cmd);
 
 //init.c
 void	init_cmd(t_cmd *cmd);
