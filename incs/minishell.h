@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/20 19:49:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/20 20:01:58 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,6 @@ void	ft_signal(void);
 //free_params.c
 void	free_split(char **s);
 
+//path.c
+void get_path(char *cmd, t_env *env);
 #endif
