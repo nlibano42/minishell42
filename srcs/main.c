@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 16:55:58 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:51:52 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,42 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
+char	*join_str(char **sp, int start, int fin)
+{
+	int		i;
+	char	*s;
+
+	s = ft_strdup("");
+	i = start - 1;
+	while (++i <= fin)
+	{
+		s = ft_strjoin(s, ft_strtrim(sp[i], " "));
+		if (i != fin)
+			s = ft_strjoin(s, ft_strdup(" "));
+	}
+	return (s);
+}
+
 int	save_cmds(t_cmd *cmd)
 {
 	int		i;
 	char	**sp;
 	int		start;
+	t_pipe	*pipe;
 
 	start = 0;
 	sp = ft_split(cmd->cmd_line, '\n');
 	i = -1;
 	while (sp[++i])
 	{
-		if (ft_strncmp(sp[i], "|", 1))
+		if (ft_strncmp(sp[i], "|", 1) == 0)
 		{
 			// crear listas para pipe. crear, añadir, borrar....
-			
-		//	cmd->pipe.	
+			pipe = ft_newpipe();
+			pipe->full_cmd = join_str(sp, start, i - 1);
+	//		pipe->path = get_path(????);
+			pipe->outfile = 1;
+			start = i + 1;
 		}
 	}
 	free_split(sp);

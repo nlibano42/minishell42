@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/21 17:33:06 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:25:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	**tab_env(t_env *env)
 	char **tab;
 	int	i;
 	char *s;
-	char *s1;
 
 	i = 1;
 	while(env)
@@ -25,21 +24,19 @@ char	**tab_env(t_env *env)
 		i++;
 		env = env->next;
 	}
-	tab =(char **)malloc((sizeof(char *) * i + 1));
-	if(!tab)
+	tab = (char **)malloc((sizeof(char *) * i + 1));
+	if (!tab)
 		return (NULL);
 	i = -1;
 	while(env)
 	{
 		s = ft_strjoin(ft_strdup(env->name), ft_strdup("="));
-		s1 = ft_strjoin(s, ft_strdup(env->val));
-		tab[++i] = ft_strdup(s1);
-		free(s);
-		free(s1);
+		s = ft_strjoin(s, ft_strdup(env->val));
+		tab[++i] = s;
 		env = env->next;
 	}
 	tab[i + 1] = NULL;
-	return(tab);
+	return (tab);
 }
 
 void get_path(char *cmd, t_env *env)

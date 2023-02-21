@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 18:03:23 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:38:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-//# include <stdbool.h>
-//# include <stdlib.h>
+// # include <stdbool.h>
+// # include <stdlib.h>
 // # include <stddef.h>
 // # include <stdarg.h>
 // # include <string.h>
@@ -54,6 +54,9 @@ typedef struct s_pipe
 //	char			*args;
 	int				infile;
 	int				outfile;
+	char			*inname;
+	char			*outname;
+	char			*key;
 	struct s_pipe	*next;
 }	t_pipe;
 
@@ -64,7 +67,7 @@ typedef struct s_cmd
 	char			*cmd_line;
 	char			*readl;
 	int				num_pipes;
-	struct s_pipe	pipe;
+	struct s_pipe	*pipe;
 }	t_cmd;
 
 typedef struct s_shell

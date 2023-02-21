@@ -34,6 +34,7 @@ SRCS	= main.c\
 		redirections.c\
 		error.c\
 		path.c\
+		lst_pipe.c\
 		
 # Compiler options
 CC			= gcc
