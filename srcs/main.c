@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 16:55:58 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:51:13 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **env)
 		//	break ;
 		if (ft_strlen(cmd.readl) > 0)
 		{
-			if (is_quotes_opened(cmd.readl) || is_two_pipes(cmd.readl)\
+			if (is_quotes_opened(cmd.readl) ||  is_fin_redirection(cmd.readl) || is_two_pipes(cmd.readl)\
 				|| is_open_pipe(cmd.readl) || line_parse(&cmd, envp))
 				continue ;
 			else
