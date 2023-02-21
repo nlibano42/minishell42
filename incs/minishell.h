@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 20:38:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:58:04 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	check_quotes_flags(t_quotes *quotes, char c);
 int		is_quotes_opened(char *s);
 int		is_two_pipes(char *s);
 int		is_open_pipe(char *s);
+int		is_fin_redirection(char *s);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
