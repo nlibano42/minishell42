@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 00:50:09 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:55:58 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,11 @@ int	save_cmds(t_cmd *cmd)
 	while (sp[++i])
 	{
 		if (ft_strncmp(sp[i], "|", 1))
+		{
 			// crear listas para pipe. crear, añadir, borrar....
+			
 		//	cmd->pipe.	
+		}
 	}
 	free_split(sp);
 	return (0);

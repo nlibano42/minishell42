@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 00:20:06 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:03:23 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,12 @@ void	ft_lstadd_back(t_env **lst, t_env *new);
 void	ft_lstclear(t_env **lst);
 void	ft_lstdelone(t_env *lst);
 t_env	*ft_lstlast(t_env *lst);
+
+//lst_pipe.c
+t_pipe	*ft_newpipe();
+void	ft_pipeadd_back(t_pipe **pipe, t_pipe *new);
+t_pipe	*ft_pipelast(t_pipe *pipe);
+void	ft_pipedelone(t_pipe *pipe);
 
 //signal.c
 void	ft_suppress_output(void);
