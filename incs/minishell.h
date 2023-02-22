@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/22 00:41:33 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/22 20:28:52 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_shell
 t_shell	g_shell;
 
 //main.c
-int		save_cmds(t_cmd *cmd);
+void	save_cmds(t_cmd *cmd);
 
 //init.c
 void	init_cmd(t_cmd *cmd);
@@ -154,4 +154,9 @@ void	free_split(char **s);
 
 //path.c
 char	*get_path(char *s, t_env *env);
+int		is_builtin(char *s);
+void	ft_execve(t_pipe *pipe);
+
+//built.c
+void	ft_builtin(char *p);
 #endif

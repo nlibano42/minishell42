@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/20 20:00:05 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/22 20:29:32 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS	= main.c\
 		error.c\
 		path.c\
 		lst_pipe.c\
+		built.c\
 		
 # Compiler options
 CC			= gcc
