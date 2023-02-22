@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/21 20:29:04 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:12:06 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ t_pipe	*ft_newpipe(void)
 	return(pipe);
 }
 
-void	ft_pipeadd_back(t_pipe **pipe, t_pipe *new)
+void	ft_pipeadd_back(t_pipe **lst, t_pipe *new)
 {
-	t_pipe	*last_pipe;
+	t_pipe	*last_lst;
 
-	if(!*pipe)
-		*pipe = new;
+	if (!*lst)
+		*lst = new;
 	else
 	{
-		last_pipe = ft_pipelast(*pipe);
-		last_pipe = new;
+		last_lst = ft_pipelast(*lst);
+		last_lst->next = new;
 	}
 }
 

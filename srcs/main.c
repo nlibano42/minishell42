@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/22 20:34:13 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:06:01 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	save_cmds(t_cmd *cmd)
 	int		start;
 	t_pipe	*pipe;
 
+//el NULL del final esta cogiendo como string en lugar del NULO.
 	start = 0;
 	sp = ft_split(cmd->cmd_line, '\n');
 	i = -1;
@@ -114,9 +115,19 @@ void	save_cmds(t_cmd *cmd)
 			pipe = ft_newpipe();
 			pipe->full_cmd = join_str(sp, start, i - 1);
 			pipe->path = get_path(sp[start], cmd->env);
-			printf("cmd:%s path:%s\n", pipe->full_cmd, pipe->path);
+			// 1: redireccionar la salida a un pipe
+			pipe->outfile = 1;
+			ft_pipeadd_back(&(cmd->pipe), pipe);
+//			printf("cmd:%s path:%s\n", pipe->full_cmd, pipe->path);
 			start = i + 1;
 		}
+	}
+	if (start < i)
+	{
+		pipe = ft_newpipe();
+		pipe->full_cmd = join_str(sp, start, i - 1);
+		pipe->path = get_path(sp[start], cmd->env);
+		ft_pipeadd_back(&(cmd->pipe), pipe);
 	}
 	free_split(sp);
 }

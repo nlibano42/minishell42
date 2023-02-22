@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/22 00:17:05 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:55:52 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ int	join_split(t_cmd *cmd)
 	i = -1;
 	while (cmd->cmd[++i])
 	{
+		if (i != 0)
+			cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("\n"));
 		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
 //		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(" "));
-		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("\n"));
 	}	
-	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
+//	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:14:45 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/21 00:33:19 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:43:54 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	join_with_nl(char *s, int *i, t_quotes *quotes, int *start)
 
 	s1 = ft_substr(s, *start, *i - *start);
 //	if (*i != 0 && s[*i - 1] != ' ')
-	if (*i != 0 && s[*i - 1] != '\n')
+// este if no es necesario. 
+//!!	if (*i != 0 && s[*i - 1] != '\n')
 		s1 = ft_strjoin(s1, ft_strdup("\n"));
 //		s1 = ft_strjoin(s1, ft_strdup(" "));
 	quotes->join_str = ft_strjoin(quotes->join_str, s1);
@@ -28,7 +29,7 @@ void	join_with_nl(char *s, int *i, t_quotes *quotes, int *start)
 		s1 = ft_substr(s, *i, 1);
 	quotes->join_str = ft_strjoin(quotes->join_str, s1);
 //	if (*i < 0 && s[*i + 1] != ' ')
-	if (*i < 0 && s[*i + 1] != '\n')
+	if (s[*i + 1] != '\n')
 		quotes->join_str = ft_strjoin(quotes->join_str, ft_strdup("\n"));
 //		quotes->join_str = ft_strjoin(quotes->join_str, ft_strdup(" "));
 	if ((s[*i] == '>' && s[*i + 1] == '>') || (s[*i] == '<' && s[*i + 1] == '<'))

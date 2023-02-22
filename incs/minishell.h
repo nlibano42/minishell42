@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/22 20:28:52 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:11:07 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ t_env	*ft_lstlast(t_env *lst);
 
 //lst_pipe.c
 t_pipe	*ft_newpipe();
-void	ft_pipeadd_back(t_pipe **pipe, t_pipe *new);
+void	ft_pipeadd_back(t_pipe **lst, t_pipe *new);
 t_pipe	*ft_pipelast(t_pipe *pipe);
 void	ft_pipedelone(t_pipe *pipe);
 
