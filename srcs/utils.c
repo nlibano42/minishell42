@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/21 00:28:20 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:17:05 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,14 @@ void	ft_control(char *readl, t_quotes *quotes, int i)
 	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
 		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
 		i++;
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

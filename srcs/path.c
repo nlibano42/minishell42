@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/21 20:25:27 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:10:26 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**tab_env(t_env *env)
 	return (tab);
 }
 
-void get_path(char *cmd, t_env *env)
+/*void get_path(char *cmd, t_env *env)
 {
 	int i;
 	char *path;
@@ -69,4 +69,4 @@ void get_path(char *cmd, t_env *env)
 	free_split(sp_cmd);
 	free_split(sp);
 	free_split(char_env);
-}
+}*/

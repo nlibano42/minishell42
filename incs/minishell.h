@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 20:58:04 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:41:33 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		find_str(char c, char *s);
 int		find_fin_str(char *s, int i);
 int		join_split(t_cmd *cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
+int		ft_strcmp(char *s1, char *s2);
 
 //error.c
 void	access_error(char *input);
@@ -152,5 +153,5 @@ void	ft_signal(void);
 void	free_split(char **s);
 
 //path.c
-void get_path(char *cmd, t_env *env);
+char	*get_path(char *s, t_env *env);
 #endif

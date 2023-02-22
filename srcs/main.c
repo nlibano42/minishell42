@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 20:58:52 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/22 01:12:01 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 int	main(int argc, char **argv, char **env)
 {	
 	t_cmd	cmd;
-	t_env	*envp = NULL;
+//	t_env	*envp = NULL;
 
 	(void)argc;
 	(void)argv;
-	init_env(&(envp), env);
+	cmd.env = NULL;
+	init_env(&(cmd.env), env);
 	init_cmd(&cmd);
 	ft_signal();
 	while (1)
@@ -38,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		if (ft_strlen(cmd.readl) > 0)
 		{
 			if (is_quotes_opened(cmd.readl) || is_fin_redirection(cmd.readl)\
-				 || is_open_pipe(cmd.readl) || !line_parse(&cmd, envp))
+				 || is_open_pipe(cmd.readl) || line_parse(&cmd, cmd.env))
 				continue ;
 			else
 			{
@@ -54,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 				}
 				if(cmd.num_pipes == 0)
 				{
-					get_path(cmd.cmd[0], envp);
+					get_path(cmd.cmd[0], cmd.env);
 				}
 				else
 				{
@@ -112,11 +113,41 @@ int	save_cmds(t_cmd *cmd)
 			// crear listas para pipe. crear, añadir, borrar....
 			pipe = ft_newpipe();
 			pipe->full_cmd = join_str(sp, start, i - 1);
-	//		pipe->path = get_path(????);
+			pipe->path = get_path(sp[start], cmd->env);
 			pipe->outfile = 1;
 			start = i + 1;
 		}
 	}
 	free_split(sp);
 	return (0);
+}
+
+char	*get_path(char *s, t_env *env)
+{
+	char	*path;
+	char	**sp;
+	int		i;
+
+	if (!ft_strcmp(s, "echo")|| !ft_strcmp(s, "cd") || !ft_strcmp(s, "pwd") || \
+	!ft_strcmp(s, "export") || !ft_strcmp(s, "unset") || \
+	!ft_strcmp(s, "env") || !ft_strcmp(s, "exit"))
+		return (s);
+	else
+	{
+		path = ft_lstfind_env_val(env, "PATH");
+		sp = ft_split(path, ':');
+		i = -1;
+		while(sp[++i])
+		{
+			path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
+			path = ft_strjoin(path, ft_strdup(s));
+	 		if(access(sp[i], F_OK) == 0)
+			{
+				free_split(sp);
+				return (path);
+			}
+		}
+		free_split(sp);
+	}
+	return (NULL);
 }
