@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/22 20:31:29 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:13:24 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_execve(t_pipe *pipe)
 			!ft_strcmp(p, "env") || !ft_strcmp(p, "exit"))
 		ft_builtin(p);
 	else
-		execve(p, &pipe->full_cmd, char_env);
+		execve(p, pipe->full_cmd, char_env);
 
 	//falta mirar si tenemos que retocar algo si hay redirecciones.
 }

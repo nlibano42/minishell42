@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 00:11:07 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:10:57 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_env
 //estructura de los comandos. Command + options + arguments
 typedef struct s_pipe
 {
-	char			*full_cmd;
+	char			**full_cmd;
 	char			*path;
 //	char			*cmd;
 //	char			*opt;
@@ -80,6 +80,7 @@ t_shell	g_shell;
 
 //main.c
 void	save_cmds(t_cmd *cmd);
+char	**subsplit(char **sp, int start, int len);
 
 //init.c
 void	init_cmd(t_cmd *cmd);

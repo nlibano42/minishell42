@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 00:06:01 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:23:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-char	*join_str(char **sp, int start, int fin)
+/*char	*join_str(char **sp, int start, int fin)
 {
 	int		i;
 	char	*s;
@@ -93,6 +93,26 @@ char	*join_str(char **sp, int start, int fin)
 		if (i != fin)
 			s = ft_strjoin(s, ft_strdup(" "));
 	}
+	return (s);
+}
+*/
+
+char	**subsplit(char **sp, int start, int len)
+{
+	char	**s;
+	int		i;
+	
+	s = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (--len >= 0)
+	{
+		s[i] = ft_strdup(sp[start]);
+		i++;
+		start++;
+	}
+	s[i] = NULL;
 	return (s);
 }
 
@@ -113,7 +133,7 @@ void	save_cmds(t_cmd *cmd)
 		{
 			// crear listas para pipe. crear, añadir, borrar....
 			pipe = ft_newpipe();
-			pipe->full_cmd = join_str(sp, start, i - 1);
+			pipe->full_cmd = subsplit(sp, start, i - start);
 			pipe->path = get_path(sp[start], cmd->env);
 			// 1: redireccionar la salida a un pipe
 			pipe->outfile = 1;
@@ -125,7 +145,7 @@ void	save_cmds(t_cmd *cmd)
 	if (start < i)
 	{
 		pipe = ft_newpipe();
-		pipe->full_cmd = join_str(sp, start, i - 1);
+		pipe->full_cmd = subsplit(sp, start, i - start);
 		pipe->path = get_path(sp[start], cmd->env);
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 	}
