@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/23 19:13:24 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:54:18 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,18 @@ char	**tab_env(t_env *env)
 	return (tab);
 }
 
-void	ft_execve(t_pipe *pipe)
+void	ft_execve(t_pipe *pipe, t_env *env)
 {
 	char	**char_env;
 	char	*p;
 
+	char_env = tab_env(env);
 	p = pipe->path;
-	if (!ft_strcmp(p, "echo")|| !ft_strcmp(p, "cd") || !ft_strcmp(p, "pwd") || \
-		!ft_strcmp(p, "export") || !ft_strcmp(p, "unset") || \
-			!ft_strcmp(p, "env") || !ft_strcmp(p, "exit"))
+//	printf("path: %s, cmd:%s\n", p, pipe->full_cmd[0]);
+	if (is_builtin(p))
 		ft_builtin(p);
 	else
 		execve(p, pipe->full_cmd, char_env);
-
-	//falta mirar si tenemos que retocar algo si hay redirecciones.
 }
 
 int	is_builtin(char *s)
@@ -63,37 +61,32 @@ int	is_builtin(char *s)
 		return(1);
 	else
 		return(0);
-	//para recortar lineas en la funcion que esta en el main.
+	//para recortar lineas en la funcion get_path.
 }
-
-/*void get_path(char *cmd, t_env *env)
+char	*get_path(char *s, t_env *env)
 {
-	int i;
-	char *path;
-	char **sp;
-	char **sp_cmd;
-	char **char_env;
+	char	*path;
+	char	**sp;
+	int		i;
 
-	char_env = tab_env(env);
-	sp_cmd = ft_split(cmd, '\n');
-	path = ft_lstfind_env_val(env, "PATH");
-	sp = ft_split(path, ':');
-	i = -1;
-	while(sp[++i])
+	if (is_builtin(s))
+		return (s);
+	else
 	{
-	
-		sp[i] = ft_strjoin(sp[i], ft_strdup("/"));
-		sp[i] = ft_strjoin(sp[i], ft_strdup(sp_cmd[0]));
-		printf("%s\n", sp[i]);
-		if(access(sp[i], F_OK) == 0)
+		path = ft_lstfind_env_val(env, "PATH");
+		sp = ft_split(path, ':');
+		i = -1;
+		while(sp[++i])
 		{
-			printf("....entra\n");
-			printf("cmd: %s\n", cmd);
-			execve(sp[i], &cmd, char_env); // hay que averiguar como omitir el null
-			break ;
+			path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
+			path = ft_strjoin(path, ft_strdup(s));
+	 		if(access(path, F_OK) == 0)
+			{
+				free_split(sp);
+				return (path);
+			}
 		}
+		free_split(sp);
 	}
-	free_split(sp_cmd);
-	free_split(sp);
-	free_split(char_env);
-}*/
+	return (NULL);
+}

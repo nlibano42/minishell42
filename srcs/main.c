@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 19:23:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:13:03 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ int	main(int argc, char **argv, char **env)
 					}
 				}
 				save_cmds(&cmd); //aqui ya mando los cmd "limpios"
+				pipex_main(&cmd); //la funcion de los pipes!!
 				if(cmd.num_pipes == 0)
 				{
 					//la funcion esta en path.c
-					//ft_execve(cmd.pipe); //En esta funcion miramos lo que hay que ejecutar
+					ft_execve(cmd.pipe, cmd.env); //En esta funcion miramos lo que hay que ejecutar
 											//tanto si es bultin como un cmd normal.
 									
 				}
@@ -97,25 +98,6 @@ int	main(int argc, char **argv, char **env)
 }
 */
 
-char	**subsplit(char **sp, int start, int len)
-{
-	char	**s;
-	int		i;
-	
-	s = (char **)malloc(sizeof(char *) * (len + 1));
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (--len >= 0)
-	{
-		s[i] = ft_strdup(sp[start]);
-		i++;
-		start++;
-	}
-	s[i] = NULL;
-	return (s);
-}
-
 void	save_cmds(t_cmd *cmd)
 {
 	int		i;
@@ -150,32 +132,4 @@ void	save_cmds(t_cmd *cmd)
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 	}
 	free_split(sp);
-}
-
-char	*get_path(char *s, t_env *env)
-{
-	char	*path;
-	char	**sp;
-	int		i;
-
-	if (is_builtin(s))
-		return (s);
-	else
-	{
-		path = ft_lstfind_env_val(env, "PATH");
-		sp = ft_split(path, ':');
-		i = -1;
-		while(sp[++i])
-		{
-			path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
-			path = ft_strjoin(path, ft_strdup(s));
-	 		if(access(sp[i], F_OK) == 0)
-			{
-				free_split(sp);
-				return (path);
-			}
-		}
-		free_split(sp);
-	}
-	return (NULL);
 }

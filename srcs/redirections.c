@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/21 00:34:38 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:37:51 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,27 @@ int	open_file(char *file, char flag)
 /* redirections
 *	s: readline (parse)
 */
-int	redirections(char *input) //funciona  pero tenemos que saber cuando usarlo.
+void redirections(char **input) //funciona  pero tenemos que saber cuando usarlo.
 {
 	int		i;
-	char	**cmd_split;
-	int		fd;
+	int		j;
 
-	cmd_split = ft_split(input, ',');
-	fd = 0;
 	i = -1;
-	while (cmd_split[++i])
+	while (input[++i])
 	{
-		if (!ft_strncmp(cmd_split[i], ">", 1))
-			fd = open_file(cmd_split[i + 1], 'w');
-		if (!ft_strncmp(cmd_split[i], "<", 1))
-			fd = open_file(cmd_split[i + 1], 'r');
-		if (!ft_strncmp(cmd_split[i], ">>", 2))
-			fd = open_file(cmd_split[i + 1], 'a');
-		if (!ft_strncmp(cmd_split[i], "<<", 2))
-			fd = open_file(cmd_split[i + 1], 'r');
-		if (fd == -1)
+		j = -1;
+		while(input[i][++j])
 		{
-			printf("entra\n");
-			break ;
+			if (!ft_strncmp(input[i], ">", 1))
+			// se llama a la funcion correspondiente;
+			if (!ft_strncmp(input[i], "<", 1))
+			// se llama a la funcion correspondiente;
+			if (!ft_strncmp(input[i], ">>", 2))
+			// se llama a la funcion correspondiente;
+			if (!ft_strncmp(input[i], "<<", 2))
+			// se llama a la funcion correspondiente;;
 		}
-		//fd = open_file(cmd_split[i + 1], flag);
-		printf("%s\n", cmd_split[i]);
 	}
-	return (fd);
 }
 
 int	ft_access(char *input)

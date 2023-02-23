@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 19:10:57 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:41:41 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@
 # include "../libft/libft.h"
 # include <fcntl.h>
 # include <unistd.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <stdlib.h>
 
 // # include <stdbool.h>
-// # include <stdlib.h>
 // # include <stddef.h>
 // # include <stdarg.h>
 // # include <string.h>
 // # include <dirent.h>
-// # include <sys/wait.h>
-// # include <errno.h>
 // # include <termios.h>
+
+# define READ_END		0  /* index pipe extremo escritura */
+# define WRITE_END		1  /* index pipe extremo lectura */
 
 typedef struct s_quotes
 {
@@ -80,7 +83,6 @@ t_shell	g_shell;
 
 //main.c
 void	save_cmds(t_cmd *cmd);
-char	**subsplit(char **sp, int start, int len);
 
 //init.c
 void	init_cmd(t_cmd *cmd);
@@ -106,6 +108,7 @@ void	access_error(char *input);
 
 //split.c
 char	**split(char const *s, char c);
+char	**subsplit(char **sp, int start, int len);
 
 //linecontrol.c
 int		line_parse(t_cmd *cmd, t_env *envp);
@@ -124,8 +127,8 @@ void	count_pipe(t_cmd *cmd, char *s);
 char	*ft_deletequotes(char *s);
 
 //redirections.c
-int		redirections(char *input);
-int		ft_access(char *input);
+void		redirections(char **input);
+int			ft_access(char *input);
 
 //env.c
 void	init_env(t_env **envi, char **env);
@@ -156,7 +159,8 @@ void	free_split(char **s);
 //path.c
 char	*get_path(char *s, t_env *env);
 int		is_builtin(char *s);
-void	ft_execve(t_pipe *pipe);
+void	ft_execve(t_pipe *pipe, t_env *env);
+char	*get_path(char *s, t_env *env);
 
 //built.c
 void	ft_builtin(char *p);
