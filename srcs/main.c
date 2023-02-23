@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 20:13:03 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/23 23:40:15 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ void	save_cmds(t_cmd *cmd)
 	char	**sp;
 	int		start;
 	t_pipe	*pipe;
+	char	*infile;
+	char	*outfile;
+	char	*key;
 
 //el NULL del final esta cogiendo como string en lugar del NULO.
 	start = 0;
@@ -123,6 +126,14 @@ void	save_cmds(t_cmd *cmd)
 //			printf("cmd:%s path:%s\n", pipe->full_cmd, pipe->path);
 			start = i + 1;
 		}
+		else if (ft_strcmp(sp[i], "<<"))
+			key = ft_strdup(sp[i + 1]);
+		else if (ft_strcmp(sp[i], "<"))
+			infile = ft_strdup(sp[i + 1]);
+		else if (ft_strcmp(sp[i], ">"))
+			outfile = ft_strdup(sp[i + 1]);
+		else if (ft_strcmp(sp[i], ">>"))
+			outfile = ft_strdup(sp[i + 1]);
 	}
 	if (start < i)
 	{
