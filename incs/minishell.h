@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 20:41:41 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:52:14 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,16 @@ typedef struct s_pipe
 //	char			*args;
 	int				infile;
 	int				outfile;
-	char			*inname;
-	char			*outname;
-	char			*key;
 	struct s_pipe	*next;
 }	t_pipe;
+
+typedef struct s_redir
+{
+	char			*key;
+	char			*file;
+	char			*type; //read, read_l, write, append
+	struct s_redir	*next;	
+}	t_redir;
 
 typedef struct s_cmd
 {
@@ -71,6 +76,7 @@ typedef struct s_cmd
 	char			*readl;
 	int				num_pipes;
 	struct s_pipe	*pipe;
+	struct s_redir	*redir;
 }	t_cmd;
 
 typedef struct s_shell
@@ -146,6 +152,13 @@ t_pipe	*ft_newpipe();
 void	ft_pipeadd_back(t_pipe **lst, t_pipe *new);
 t_pipe	*ft_pipelast(t_pipe *pipe);
 void	ft_pipedelone(t_pipe *pipe);
+
+//lst_redir.c
+t_redir	*ft_lstnew_redir(void)
+void	ft_lstadd_back_redir(t_redir **lst, t_redir *new)
+void	ft_lstclear_redir(t_redir **lst)
+void	ft_lstdelone_redir(t_redir *lst)
+t_redir	*ft_lstlast_redir(t_redir *lst)
 
 //signal.c
 void	ft_suppress_output(void);

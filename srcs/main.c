@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 23:40:15 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:58:19 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,10 @@ void	save_cmds(t_cmd *cmd)
 	char	**sp;
 	int		start;
 	t_pipe	*pipe;
-	char	*infile;
-	char	*outfile;
-	char	*key;
+	t_redir	*redir;
+//	char	*infile;
+//	char	*outfile;
+//	char	*key;
 
 //el NULL del final esta cogiendo como string en lugar del NULO.
 	start = 0;
@@ -127,13 +128,30 @@ void	save_cmds(t_cmd *cmd)
 			start = i + 1;
 		}
 		else if (ft_strcmp(sp[i], "<<"))
-			key = ft_strdup(sp[i + 1]);
+		{
+			redir = ft_lstnew_redir();
+			redir->key = ft_strdup(sp[i + 1]);
+			redir->type = "readl";
+			ft_lstadd_back_redir(&(cmd->redir), redir);
+		}
 		else if (ft_strcmp(sp[i], "<"))
-			infile = ft_strdup(sp[i + 1]);
+		{
+			redir = ft_lstnew_redir();
+			redir->file = ft_strdup(sp[i + 1]);
+			redir->type = "read";
+		}
 		else if (ft_strcmp(sp[i], ">"))
-			outfile = ft_strdup(sp[i + 1]);
+		{
+			redir = ft_lstnew_redir();
+			redir->file = ft_strdup(sp[i + 1]);
+			redir->type = "write";
+		}
 		else if (ft_strcmp(sp[i], ">>"))
-			outfile = ft_strdup(sp[i + 1]);
+		{
+			redir = ft_lstnew_redir();
+			redir->file = ft_strdup(sp[i + 1]);
+			redir->type = "append";
+		}
 	}
 	if (start < i)
 	{
