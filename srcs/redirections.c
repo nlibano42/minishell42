@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/23 20:37:51 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:35:26 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	open_file(char *file, char flag)
 /* redirections
 *	s: readline (parse)
 */
-void redirections(char **input) //funciona  pero tenemos que saber cuando usarlo.
+/* void redirections(char **input) //funciona  pero tenemos que saber cuando usarlo.
 {
 	int		i;
 	int		j;
@@ -52,7 +52,7 @@ void redirections(char **input) //funciona  pero tenemos que saber cuando usarlo
 			// se llama a la funcion correspondiente;;
 		}
 	}
-}
+} */
 
 int	ft_access(char *input)
 {
@@ -66,14 +66,12 @@ int	ft_access(char *input)
 	i = -1;
 	while (cmd_split[++i])
 	{
-		if (!ft_strncmp(cmd_split[i], ">", 1))
+		if (!ft_strncmp(cmd_split[i], ">", 1) && !access(cmd_split[i + 1], F_OK))
 			fd = access(cmd_split[i + 1], W_OK);
-		if (!ft_strncmp(cmd_split[i], "<", 1))
-			fd = access(cmd_split[i + 1], R_OK);
-		if (!ft_strncmp(cmd_split[i], ">>", 2))
+		if (!ft_strncmp(cmd_split[i], "<", 1) && !access(cmd_split[i + 1], F_OK))
+			fd = access(cmd_split[i + 1], R_OK );
+		if (!ft_strncmp(cmd_split[i], ">>", 2) && !access(cmd_split[i + 1], F_OK))
 			fd = access(cmd_split[i + 1], W_OK);
-		if (!ft_strncmp(cmd_split[i], "<<", 2))
-			fd = open_file(cmd_split[i + 1], R_OK);
 		if (fd == -1)
 		{
 			access_error(cmd_split[i + 1]);

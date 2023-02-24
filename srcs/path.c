@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/23 20:54:18 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/24 20:17:20 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	ft_execve(t_pipe *pipe, t_env *env)
 
 	char_env = tab_env(env);
 	p = pipe->path;
-//	printf("path: %s, cmd:%s\n", p, pipe->full_cmd[0]);
 	if (is_builtin(p))
 		ft_builtin(p);
 	else

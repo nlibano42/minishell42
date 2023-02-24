@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/24 16:52:14 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:28:27 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_redir
 	char			*key;
 	char			*file;
 	char			*type; //read, read_l, write, append
-	struct s_redir	*next;	
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_cmd
@@ -154,11 +154,11 @@ t_pipe	*ft_pipelast(t_pipe *pipe);
 void	ft_pipedelone(t_pipe *pipe);
 
 //lst_redir.c
-t_redir	*ft_lstnew_redir(void)
-void	ft_lstadd_back_redir(t_redir **lst, t_redir *new)
-void	ft_lstclear_redir(t_redir **lst)
-void	ft_lstdelone_redir(t_redir *lst)
-t_redir	*ft_lstlast_redir(t_redir *lst)
+t_redir	*ft_lstnew_redir(void);
+void	ft_lstadd_back_redir(t_redir **lst, t_redir *new);
+void	ft_lstclear_redir(t_redir **lst);
+void	ft_lstdelone_redir(t_redir *lst);
+t_redir	*ft_lstlast_redir(t_redir *lst);
 
 //signal.c
 void	ft_suppress_output(void);
@@ -177,4 +177,8 @@ char	*get_path(char *s, t_env *env);
 
 //built.c
 void	ft_builtin(char *p);
+
+//pipe.c
+void	pipex_main(t_cmd *cmd);
+void	ft_pipex(t_pipe *cmd, t_env *env);
 #endif

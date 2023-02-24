@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/24 16:58:19 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/24 20:18:09 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,11 @@ int	main(int argc, char **argv, char **env)
 				}
 				save_cmds(&cmd); //aqui ya mando los cmd "limpios"
 				pipex_main(&cmd); //la funcion de los pipes!!
-				if(cmd.num_pipes == 0)
-				{
-					//la funcion esta en path.c
-					ft_execve(cmd.pipe, cmd.env); //En esta funcion miramos lo que hay que ejecutar
-											//tanto si es bultin como un cmd normal.
-									
-				}
- 				else
-				{
-					i = - 1;
-					while(++i <= cmd.num_pipes)
-					{
-					  //aqui la funcion pipe para ejecutar los pipes, tenemos que mirar
-					  // el funcionamiento del outfile e infile.
-					}
-				} 
 			}
 			//estoy probando si funciona. TODO: hacer que funcione.
 		}
 		//pdte liberar (t_env) env
+		//ft_pipedelone(cmd.pipe); //liberar la strutc para seguir metiendo comandos nuevos (peta)
 	}
 	return (0);
 }
@@ -105,9 +90,6 @@ void	save_cmds(t_cmd *cmd)
 	int		start;
 	t_pipe	*pipe;
 	t_redir	*redir;
-//	char	*infile;
-//	char	*outfile;
-//	char	*key;
 
 //el NULL del final esta cogiendo como string en lugar del NULO.
 	start = 0;
@@ -115,7 +97,7 @@ void	save_cmds(t_cmd *cmd)
 	i = -1;
 	while (sp[++i])
 	{
-		if (ft_strncmp(sp[i], "|", 1) == 0)
+		if (!ft_strncmp(sp[i], "|", 1))
 		{
 			// crear listas para pipe. crear, añadir, borrar....
 			pipe = ft_newpipe();
@@ -124,29 +106,29 @@ void	save_cmds(t_cmd *cmd)
 			// 1: redireccionar la salida a un pipe
 			pipe->outfile = 1;
 			ft_pipeadd_back(&(cmd->pipe), pipe);
-//			printf("cmd:%s path:%s\n", pipe->full_cmd, pipe->path);
+			//printf("cmd:%s path:%s\n", pipe->full_cmd[0], pipe->path);
 			start = i + 1;
 		}
-		else if (ft_strcmp(sp[i], "<<"))
+		else if (!ft_strcmp(sp[i], "<<"))
 		{
 			redir = ft_lstnew_redir();
 			redir->key = ft_strdup(sp[i + 1]);
 			redir->type = "readl";
 			ft_lstadd_back_redir(&(cmd->redir), redir);
 		}
-		else if (ft_strcmp(sp[i], "<"))
+		else if (!ft_strcmp(sp[i], "<"))
 		{
 			redir = ft_lstnew_redir();
 			redir->file = ft_strdup(sp[i + 1]);
 			redir->type = "read";
 		}
-		else if (ft_strcmp(sp[i], ">"))
+		else if (!ft_strcmp(sp[i], ">"))
 		{
 			redir = ft_lstnew_redir();
 			redir->file = ft_strdup(sp[i + 1]);
 			redir->type = "write";
 		}
-		else if (ft_strcmp(sp[i], ">>"))
+		else if (!ft_strcmp(sp[i], ">>"))
 		{
 			redir = ft_lstnew_redir();
 			redir->file = ft_strdup(sp[i + 1]);

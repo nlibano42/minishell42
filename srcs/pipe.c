@@ -6,18 +6,32 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/23 20:52:30 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:59:44 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void ft_pipex(t_pipe *cmd, t_env *env)
+
+void ft_notpipe(t_pipe *pipe, t_env *env)
+{
+	g_shell.pid = fork();
+	if(g_shell.pid < 0)
+		perror("fork");
+	else if(g_shell.pid == 0)
+	{
+		ft_execve(pipe, env);
+		perror("execve");
+		exit(1);
+	}
+	else
+		waitpid(g_shell.pid, NULL, 0);
+	
+}
+void	ft_pipex(t_pipe *cmd, t_env *env)
 {
 	int fd[2];
-
-	if(pipe(fd) == -1)
-		perror("Error Pipe"); //podemos hacer la funcion para que salga del programa con el exit. 
+	 
 	g_shell.pid = fork();
 	if(g_shell.pid == 0)
 	{
@@ -37,14 +51,17 @@ void ft_pipex(t_pipe *cmd, t_env *env)
 	}
 }
 
-
-void pipex_main(t_cmd *cmd)
+void	pipex_main(t_cmd *cmd)
 {
-
-	while(cmd->pipe)
+	if (cmd->num_pipes == 0)
+		ft_notpipe(cmd->pipe, cmd->env);
+	else
 	{
-		redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
-		ft_pipex(cmd->pipe, cmd->env); // aqui ejecuto el pipe
-		cmd->pipe = cmd->pipe->next;
-	}
+	 	while(cmd->pipe)
+		{
+			//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
+			ft_pipex(cmd->pipe, cmd->env); // aqui ejecuto el pipe
+			cmd->pipe = cmd->pipe->next;
+		} 
+	}		
 }

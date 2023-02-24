@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:28:18 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/21 20:27:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:21:52 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,24 @@ int	is_fin_redirection(char *s)
 {
 	t_quotes quotes;
 	int i;
-	init_quotes_flags(&quotes);
 
+	init_quotes_flags(&quotes);
+	ft_strtrim(s, " ");
 	i = -1;
 	while (s[++i])
 	{
 		check_quotes_flags(&quotes, s[i]);
-		if((s[i] == '<' || s[i] == '>' || s[i + 1] == '>' || s[i + 1] == '<')\
-			&& quotes.flag_d == 0 && quotes.flag_s == 0)
+		if((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0\
+			&& quotes.flag_s == 0)
 		{
-			ft_putstr_fd("Minishell: syntax error\n", 2);
-			free(s);
-			return(g_shell.pid = 258);
+			if(s[i + 1] == '<' || s[i + 1] == '>')
+				i++;
+			if (s[i + 1] == '\0')
+			{
+				ft_putstr_fd("Minishell: syntax error\n", 2);
+				free(s);
+				return(g_shell.pid = 258);
+			}
 		}
 	}
 	return (0);

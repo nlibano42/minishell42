@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/23 00:12:06 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/24 20:04:23 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ t_pipe	*ft_newpipe(void)
 	pipe->path = NULL;
 	pipe->infile = 0;
 	pipe->outfile = 0;
-	pipe->inname = 0;
-	pipe->outname = 0;
-	pipe->key = 0;
 	pipe->next = NULL;
 	return(pipe);
 }
@@ -58,8 +55,8 @@ void ft_pipedelone(t_pipe *pipe)
 {
 	if(pipe)
 	{
-		free(pipe->full_cmd);
-//		free(pipe->path);
+		free_split(pipe->full_cmd); // creo que al ser ** se tiene que liberar ambos no(?¿)
+		free(pipe->path);
 		free(pipe);
 	}
 }
