@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 00:35:29 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:45:09 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,13 @@ void	ft_control(char *readl, t_quotes *quotes, int i)
 		i++;
 }
 
-int	ft_strcmp(char *s1, char *s2)
+/*int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
-
+	int	flag;
+	
+printf("---> [%s], [%s]\n", s1, s2);
+printf("---> [%zu], [%zu]\n", ft_strlen(s1), ft_strlen(s2));
 	if (!s1 && !s2)
 		return (0);
 	else if (!s1 || !s2)
@@ -86,5 +89,17 @@ int	ft_strcmp(char *s1, char *s2)
 	i = 0;
 	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
+	if (s1[i] == '\0' && s2[i] == '\0')
+		return (0);
 	return (s1[i] - s2[i]);
+}*/
+
+//int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strcmp(char *s1, char *s2)
+{
+printf("---> [%s], [%s]\n", s1, s2);
+printf("---> [%zu], [%zu]\n", ft_strlen(s1), ft_strlen(s2));
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (1);
+	return (ft_strncmp(s1, s2, ft_strlen(s2)));
 }
