@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 18:26:09 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:03:54 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,11 @@ void	check_quotes_flags(t_quotes *quotes, char c);
 int		is_quotes_opened(char *s);
 int		is_two_pipes(char *s);
 int		is_open_pipe(char *s);
-int		is_fin_redirection(char *s);
 int		check_init_params(int argc, char **argv);
+
+//checks2.c
+int	check_spaces(char *readl);
+int		is_fin_redirection(char *s);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);

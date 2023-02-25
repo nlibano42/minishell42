@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:28:18 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 00:18:56 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:03:43 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,29 +98,3 @@ int	is_open_pipe(char *s)
 	return (0);
 }
 
-int	is_fin_redirection(char *s)
-{
-	t_quotes quotes;
-	int i;
-
-	init_quotes_flags(&quotes);
-	ft_strtrim(s, " ");
-	i = -1;
-	while (s[++i])
-	{
-		check_quotes_flags(&quotes, s[i]);
-		if((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0\
-			&& quotes.flag_s == 0)
-		{
-			if(s[i + 1] == '<' || s[i + 1] == '>')
-				i++;
-			if (s[i + 1] == '\0')
-			{
-				ft_putstr_fd("Minishell: syntax error\n", 2);
-				free(s);
-				return(g_shell.pid = 258);
-			}
-		}
-	}
-	return (0);
-}
