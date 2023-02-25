@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 19:41:29 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 21:59:37 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void ft_pipedelone(t_pipe *pipe)
 	if(pipe)
 	{
 		free_split(pipe->full_cmd); // creo que al ser ** se tiene que liberar ambos no(?¿)
-//		free(pipe->path); //no se esta haciendo ft_strdup. no hay que liberar.
+		free(pipe->path);
 		free(pipe);
 	}
 }

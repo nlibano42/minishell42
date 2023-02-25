@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 20:39:55 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 21:55:41 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ char	**subsplit(char **sp, int start, int len)
 		i++;
 		start++;
 	}
-//	s[i] = NULL;
+	s[i] = NULL;
 	return (s);
 }

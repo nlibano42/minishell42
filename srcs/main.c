@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 21:03:21 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 23:09:59 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	save_cmds(t_cmd *cmd)
 
 	cmd->pipe = NULL;
 	cmd->redir = NULL;
-//el NULL del final esta cogiendo como string en lugar del NULO.
 	start = 0;
 	sp = ft_split(cmd->cmd_line, '\n');
 	i = -1;

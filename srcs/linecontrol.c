@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 17:01:43 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 22:09:11 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*prepare_split(char *readl)
 	}
 	output[i] = '\n';
 	output[i + 1] = '\0';
-//printf("-->> %s\n", output);
 	return (output);
 }
 
@@ -57,7 +56,6 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 		return (g_shell.quit_status = 1); 
 		//devolvemos el error con el quit_status, luego podemos hacer
 		//segun el error el status un write que diga cual es el error, veremos.
-//printf("---->>>> %s\n", cmd->cmd_line);
 	return (0);
 }
 

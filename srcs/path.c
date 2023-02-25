@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 19:41:43 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 21:59:21 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_path(char *s, t_env *env)
 	int		i;
 
 	if (is_builtin(s))
-		return (s);
+		return (ft_strdup(s));
 	else
 	{
 		path = ft_lstfind_env_val(env, "PATH");
