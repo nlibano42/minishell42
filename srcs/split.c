@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/23 20:01:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:53:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	**subsplit(char **sp, int start, int len)
 	i = 0;
 	while (--len >= 0)
 	{
-		s[i] = ft_strdup(sp[start]);
+		s[i] = ft_strdup(ft_deletequotes(ft_strtrim(sp[start], " ")));
 		i++;
 		start++;
 	}
