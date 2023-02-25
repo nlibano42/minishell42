@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:28:18 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/24 19:21:52 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:18:56 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+int	check_init_params(int argc, char **argv)
+{
+	(void)argv;
+	if (argc != 1)
+	{
+		printf("Error. Incorrect parameters\n");
+		return (1);
+	}
+	return (0);
+}
 
 void	check_quotes_flags(t_quotes *quotes, char c)
 {

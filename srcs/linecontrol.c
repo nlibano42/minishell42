@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/24 19:02:38 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:01:43 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 
 	aux = cmd->readl;
 	cmd->cmd_line = prepare_split(aux);
-	free(aux); //liberar readl? necesitaremos mas adelante este valor?
+//	free(aux); //liberar readl? necesitaremos mas adelante este valor?
 	cmd->cmd = ft_split(cmd->cmd_line, '\n');
 	i = -1;
 	while (cmd->cmd[++i])

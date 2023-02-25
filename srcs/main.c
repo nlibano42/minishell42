@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/24 20:18:09 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:07:47 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 int	main(int argc, char **argv, char **env)
 {	
 	t_cmd	cmd;
-//	t_env	*envp = NULL;
 
-	(void)argc;
-	(void)argv;
-	cmd.env = NULL;
+	if (check_init_params(argc, argv))
+		return (1);
+	g_shell.pid = 0;
 	init_env(&(cmd.env), env);
 	init_cmd(&cmd);
 	ft_signal();
@@ -44,19 +43,21 @@ int	main(int argc, char **argv, char **env)
 			else
 			{
 				count_pipe(&cmd, cmd.cmd_line); //cuenta el numero de pipes para hacer los hijos
-				cmd.cmd = split(cmd.cmd_line, '|');
-				int i = -1;
-				while(cmd.cmd[++i])
-				{
-					cmd.cmd[i] = ft_deletequotes(cmd.cmd[i]);
-					if(i > 1)
-					{
-						if(cmd.cmd[i][0] == ' ')
-							cmd.cmd[i] = ft_strtrim(cmd.cmd[i], " "); //para quitar los espacios.
-					}
-				}
+	//			cmd.cmd = split(cmd.cmd_line, '|');
+	//			int i = -1;
+	//			while(cmd.cmd[++i])
+	//			{
+	//				cmd.cmd[i] = ft_deletequotes(cmd.cmd[i]);
+	//				if(i > 1)
+	//				{
+	//					if(cmd.cmd[i][0] == ' ')
+	//						cmd.cmd[i] = ft_strtrim(cmd.cmd[i], " "); //para quitar los espacios.
+	//				}
+	//			}
 				save_cmds(&cmd); //aqui ya mando los cmd "limpios"
+printf("--->> %s\n--->%s\n", cmd.pipe->full_cmd[0], cmd.pipe->full_cmd[1]);
 				pipex_main(&cmd); //la funcion de los pipes!!
+				free_all(&cmd);
 			}
 			//estoy probando si funciona. TODO: hacer que funcione.
 		}
@@ -66,23 +67,6 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-/*char	*join_str(char **sp, int start, int fin)
-{
-	int		i;
-	char	*s;
-
-	s = ft_strdup("");
-	i = start - 1;
-	while (++i <= fin)
-	{
-		s = ft_strjoin(s, ft_strtrim(sp[i], " "));
-		if (i != fin)
-			s = ft_strjoin(s, ft_strdup(" "));
-	}
-	return (s);
-}
-*/
-
 void	save_cmds(t_cmd *cmd)
 {
 	int		i;
@@ -91,6 +75,8 @@ void	save_cmds(t_cmd *cmd)
 	t_pipe	*pipe;
 	t_redir	*redir;
 
+	cmd->pipe = NULL;
+	cmd->redir = NULL;
 //el NULL del final esta cogiendo como string en lugar del NULO.
 	start = 0;
 	sp = ft_split(cmd->cmd_line, '\n');

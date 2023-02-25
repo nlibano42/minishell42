@@ -3,10 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   lst_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/24 20:04:23 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:49:20 by nlibano-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../incs/minishell.h"
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/15 04:38:36 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/02/17 23:55:47 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +65,8 @@ t_pipe *ft_pipelast(t_pipe *pipe)
 	return(pipe);
 }
 
+
+
 void ft_pipedelone(t_pipe *pipe)
 {
 	if(pipe)
@@ -58,5 +74,20 @@ void ft_pipedelone(t_pipe *pipe)
 		free_split(pipe->full_cmd); // creo que al ser ** se tiene que liberar ambos no(?¿)
 		free(pipe->path);
 		free(pipe);
+	}
+}
+
+void	ft_pipelstclear(t_pipe **lst)
+{
+	t_pipe	*begin;
+
+	if (lst)
+	{
+		while (*lst)
+		{
+			begin = (*lst)->next;
+			ft_pipedelone(*lst);
+			*lst = begin;
+		}
 	}
 }

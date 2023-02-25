@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/24 19:59:44 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:14:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,25 @@
 
 void ft_notpipe(t_pipe *pipe, t_env *env)
 {
-	g_shell.pid = fork();
-	if(g_shell.pid < 0)
-		perror("fork");
-	else if(g_shell.pid == 0)
+	pid_t	num_pid;
+
+	num_pid = fork();
+	g_shell.pid = 1;
+	if (num_pid < 0)
 	{
+		perror("fork");
+		exit (EXIT_FAILURE);
+	}
+	else if (num_pid == 0)
+	{
+		ft_signal();
 		ft_execve(pipe, env);
+	//	kill(num_pid, SIGINT);
 		perror("execve");
 		exit(1);
 	}
 	else
-		waitpid(g_shell.pid, NULL, 0);
-	
+		waitpid(num_pid, NULL, 0);
 }
 void	ft_pipex(t_pipe *cmd, t_env *env)
 {

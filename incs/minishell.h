@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/24 17:28:27 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:52:11 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		is_quotes_opened(char *s);
 int		is_two_pipes(char *s);
 int		is_open_pipe(char *s);
 int		is_fin_redirection(char *s);
+int		check_init_params(int argc, char **argv);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
@@ -152,6 +153,7 @@ t_pipe	*ft_newpipe();
 void	ft_pipeadd_back(t_pipe **lst, t_pipe *new);
 t_pipe	*ft_pipelast(t_pipe *pipe);
 void	ft_pipedelone(t_pipe *pipe);
+void	ft_pipelstclear(t_pipe **lst);
 
 //lst_redir.c
 t_redir	*ft_lstnew_redir(void);
@@ -168,6 +170,7 @@ void	ft_signal(void);
 
 //free_params.c
 void	free_split(char **s);
+void	free_all(t_cmd *cmd);
 
 //path.c
 char	*get_path(char *s, t_env *env);

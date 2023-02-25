@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/17 23:52:31 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:13:22 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_env(t_env **envi, char **env)
 	char	**values;
 	int		i;
 
+	*envi = NULL;
 	i = -1;
 	while (env[++i])
 	{
