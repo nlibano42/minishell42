@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 16:14:46 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:37:00 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,11 @@ void ft_notpipe(t_pipe *pipe, t_env *env)
 	{
 		ft_signal();
 		ft_execve(pipe, env);
-	//	kill(num_pid, SIGINT);
-		perror("execve");
-		exit(1);
 	}
 	else
 		waitpid(num_pid, NULL, 0);
 }
-void	ft_pipex(t_pipe *cmd, t_env *env)
+/* void	ft_pipex(t_pipe *cmd, t_env *env)
 {
 	int fd[2];
 	 
@@ -56,7 +53,7 @@ void	ft_pipex(t_pipe *cmd, t_env *env)
 		close(fd[READ_END]);
 		waitpid(g_shell.pid, NULL, 0);
 	}
-}
+} */
 
 void	pipex_main(t_cmd *cmd)
 {
@@ -67,7 +64,7 @@ void	pipex_main(t_cmd *cmd)
 	 	while(cmd->pipe)
 		{
 			//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
-			ft_pipex(cmd->pipe, cmd->env); // aqui ejecuto el pipe
+			//ft_pipex(cmd->pipe, cmd->env); // aqui ejecuto el pipe
 			cmd->pipe = cmd->pipe->next;
 		} 
 	}		

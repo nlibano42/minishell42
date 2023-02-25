@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_params.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:05:45 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 17:00:17 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:27:45 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ printf("****liberando todo\n");
 	printf("5");	
 		ft_lstclear_redir(&(cmd->redir));
 	}
+	printf("\n");
 }
