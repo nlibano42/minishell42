@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 19:29:39 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:41:43 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ void	ft_execve(t_pipe *pipe, t_env *env)
 	if (is_builtin(p))
 		ft_builtin(p);
 	else
+	{
 		execve(p, pipe->full_cmd, char_env);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(*pipe->full_cmd, 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 }
 
 int	is_builtin(char *s)

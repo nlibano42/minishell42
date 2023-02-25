@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 19:30:21 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:41:29 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ t_pipe *ft_pipelast(t_pipe *pipe)
 	}
 	return(pipe);
 }
-
-
 
 void ft_pipedelone(t_pipe *pipe)
 {
