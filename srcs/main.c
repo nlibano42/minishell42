@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 17:07:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:06:18 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ int	main(int argc, char **argv, char **env)
 		//	break ;
 		if (ft_strlen(cmd.readl) > 0)
 		{
-			if (is_quotes_opened(cmd.readl) || is_fin_redirection(cmd.readl)\
-				 || is_open_pipe(cmd.readl) || line_parse(&cmd, cmd.env))
+			if (check_spaces(cmd.readl) || is_quotes_opened(cmd.readl)\
+				|| is_fin_redirection(cmd.readl) || is_open_pipe(cmd.readl)\
+					|| line_parse(&cmd, cmd.env))
 				continue ;
 			else
 			{
@@ -55,7 +56,7 @@ int	main(int argc, char **argv, char **env)
 	//				}
 	//			}
 				save_cmds(&cmd); //aqui ya mando los cmd "limpios"
-printf("--->> %s\n--->%s\n", cmd.pipe->full_cmd[0], cmd.pipe->full_cmd[1]);
+printf("--->> %s\n--->%s\n", cmd.pipe->full_cmd[0], cmd.pipe->full_cmd[1]); 
 				pipex_main(&cmd); //la funcion de los pipes!!
 				free_all(&cmd);
 			}

@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/24 17:27:39 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/25 19:58:15 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS	= main.c\
 		deletequotes.c\
 		init.c\
 		check.c\
+		check2.c\
 		split.c\
 		redirections.c\
 		error.c\

@@ -6,19 +6,17 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 18:37:00 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:41:43 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-
-void ft_notpipe(t_pipe *pipe, t_env *env)
+void ft_notpipe(t_pipe *pipe, t_env *env, t_cmd *cmd)
 {
 	pid_t	num_pid;
-
+	
 	num_pid = fork();
-	g_shell.pid = 1;
 	if (num_pid < 0)
 	{
 		perror("fork");
@@ -26,11 +24,14 @@ void ft_notpipe(t_pipe *pipe, t_env *env)
 	}
 	else if (num_pid == 0)
 	{
+		g_shell.pid = 1;
 		ft_signal();
 		ft_execve(pipe, env);
+		free_all(cmd);
+		exit(EXIT_FAILURE);
 	}
-	else
-		waitpid(num_pid, NULL, 0);
+	waitpid(num_pid, NULL, 0);
+	g_shell.pid = 0;
 }
 /* void	ft_pipex(t_pipe *cmd, t_env *env)
 {
@@ -58,7 +59,7 @@ void ft_notpipe(t_pipe *pipe, t_env *env)
 void	pipex_main(t_cmd *cmd)
 {
 	if (cmd->num_pipes == 0)
-		ft_notpipe(cmd->pipe, cmd->env);
+		ft_notpipe(cmd->pipe, cmd->env, cmd);
 	else
 	{
 	 	while(cmd->pipe)
