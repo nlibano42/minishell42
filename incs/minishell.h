@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 20:03:54 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/26 01:06:18 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ int			ft_access(char *input);
 //env.c
 void	init_env(t_env **envi, char **env);
 char	*ft_lstfind_env_val(t_env *lst, char *name);
+char	**tab_env(t_env *env);
+void	env(t_cmd *cmd);
 
 //lst_env.c
 t_env	*ft_lstnew(char *name, char *val);
@@ -178,14 +180,27 @@ void	free_all(t_cmd *cmd);
 //path.c
 char	*get_path(char *s, t_env *env);
 int		is_builtin(char *s);
-void	ft_execve(t_pipe *pipe, t_env *env);
+void	ft_execve(t_cmd *cmd);
 char	*get_path(char *s, t_env *env);
+char	**tab_env(t_env *env);
 
 //built.c
-void	ft_builtin(char *p);
+void	ft_builtin(t_cmd *cmd);
 
 //pipe.c
 void	pipex_main(t_cmd *cmd);
 void	ft_pipex(t_pipe *cmd, t_env *env);
+
+//export.c
+char	**sort_env(t_env *env);
+void	export_no_args(t_cmd *cmd);
+void	export_add(t_cmd *cmd, char *val);
+void	export(t_cmd *cmd);
+
+//pwd
+void	pwd(t_cmd *cmd);
+
+//exit.c
+void	ft_exit(t_cmd *cmd);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 21:03:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/25 23:51:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void ft_notpipe(t_pipe *pipe, t_env *env, t_cmd *cmd)
+void ft_notpipe(t_cmd *cmd)
 {
 	pid_t	num_pid;
 	
@@ -26,7 +26,7 @@ void ft_notpipe(t_pipe *pipe, t_env *env, t_cmd *cmd)
 	{
 		g_shell.pid = 1;
 		ft_signal();
-		ft_execve(pipe, env);
+		ft_execve(cmd);
 		free_all(cmd);
 		exit(EXIT_FAILURE);
 	}
@@ -59,7 +59,7 @@ void ft_notpipe(t_pipe *pipe, t_env *env, t_cmd *cmd)
 void	pipex_main(t_cmd *cmd)
 {
 	if (cmd->num_pipes == 0)
-		ft_notpipe(cmd->pipe, cmd->env, cmd);
+		ft_notpipe(cmd);
 	else
 	{
 	 	while(cmd->pipe)

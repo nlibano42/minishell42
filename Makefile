@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/25 19:58:15 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/02/26 01:09:09 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ OBJSDIR		= objs
 EXTLIB		= libft
 #READLINE_DIR = /usr/local/Cellar/readline/8.2.1
 READLINE_DIR = ${HOME}/.brew/opt/readline
-
 
 SRCS	= main.c\
 		env.c\
@@ -39,6 +38,9 @@ SRCS	= main.c\
 		built.c\
 		lst_redir.c\
 		pipe.c\
+		export.c\
+		pwd.c\
+		exit.c\
 		
 # Compiler options
 CC			= gcc

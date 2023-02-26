@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 20:26:13 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/26 01:05:48 by nlibano-         ###   ########.fr       */
+/*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/02/26 01:08:35 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	ft_builtin(t_cmd *cmd)
+void	ft_exit(t_cmd *cmd)
 {
-//	printf("Aqui va los builtin\n");
-	if (ft_strcmp(cmd->pipe->path, "export") == 0)
-		export(cmd);
-	else if (ft_strcmp(cmd->pipe->path, "pwd") == 0)
-		pwd(cmd);
-	else if (ft_strcmp(cmd->pipe->path, "env") == 0)
-		env(cmd);
-	else if (ft_strcmp(cmd->pipe->path, "exit") == 0)
-		ft_exit(cmd);
+	free_all(cmd);
+	//TODO: mirar todo lo que se necesita liberar. 
+	exit(0);
+	//TODO: mirar porque no termina todo. 
+	//TODO: CTLR+D apuntar a esta funcion.
 }

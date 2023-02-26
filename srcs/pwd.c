@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 20:26:13 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/26 01:05:48 by nlibano-         ###   ########.fr       */
+/*   Created: 2023/02/26 00:51:38 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/02/26 00:52:58 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	ft_builtin(t_cmd *cmd)
+void	pwd(t_cmd *cmd)
 {
-//	printf("Aqui va los builtin\n");
-	if (ft_strcmp(cmd->pipe->path, "export") == 0)
-		export(cmd);
-	else if (ft_strcmp(cmd->pipe->path, "pwd") == 0)
-		pwd(cmd);
-	else if (ft_strcmp(cmd->pipe->path, "env") == 0)
-		env(cmd);
-	else if (ft_strcmp(cmd->pipe->path, "exit") == 0)
-		ft_exit(cmd);
+	t_env	*env;
+
+	env = cmd->env;
+	while (env)
+	{
+		if (ft_strcmp(env->name, "PWD") == 0)
+		{
+			ft_putstr_fd(env->val, 1);
+			ft_putstr_fd("\n", 1);
+			break;
+		}
+		env = env->next;
+	}
 }
