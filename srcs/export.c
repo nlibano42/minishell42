@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:20:06 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:54:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,12 @@ void	export_add(t_cmd *cmd, char *val)
 {
 	t_env	*new;
 	char	**sp;
-	
-	if(ft_strchr(val, '='))
-	{
-		sp = ft_split(val, '=');
-		new = ft_lstnew(sp[0], sp[1]);
-		free_split(sp);
-	}
-	new = ft_lstnew(val, NULL);
+
+	sp = ft_split(val, '=');
+	new = ft_lstnew(sp[0], sp[1]);
+	free_split(sp);
     ft_lstadd_back(&(cmd->env), new);
+	free_split(sp);
 }
 
 void	export(t_cmd *cmd)
@@ -97,8 +94,8 @@ void	export(t_cmd *cmd)
 		{
 			if (ft_strcmp(env2->name, val[0]) == 0) 
 			{
-				free(env2->val);
-				env2->val = ft_strdup(val[1]);
+				free(env->val);
+				env->val = ft_strdup(val[1]);
 				exist = 1;
 				break ;
 			}
