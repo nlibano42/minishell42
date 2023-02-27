@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/26 00:47:57 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:32:01 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,14 @@ void	export_add(t_cmd *cmd, char *val)
 {
 	t_env	*new;
 	char	**sp;
-
-	sp = ft_split(val, '=');
-	new = ft_lstnew(sp[0], sp[1]);
-	free_split(sp);
+	
+	if(ft_strchr(val, '='))
+	{
+		sp = ft_split(val, '=');
+		new = ft_lstnew(sp[0], sp[1]);
+		free_split(sp);
+	}
+	new = ft_lstnew(val, NULL);
     ft_lstadd_back(&(cmd->env), new);
 }
 
@@ -81,6 +85,8 @@ void	export(t_cmd *cmd)
 		export_no_args(cmd);
 		return ;
 	}
+	if(export_control(cmd->pipe->full_cmd))
+		return ;
 	i = 0;
 	while (cmd->pipe->full_cmd[++i])
 	{
