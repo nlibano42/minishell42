@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/26 00:59:52 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 23:20:40 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,13 @@ void	env(t_cmd *cmd)
 	env = cmd->env;
 	while (env)
 	{
-		ft_putstr_fd(env->name, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd(env->val, 1);
-		ft_putstr_fd("\n", 1);
+		if (ft_strcmp(env->val, ""))
+		{
+			ft_putstr_fd(env->name, 1);
+			ft_putstr_fd("=", 1);
+			ft_putstr_fd(env->val, 1);
+			ft_putstr_fd("\n", 1);
+		}
 		env = env->next;
 	}
 }
