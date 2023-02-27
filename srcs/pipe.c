@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 23:51:55 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:19:17 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@ void ft_notpipe(t_cmd *cmd)
 void	pipex_main(t_cmd *cmd)
 {
 	if (cmd->num_pipes == 0)
+	{
+		if (is_builtin(cmd->pipe->path))
+			ft_builtin(cmd);
+		else
 		ft_notpipe(cmd);
+	}
 	else
 	{
 	 	while(cmd->pipe)

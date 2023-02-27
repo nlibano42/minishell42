@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/27 19:32:01 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:20:06 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	export(t_cmd *cmd)
 {
 	int		exist;
 	char	**val;
-	t_env	*env;
+	t_env	*env2;
 	int		i;
 
 	if (!cmd->pipe->full_cmd[1])
@@ -85,24 +85,24 @@ void	export(t_cmd *cmd)
 		export_no_args(cmd);
 		return ;
 	}
-	if(export_control(cmd->pipe->full_cmd))
+	if(export_check(cmd->pipe->full_cmd))
 		return ;
 	i = 0;
 	while (cmd->pipe->full_cmd[++i])
 	{
 		val = ft_split(cmd->pipe->full_cmd[i], '=');
 		exist = 0;
-		env = cmd->env;
-		while (env)
+		env2 = cmd->env;
+		while (env2)
 		{
-			if (ft_strcmp(env->name, val[0]) == 0) 
+			if (ft_strcmp(env2->name, val[0]) == 0) 
 			{
-				free(env->val);
-				env->val = ft_strdup(val[1]);
+				free(env2->val);
+				env2->val = ft_strdup(val[1]);
 				exist = 1;
 				break ;
 			}
-			env = env->next;
+			env2 = env2->next;
 		}
 		if (exist == 0)
 			export_add(cmd, cmd->pipe->full_cmd[i]);
