@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:54:29 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/27 20:58:01 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	export_add(t_cmd *cmd, char *val)
 
 	sp = ft_split(val, '=');
 	new = ft_lstnew(sp[0], sp[1]);
-	free_split(sp);
     ft_lstadd_back(&(cmd->env), new);
 	free_split(sp);
 }
@@ -74,7 +73,7 @@ void	export(t_cmd *cmd)
 {
 	int		exist;
 	char	**val;
-	t_env	*env2;
+	t_env	*env;
 	int		i;
 
 	if (!cmd->pipe->full_cmd[1])
@@ -89,17 +88,20 @@ void	export(t_cmd *cmd)
 	{
 		val = ft_split(cmd->pipe->full_cmd[i], '=');
 		exist = 0;
-		env2 = cmd->env;
-		while (env2)
+		env = cmd->env;
+		while (env)
 		{
-			if (ft_strcmp(env2->name, val[0]) == 0) 
+			if (ft_strcmp(env->name, val[0]) == 0) 
 			{
 				free(env->val);
-				env->val = ft_strdup(val[1]);
+				if (!val[1])
+					env->val = ft_strdup("");
+				else
+					env->val = ft_strdup(val[1]);
 				exist = 1;
 				break ;
 			}
-			env2 = env2->next;
+			env = env->next;
 		}
 		if (exist == 0)
 			export_add(cmd, cmd->pipe->full_cmd[i]);
