@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/26 00:47:57 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:40:14 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ void	export_add(t_cmd *cmd, char *val)
 	char	**sp;
 
 	sp = ft_split(val, '=');
-	new = ft_lstnew(sp[0], sp[1]);
-	free_split(sp);
+	if (!sp[1])
+		new = ft_lstnew(sp[0], "");
+	else
+		new = ft_lstnew(sp[0], sp[1]);
     ft_lstadd_back(&(cmd->env), new);
+	free_split(sp);
 }
 
 void	export(t_cmd *cmd)
@@ -92,7 +95,10 @@ void	export(t_cmd *cmd)
 			if (ft_strcmp(env->name, val[0]) == 0) 
 			{
 				free(env->val);
-				env->val = ft_strdup(val[1]);
+				if (!val[1])
+					env->val = ft_strdup("");
+				else
+					env->val = ft_strdup(val[1]);
 				exist = 1;
 				break ;
 			}
