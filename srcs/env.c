@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/27 23:20:40 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/28 00:41:37 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_env(t_env **envi, char **env)
 	char	**values;
 	int		i;
 
-	*envi = NULL;
+//	*envi = NULL;
 	i = -1;
 	while (env[++i])
 	{
@@ -50,7 +50,7 @@ char	**tab_env(t_env *env)
 
 	envi = env;
 	i = 1;
-	while(envi)
+	while (envi)
 	{
 		i++;
 		envi = envi->next;
@@ -59,7 +59,7 @@ char	**tab_env(t_env *env)
 	if (!tab)
 		return (NULL);
 	i = -1;
-	while(env)
+	while (env)
 	{
 		s = ft_strjoin(ft_strdup(env->name), ft_strdup("="));
 		s = ft_strjoin(s, ft_strdup(env->val));

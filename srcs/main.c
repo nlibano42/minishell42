@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/25 23:09:59 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/28 00:44:49 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	main(int argc, char **argv, char **env)
 	if (check_init_params(argc, argv))
 		return (1);
 	g_shell.pid = 0;
-	init_env(&(cmd.env), env);
 	init_cmd(&cmd);
+	init_env(&(cmd.env), env);
 	ft_signal();
 	while (1)
 	{
@@ -28,9 +28,11 @@ int	main(int argc, char **argv, char **env)
 		add_history(cmd.readl);
 		if (!cmd.readl)
 		{
-			printf("exit\n");
+			//TODO: pone \n antes del exit. Quitar salto de linea inicial
+			ft_exit(&cmd);
+//			printf("exit\n");
 			//usar nuestro builtin de exit en lugar de exit()
-			exit(g_shell.quit_status);
+//			exit(g_shell.quit_status);
 		}
 		//EXIT debe ir en el buitin
 		//if(!ft_strncmp(cmd->readl, "exit", 4))
@@ -63,8 +65,8 @@ void	save_cmds(t_cmd *cmd)
 	t_pipe	*pipe;
 	t_redir	*redir;
 
-	cmd->pipe = NULL;
-	cmd->redir = NULL;
+//	cmd->pipe = NULL;
+//	cmd->redir = NULL;
 	start = 0;
 	sp = ft_split(cmd->cmd_line, '\n');
 	i = -1;

@@ -6,10 +6,9 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/27 23:04:23 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/28 00:33:15 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../incs/minishell.h"
 
@@ -26,11 +25,13 @@ char	**sort_env(t_env *env)
 	{
 		j = -1;
 		while (sort[++j])
-		if (ft_strncmp(sort[i], sort[j], ft_strlen(sort[i])) < 0)
 		{
-			tmp = sort[i];
-			sort[i] = sort[j];
-			sort[j] = tmp;
+			if (ft_strcmp(sort[i], sort[j]) < 0)
+			{
+				tmp = sort[i];
+				sort[i] = sort[j];
+				sort[j] = tmp;
+			}
 		}
 	}
 	return (sort);
@@ -87,7 +88,7 @@ void	export(t_cmd *cmd)
 		export_no_args(cmd);
 		return ;
 	}
-	if(export_check(cmd->pipe->full_cmd))
+	if (export_check(cmd->pipe->full_cmd))
 		return ;
 	i = 0;
 	while (cmd->pipe->full_cmd[++i])
@@ -97,7 +98,7 @@ void	export(t_cmd *cmd)
 		env = cmd->env;
 		while (env)
 		{
-			if (ft_strcmp(env->name, val[0]) == 0) 
+			if (ft_strcmp(env->name, val[0]) == 0)
 			{
 				free(env->val);
 				if (!val[1])
