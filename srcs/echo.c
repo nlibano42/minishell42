@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:04:10 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/28 20:32:30 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:19:51 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void echo (t_cmd *cmd)
 	i = 0;
 	while(line[++i])
 	{
-		if(!ft_strcmp(line[i], "-n"))
+		if(!ft_strcmp(ft_deletequotes(line[i]), "-n"))
+		{
 			flag = 1;
+		}
 		else if(line[i][1] == ' ')
 			break;
 		else if(line[i][0] == '-')
