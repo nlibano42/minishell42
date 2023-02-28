@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:04:10 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/28 21:19:51 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:23:57 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void echo (t_cmd *cmd)
 	int		i;
 	int		j;
 	int		flag;
-	
+	// esta casi cuando escribes -n -nn -nl hola el output tiene q ser -nl hola.
 	line = cmd->pipe->full_cmd;
 	flag = 0;
 	i = -1;
