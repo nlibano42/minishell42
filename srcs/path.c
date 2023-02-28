@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/27 21:09:28 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:14:38 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_execve(t_cmd *cmd)
 	else
 		execve(p, cmd->pipe->full_cmd, char_env);
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd->pipe->full_cmd[0], 2);
+	ft_putstr_fd(ft_deletequotes(cmd->pipe->full_cmd[0]), 2);
 	ft_putstr_fd(": command not found\n", 2);
 }
 
@@ -44,6 +44,8 @@ char	*get_path(char *s, t_env *env)
 	char	**sp;
 	int		i;
 
+	ft_deletequotes(s); //TODO: aqui tampoco hace nada.
+	printf("path: %s\n", s);
 	if (is_builtin(s))
 		return (ft_strdup(s));
 	else

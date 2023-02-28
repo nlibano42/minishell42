@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deletequotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:13:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/17 23:50:07 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:11:26 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_deletequotes(char *s)
 	}
 	if (start < i)
 		quotes.join_str = ft_strjoin(quotes.join_str, ft_substr(s, start, i - start));
-	free(s);
+	//free(s); TODO:liberar lugar correspondiente.
 	s = ft_strdup(quotes.join_str);
 	free(quotes.join_str);
 	return (s);

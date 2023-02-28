@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 16:49:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:46:14 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	export(t_cmd *cmd)
 				if (!val[1])
 					env->val = ft_strdup("");
 				else
-					env->val = ft_strdup(val[1]);
+					env->val = ft_strdup(ft_deletequotes(val[1]));
 				exist = 1;
 				break ;
 			}

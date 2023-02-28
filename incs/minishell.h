@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/27 19:31:39 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:30:28 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,9 @@ void	export(t_cmd *cmd);
 
 //pwd
 void	pwd(t_cmd *cmd);
+
+//echo
+void echo (t_cmd *cmd);
 
 //exit.c
 void	ft_exit(t_cmd *cmd);
