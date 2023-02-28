@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 19:36:13 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:41:42 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	**subsplit(char **sp, int start, int len)
 	i = 0;
 	while (--len >= 0)
 	{
-		s[i] = ft_strdup(ft_deletequotes(ft_strtrim(sp[start], " ")));
+		s[i] = ft_strdup(ft_strtrim(sp[start], " "));
 		i++;
 		start++;
 	}
