@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 22:10:15 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:03:38 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,6 @@ int	join_split(t_cmd *cmd)
 	}	
 //	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);
-}
-
-void	ft_control(char *readl, t_quotes *quotes, int i)
-{
-	check_quotes_flags(quotes, readl[i]);
-	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
-		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
-		i++;
 }
 
 int	ft_strcmp(char *s1, char *s2)

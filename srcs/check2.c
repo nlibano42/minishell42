@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/28 19:42:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:04:14 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,12 @@ int export_check(char **cmd)
 		}		
 	}
 	return (0);
+}
+
+void	ft_control(char *readl, t_quotes *quotes, int i)
+{
+	check_quotes_flags(quotes, readl[i]);
+	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
+		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
+		i++;
 }
