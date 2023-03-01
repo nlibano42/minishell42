@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 15:13:41 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:39:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	cd(t_cmd *cmd)
 {
 	char	*oldpwd;
 	char	*pwd;
+	char	*tmp;
+	int		i;
 
 //	oldpwd = NULL;
 	export_add(cmd, "OLDPWD");
@@ -51,6 +53,22 @@ void	cd(t_cmd *cmd)
 	//cd ..
 	if (!ft_strcmp(cmd->pipe->full_cmd[1], ".."))
 	{
+		pwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
+		i = ft_strlen(pwd);
+		while (pwd[--i])
+		{
+			if (pwd[i] == '/')
+			{
+				tmp = ft_substr(pwd, 0, i);
+				update_val(cmd, "OLDPWD", pwd);
+				update_val(cmd, "PWD", tmp);
+				chdir(tmp);
+				free(pwd);
+				free(tmp);
+				return ;	
+			}
+		}
+		free(pwd);
 		return ;
 	}
 	//cd -
