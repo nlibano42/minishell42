@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 19:46:14 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:56:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	export(t_cmd *cmd)
 				if (!val[1])
 					env->val = ft_strdup("");
 				else
-					env->val = ft_strdup(ft_deletequotes(val[1]));
+					env->val = ft_deletequotes(val[1]);
 				exist = 1;
 				break ;
 			}

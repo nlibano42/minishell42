@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 02:16:27 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:05:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,5 +209,8 @@ void	ft_exit(t_cmd *cmd);
 
 //aunset.c
 void	unset(t_cmd *cmd);
+
+//cd.c
+void	cd(t_cmd *cmd);
 
 #endif
