@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 20:07:54 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:33:51 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,11 @@ void	cd(t_cmd *cmd)
 	{
 		if(access(tmp, F_OK|R_OK|W_OK))
 		{
-			oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "OLDPWD"));
-			pwd = ft_strdup(ft_lstfind_env_val(cmd->env, tmp));
-			update_val(cmd, "PWD", oldpwd);
-			update_val(cmd, "OLDPWD", pwd);
-			chdir(pwd);
+			oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
+			update_val(cmd, "PWD", tmp);
+			update_val(cmd, "OLDPWD", oldpwd);
+			chdir(tmp);
 			free(oldpwd);
-			free(pwd);
 		}
 		else
 		{
@@ -114,26 +112,25 @@ void	cd(t_cmd *cmd)
 	}
 	else
 	{
-		pwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
-		pwd = ft_strjoin(ft_strdup(pwd), ft_strdup("/"));
-		tmp = ft_strjoin(ft_strdup(pwd), ft_strdup(tmp));
-		if(access(tmp, F_OK|R_OK|W_OK))
+		oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
+		pwd = ft_strjoin(ft_strdup(oldpwd), ft_strdup("/"));
+		pwd = ft_strjoin(pwd, ft_strdup(tmp));
+		if(access(pwd, F_OK|R_OK|W_OK))
 		{
-			oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "OLDPWD"));
-			pwd = ft_strdup(ft_lstfind_env_val(cmd->env, tmp));
-			update_val(cmd, "PWD", oldpwd);
-			update_val(cmd, "OLDPWD", pwd);
+			update_val(cmd, "PWD", pwd);
+			update_val(cmd, "OLDPWD", oldpwd);
 			chdir(pwd);
 			free(oldpwd);
 			free(pwd);
 		}
 		else
 		{
-			ft_putstr_fd("bash: cd: ", 1);
-			ft_putstr_fd(tmp, 1);
-			ft_putstr_fd(": No such file or directory\n", 1);
+			ft_putstr_fd("bash: cd: ", 2);
+			ft_putstr_fd(tmp, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			free(oldpwd);
+			free(pwd);
 		}
 	}
-	free(tmp);
 	//TODO: si empieza por / es una ruta absoluta
 }
