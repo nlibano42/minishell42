@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 18:39:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:07:54 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,49 @@ void	cd(t_cmd *cmd)
 		free(pwd);
 		return ;
 	}
-	
+	//cd con argumento
+	tmp = cmd->pipe->full_cmd[1];
+	if(tmp[0]== '/')
+	{
+		if(access(tmp, F_OK|R_OK|W_OK))
+		{
+			oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "OLDPWD"));
+			pwd = ft_strdup(ft_lstfind_env_val(cmd->env, tmp));
+			update_val(cmd, "PWD", oldpwd);
+			update_val(cmd, "OLDPWD", pwd);
+			chdir(pwd);
+			free(oldpwd);
+			free(pwd);
+		}
+		else
+		{
+			ft_putstr_fd("bash: cd: ", 1);
+			ft_putstr_fd(tmp, 1);
+			ft_putstr_fd(": No such file or directory\n", 1);
+		}
+	}
+	else
+	{
+		pwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
+		pwd = ft_strjoin(ft_strdup(pwd), ft_strdup("/"));
+		tmp = ft_strjoin(ft_strdup(pwd), ft_strdup(tmp));
+		if(access(tmp, F_OK|R_OK|W_OK))
+		{
+			oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "OLDPWD"));
+			pwd = ft_strdup(ft_lstfind_env_val(cmd->env, tmp));
+			update_val(cmd, "PWD", oldpwd);
+			update_val(cmd, "OLDPWD", pwd);
+			chdir(pwd);
+			free(oldpwd);
+			free(pwd);
+		}
+		else
+		{
+			ft_putstr_fd("bash: cd: ", 1);
+			ft_putstr_fd(tmp, 1);
+			ft_putstr_fd(": No such file or directory\n", 1);
+		}
+	}
+	free(tmp);
 	//TODO: si empieza por / es una ruta absoluta
 }
