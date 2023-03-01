@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 14:05:55 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:04:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ int		check_init_params(int argc, char **argv);
 int		check_spaces(char *readl);
 int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
+void	ft_control(char *readl, t_quotes *quotes, int i);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
 int		find_str(char c, char *s);
 int		find_fin_str(char *s, int i);
 int		join_split(t_cmd *cmd);
-void	ft_control(char *readl, t_quotes *quotes, int i);
 int		ft_strcmp(char *s1, char *s2);
 
 //error.c
@@ -202,13 +202,16 @@ void	export(t_cmd *cmd);
 void	pwd(t_cmd *cmd);
 
 //echo
-void echo (t_cmd *cmd);
+void 	echo (t_cmd *cmd);
+int		echo_find_n_option(char **str, char *s, int i);
+void	print_echo(char **s, int n);
 
 //exit.c
 void	ft_exit(t_cmd *cmd);
 
-//aunset.c
+//unset.c
 void	unset(t_cmd *cmd);
+void	delete_env(t_cmd *cmd, t_env *env, t_env *before, int *i);
 
 //cd.c
 void	cd(t_cmd *cmd);
