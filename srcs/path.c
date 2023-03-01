@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/28 21:14:38 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 23:08:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_path(char *s, t_env *env)
 	int		i;
 
 	ft_deletequotes(s); //TODO: aqui tampoco hace nada.
-	printf("path: %s\n", s);
+//	printf("path: %s\n", s);
 	if (is_builtin(s))
 		return (ft_strdup(s));
 	else

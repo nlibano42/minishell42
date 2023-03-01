@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 21:14:14 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/02/28 23:47:40 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	save_cmds(t_cmd *cmd)
 	i = -1;
 	while (sp[++i])
 	{
-		if (!ft_strncmp(sp[i], "|", 1))
+		if (!ft_strcmp(sp[i], "|"))
 		{
 			// crear listas para pipe. crear, añadir, borrar....
 			pipe = ft_newpipe();
