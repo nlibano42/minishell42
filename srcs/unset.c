@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 01:54:26 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 02:22:49 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:43:43 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ void	unset(t_cmd *cmd)
 						before->next = NULL;
 					else
 						before->next = env->next;
+					ft_lstdelone(env);
 				}
-				ft_lstdelone(env);
+				else
+				{
+					before = env;
+					cmd->env = cmd->env->next;
+					ft_lstdelone(before);
+				}
 				return ;
 			}
 			before = env;
