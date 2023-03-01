@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:26:13 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/28 22:41:10 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/01 02:22:23 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ void	ft_builtin(t_cmd *cmd)
 //		cd(cmd);
  	else if (ft_strcmp(cmd->pipe->path, "echo") == 0)
 		echo(cmd);
+ 	else if (ft_strcmp(cmd->pipe->path, "unset") == 0)
+		unset(cmd);
 }

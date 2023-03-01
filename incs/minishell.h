@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 17:30:28 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/01 02:16:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,8 @@ void echo (t_cmd *cmd);
 
 //exit.c
 void	ft_exit(t_cmd *cmd);
+
+//aunset.c
+void	unset(t_cmd *cmd);
 
 #endif
