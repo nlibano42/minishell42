@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/28 17:30:37 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/01 02:23:54 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS	= main.c\
 		pwd.c\
 		exit.c\
 		echo.c\
+		unset.c\
 		
 # Compiler options
 CC			= gcc
