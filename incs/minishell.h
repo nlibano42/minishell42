@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/02 17:16:39 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 20:02:55 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_pipe
 //	char			*cmd;
 //	char			*opt;
 //	char			*args;
+	int				fd[2];
 	int				infile;
 	int				outfile;
 	struct s_pipe	*next;
@@ -76,6 +77,7 @@ typedef struct s_cmd
 	char			*cmd_line;
 	char			*readl;
 	int				num_pipes;
+	int				**fdpipes;// conectar las tuberias.
 	struct s_pipe	*pipe;
 	struct s_redir	*redir;
 }	t_cmd;
@@ -191,7 +193,7 @@ void	ft_builtin(t_cmd *cmd);
 
 //pipe.c
 void	pipex_main(t_cmd *cmd);
-void	ft_pipex(t_pipe *cmd, t_env *env);
+void	ft_pipex(t_cmd *cmd, t_env *env);
 
 //export.c
 char	**sort_env(t_env *env);
@@ -216,6 +218,5 @@ void	delete_env(t_cmd *cmd, t_env *env, t_env *before, int *i);
 
 //cd.c
 void	cd(t_cmd *cmd);
-char	*ft_getcwd(char *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/27 20:34:31 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 20:02:38 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,16 @@ void ft_notpipe(t_cmd *cmd)
 	waitpid(num_pid, NULL, 0);
 	g_shell.pid = 0;
 }
-/* void	ft_pipex(t_pipe *cmd, t_env *env)
+
+void	ft_pipex(t_cmd *cmd, t_env *env)
 {
-	int fd[2];
-	 
-	g_shell.pid = fork();
-	if(g_shell.pid == 0)
-	{
-		close(fd[READ_END]);
-		if(dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
-			perror("error");
-		close(fd[WRITE_END]);
-		ft_execve(cmd, env);
-	}
-	else
-	{
-		close(fd[WRITE_END]);
-		if(dup2(fd[READ_END], STDIN_FILENO) == -1)
-			perror("error");
-		close(fd[READ_END]);
-		waitpid(g_shell.pid, NULL, 0);
-	}
-} */
+
+}
 
 void	pipex_main(t_cmd *cmd)
 {
+	int	i;
+	
 	if (cmd->num_pipes == 0)
 	{
 		if (is_builtin(cmd->pipe->path))
@@ -67,10 +52,22 @@ void	pipex_main(t_cmd *cmd)
 	}
 	else
 	{
+		cmd->fdpipes =(int **)malloc(cmd->num_pipes * sizeof(int *));
+		i = -1;
+		while(++i <= cmd->num_pipes) // El propósito de crear una tubería 
+		//para cada comando es permitir la comunicación entre los diferentes comandos en la línea de entrada.
+		{
+			cmd->fdpipes[i] =(int **)malloc( 2 * sizeof(int));
+			if(pipe(cmd->fdpipes[i]) == - 1)
+			{
+				perror("fdpipe");
+				exit(EXIT_FAILURE);
+			}
+		} // se puede llevar esto con la struc pipes, mirando un anterior para  conectar los fd.
 	 	while(cmd->pipe)
 		{
 			//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
-			//ft_pipex(cmd->pipe, cmd->env); // aqui ejecuto el pipe
+			ft_pipex(cmd, cmd->env); // aqui ejecuto el pipe
 			cmd->pipe = cmd->pipe->next;
 		} 
 	}		
