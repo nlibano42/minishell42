@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 18:04:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 17:16:39 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <stdlib.h>
+# include <limits.h>
 
 // # include <stdbool.h>
 // # include <stddef.h>
@@ -215,5 +216,6 @@ void	delete_env(t_cmd *cmd, t_env *env, t_env *before, int *i);
 
 //cd.c
 void	cd(t_cmd *cmd);
+char	*ft_getcwd(char *cmd);
 
 #endif

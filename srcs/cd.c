@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/02 00:33:51 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/02 17:41:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,11 @@ void	cd(t_cmd *cmd)
 	tmp = cmd->pipe->full_cmd[1];
 	if(tmp[0]== '/')
 	{
-		if(access(tmp, F_OK|R_OK|W_OK))
+		if(chdir(tmp) == 0)
 		{
 			oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
 			update_val(cmd, "PWD", tmp);
 			update_val(cmd, "OLDPWD", oldpwd);
-			chdir(tmp);
 			free(oldpwd);
 		}
 		else
@@ -115,11 +114,11 @@ void	cd(t_cmd *cmd)
 		oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
 		pwd = ft_strjoin(ft_strdup(oldpwd), ft_strdup("/"));
 		pwd = ft_strjoin(pwd, ft_strdup(tmp));
-		if(access(pwd, F_OK|R_OK|W_OK))
+		if(chdir(pwd)== 0)
 		{
+			getcwd(pwd, sizeof(pwd));
 			update_val(cmd, "PWD", pwd);
 			update_val(cmd, "OLDPWD", oldpwd);
-			chdir(pwd);
 			free(oldpwd);
 			free(pwd);
 		}
