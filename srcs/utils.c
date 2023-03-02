@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/01 18:03:38 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:46:05 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,16 @@ int	join_split(t_cmd *cmd)
 		if (i != 0)
 			cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("\n"));
 		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
-//		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(" "));
 	}	
-//	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);
 }
 
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
-	
+
 	if (!s1 || !s2)
-		return(1);
+		return (1);
 	i = 0;
 	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;

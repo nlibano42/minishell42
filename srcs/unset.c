@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 01:54:26 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/01 17:58:56 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:46:24 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	delete_env(t_cmd *cmd, t_env *env, t_env *before, int *i)
 		{
 			if (before)
 			{
-				if(!env->next)
+				if (!env->next)
 					before->next = NULL;
 				else
 					before->next = env->next;
