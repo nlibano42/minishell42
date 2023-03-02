@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/02 17:41:29 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 17:51:19 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	cd(t_cmd *cmd)
 		pwd = ft_strjoin(pwd, ft_strdup(tmp));
 		if(chdir(pwd)== 0)
 		{
-			getcwd(pwd, sizeof(pwd));
+			pwd = getcwd(NULL, sizeof(pwd));
 			update_val(cmd, "PWD", pwd);
 			update_val(cmd, "OLDPWD", oldpwd);
 			free(oldpwd);
