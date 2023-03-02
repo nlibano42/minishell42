@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 00:51:38 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 19:33:51 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:50:20 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	pwd(t_cmd *cmd)
 		{
 			ft_putstr_fd(env->val, 1);
 			ft_putstr_fd("\n", 1);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
