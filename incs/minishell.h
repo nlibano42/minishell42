@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/02 17:16:39 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:35:54 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ typedef struct s_pipe
 {
 	char			**full_cmd;
 	char			*path;
-//	char			*cmd;
-//	char			*opt;
-//	char			*args;
 	int				infile;
 	int				outfile;
 	struct s_pipe	*next;
