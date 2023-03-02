@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/02 20:02:38 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 20:40:10 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,46 @@ void ft_notpipe(t_cmd *cmd)
 
 void	ft_pipex(t_cmd *cmd, t_env *env)
 {
+	pid_t num_pid;
 
+		num_pid = fork();
+	if (num_pid < 0)
+	{
+		perror("fork");
+		exit (EXIT_FAILURE);
+	}
+	else if (num_pid == 0)
+	{
+		if(cmd->pipe->before)//si no es primer comando
+		{
+			dup2(cmd->pipe->fd[0], STDIN_FILENO);//edirige la entrada al descriptor de archivo de la tubería anterior
+			close(cmd->pipe->fd[0]);// cierra el descriptor de archivo original.
+		}
+		if(cmd->pipe->next)//si no es el ultimo comando
+		{
+			dup2(cmd->pipe->fd[1], STDOUT_FILENO);
+			close(cmd->pipe->fd[1]);
+		}
+		g_shell.pid = 1;
+		ft_signal();
+		ft_execve(cmd);
+		free_all(cmd);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		waitpid(num_pid, NULL, 0);
+		if(cmd->pipe->before)
+			close(cmd->pipe->before->fd[0]); //cierra el archivo del pipe anterior
+		if(cmd->pipe->next)
+		{
+			cmd->pipe->next->fd[0] = cmd->pipe->fd[0];//guarda el descriptor de archivo de la tubería actual para la siguiente iteración
+			close(cmd->pipe->fd[1]);
+		}
+	}
+	
+	
 }
-
 void	pipex_main(t_cmd *cmd)
 {
 	int	i;
@@ -52,18 +89,6 @@ void	pipex_main(t_cmd *cmd)
 	}
 	else
 	{
-		cmd->fdpipes =(int **)malloc(cmd->num_pipes * sizeof(int *));
-		i = -1;
-		while(++i <= cmd->num_pipes) // El propósito de crear una tubería 
-		//para cada comando es permitir la comunicación entre los diferentes comandos en la línea de entrada.
-		{
-			cmd->fdpipes[i] =(int **)malloc( 2 * sizeof(int));
-			if(pipe(cmd->fdpipes[i]) == - 1)
-			{
-				perror("fdpipe");
-				exit(EXIT_FAILURE);
-			}
-		} // se puede llevar esto con la struc pipes, mirando un anterior para  conectar los fd.
 	 	while(cmd->pipe)
 		{
 			//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;

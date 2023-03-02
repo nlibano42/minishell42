@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/02 20:02:55 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 20:37:21 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ typedef struct s_cmd
 	char			*cmd_line;
 	char			*readl;
 	int				num_pipes;
-	int				**fdpipes;// conectar las tuberias.
 	struct s_pipe	*pipe;
 	struct s_redir	*redir;
 }	t_cmd;
