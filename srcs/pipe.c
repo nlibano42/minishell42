@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/02 20:40:10 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/02 20:42:07 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_pipex(t_cmd *cmd, t_env *env)
 	{
 		if(cmd->pipe->before)//si no es primer comando
 		{
-			dup2(cmd->pipe->fd[0], STDIN_FILENO);//edirige la entrada al descriptor de archivo de la tubería anterior
+			dup2(cmd->pipe->fd[0], STDIN_FILENO);//Redirige la entrada al descriptor de archivo de la tubería anterior
 			close(cmd->pipe->fd[0]);// cierra el descriptor de archivo original.
 		}
 		if(cmd->pipe->next)//si no es el ultimo comando
