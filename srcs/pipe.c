@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/02 20:42:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:39:22 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void ft_notpipe(t_cmd *cmd)
 	g_shell.pid = 0;
 }
 
-void	ft_pipex(t_cmd *cmd, t_env *env)
+/* void	ft_pipex(t_cmd *cmd, t_env *env)
 {
 	pid_t num_pid;
 
@@ -75,10 +75,9 @@ void	ft_pipex(t_cmd *cmd, t_env *env)
 	}
 	
 	
-}
+} */
 void	pipex_main(t_cmd *cmd)
 {
-	int	i;
 	
 	if (cmd->num_pipes == 0)
 	{
@@ -92,7 +91,7 @@ void	pipex_main(t_cmd *cmd)
 	 	while(cmd->pipe)
 		{
 			//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
-			ft_pipex(cmd, cmd->env); // aqui ejecuto el pipe
+			//ft_pipex(cmd, cmd->env); // aqui ejecuto el pipe
 			cmd->pipe = cmd->pipe->next;
 		} 
 	}		

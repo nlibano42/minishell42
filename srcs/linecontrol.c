@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 22:09:11 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:05:04 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	expand(char **s, t_env *env)
 	init_quotes_flags(&quotes);
 	i = -1;
 	while ((*s)[++i] != '\0')
+	{
 		quotes.join_str = expand_dolar(*s, env, &quotes, &i);
+		quotes.join_str = expand_virgulilla(*s, env, &quotes, &i);
+	}
 	if (quotes.join_str != NULL)
 	{
 		free (*s);
@@ -75,7 +78,17 @@ void	expand(char **s, t_env *env)
 		free(quotes.join_str);
 	}
 }
-
+char	*expand_virgulilla(char*s, t_env *env, t_quotes *quotes, int *i)
+{
+	check_quotes_flags(quotes, s[*i]);
+	if(s[*i] == '~' && (quotes->flag_s == 0 || quotes->flag_d == 0)\
+		&& *i == 0)
+	{
+		quotes->join_str = ft_strdup("");
+		quotes->join_str = change_env_virgu(s, env, i, quotes->join_str);
+	}
+	return(quotes->join_str);
+}
 char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i)
 {
 	check_quotes_flags(quotes, s[*i]);
@@ -109,4 +122,22 @@ char	*change_env_val(char *s, t_env *env, int *i, char *join_str)
 		join_str = ft_strjoin(join_str, \
 		ft_substr(s, *i + 1, ft_strlen(s) - 1));
 	return (join_str);
+}
+
+char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str)
+{
+	char *virgu;
+	
+	if()//alguna condicion para que no pille el ~con algo que no sea /
+	{
+		virgu = ft_strdup(ft_lstfind_env_val(env, "HOME"));
+		if(s[*i + 1] == '/')
+		{
+			join_str = ft_strjoin(virgu, ft_substr(s, *i + 1, ft_strlen(s) - 1));
+			return(join_str);
+		}
+		else 
+			return(virgu);
+	}
+	return(s);
 }

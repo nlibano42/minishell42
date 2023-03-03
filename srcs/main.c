@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 23:47:40 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:43:47 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	save_cmds(t_cmd *cmd)
 			// crear listas para pipe. crear, añadir, borrar....
 			pipe = ft_newpipe();
 			pipe->full_cmd = subsplit(sp, start, i - start);
-			pipe->path = get_path(ft_deletequotes(sp[start]), cmd->env); //TODO: delete no funciona aqui
+			pipe->path = get_path(sp[start], cmd->env);
 			// 1: redireccionar la salida a un pipe
 			pipe->outfile = 1;
 			ft_pipeadd_back(&(cmd->pipe), pipe);

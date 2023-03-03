@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 00:43:44 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/03 20:09:54 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ char	*prepare_split(char *readl);
 void	expand(char **s, t_env *env);
 char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
 char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
+char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str);
+char	*expand_virgulilla(char*s, t_env *env, t_quotes *quotes, int *i);
 
 //pipecontrol.c
 //char	*expand_pipe_redir(char *cmd);
