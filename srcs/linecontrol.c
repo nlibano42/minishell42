@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/03 21:05:04 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:16:12 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str)
 {
 	char *virgu;
 	
-	if()//alguna condicion para que no pille el ~con algo que no sea /
+	if(!ft_strcmp(s, "~") || !ft_strncmp(s ,"~/", 2))//alguna condicion para que no pille el ~con algo que no sea /
 	{
 		virgu = ft_strdup(ft_lstfind_env_val(env, "HOME"));
 		if(s[*i + 1] == '/')
@@ -139,5 +139,5 @@ char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str)
 		else 
 			return(virgu);
 	}
-	return(s);
+	return(join_str = ft_strdup(s));
 }
