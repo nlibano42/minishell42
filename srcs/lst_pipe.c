@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/25 21:59:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:05:56 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_pipe	*ft_newpipe(void)
 	pipe->infile = 0;
 	pipe->outfile = 0;
 	pipe->next = NULL;
+	pipe->before = NULL;
 	return(pipe);
 }
 
@@ -32,11 +33,15 @@ void	ft_pipeadd_back(t_pipe **lst, t_pipe *new)
 	t_pipe	*last_lst;
 
 	if (!*lst)
+	{
 		*lst = new;
+		new->before = NULL;
+	}
 	else
 	{
 		last_lst = ft_pipelast(*lst);
 		last_lst->next = new;
+		new->before = last_lst;
 	}
 }
 
@@ -64,14 +69,19 @@ void ft_pipedelone(t_pipe *pipe)
 void	ft_pipelstclear(t_pipe **lst)
 {
 	t_pipe	*begin;
+	t_pipe	*next;
 
 	if (lst)
 	{
-		while (*lst)
+		begin = *lst;
+		while (begin)
 		{
-			begin = (*lst)->next;
-			ft_pipedelone(*lst);
-			*lst = begin;
+			next = begin->next;
+			ft_pipedelone(begin);
+			begin = next;
+			if(begin)
+				begin->before = NULL;
 		}
+		*lst = NULL;
 	}
 }

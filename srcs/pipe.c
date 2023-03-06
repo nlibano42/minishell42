@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/03 18:39:22 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:08:37 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void ft_notpipe(t_cmd *cmd)
 	g_shell.pid = 0;
 }
 
-/* void	ft_pipex(t_cmd *cmd, t_env *env)
+void	ft_pipex(t_cmd *cmd)
 {
 	pid_t num_pid;
 
@@ -48,13 +48,13 @@ void ft_notpipe(t_cmd *cmd)
 	{
 		if(cmd->pipe->before)//si no es primer comando
 		{
-			dup2(cmd->pipe->fd[0], STDIN_FILENO);//Redirige la entrada al descriptor de archivo de la tubería anterior
-			close(cmd->pipe->fd[0]);// cierra el descriptor de archivo original.
+			dup2(cmd->pipe->fd[READ_END], STDIN_FILENO);//Redirige la entrada al descriptor de archivo de la tubería anterior
+			close(cmd->pipe->fd[READ_END]);// cierra el descriptor de archivo original.
 		}
 		if(cmd->pipe->next)//si no es el ultimo comando
 		{
-			dup2(cmd->pipe->fd[1], STDOUT_FILENO);
-			close(cmd->pipe->fd[1]);
+			dup2(cmd->pipe->fd[WRITE_END], STDOUT_FILENO);
+			close(cmd->pipe->fd[WRITE_END]);
 		}
 		g_shell.pid = 1;
 		ft_signal();
@@ -66,16 +66,16 @@ void ft_notpipe(t_cmd *cmd)
 	{
 		waitpid(num_pid, NULL, 0);
 		if(cmd->pipe->before)
-			close(cmd->pipe->before->fd[0]); //cierra el archivo del pipe anterior
+			close(cmd->pipe->before->fd[READ_END]); //cierra el archivo del pipe anterior
 		if(cmd->pipe->next)
 		{
-			cmd->pipe->next->fd[0] = cmd->pipe->fd[0];//guarda el descriptor de archivo de la tubería actual para la siguiente iteración
-			close(cmd->pipe->fd[1]);
+			cmd->pipe->next->fd[READ_END] = cmd->pipe->fd[READ_END];//guarda el descriptor de archivo de la tubería actual para la siguiente iteración
+			close(cmd->pipe->fd[WRITE_END]);
 		}
+		g_shell.pid = 0;
 	}
-	
-	
-} */
+}
+
 void	pipex_main(t_cmd *cmd)
 {
 	
@@ -91,7 +91,7 @@ void	pipex_main(t_cmd *cmd)
 	 	while(cmd->pipe)
 		{
 			//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
-			//ft_pipex(cmd, cmd->env); // aqui ejecuto el pipe
+			ft_pipex(cmd); // aqui ejecuto el pipe
 			cmd->pipe = cmd->pipe->next;
 		} 
 	}		

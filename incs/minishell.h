@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 20:09:54 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:06:55 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_pipe
 	int				infile;
 	int				outfile;
 	struct s_pipe	*next;
+	struct s_pipe	*before;
 }	t_pipe;
 
 typedef struct s_redir
@@ -191,7 +192,7 @@ void	ft_builtin(t_cmd *cmd);
 
 //pipe.c
 void	pipex_main(t_cmd *cmd);
-void	ft_pipex(t_cmd *cmd, t_env *env);
+void	ft_pipex(t_cmd *cmd);
 
 //export.c
 char	**sort_env(t_env *env);
