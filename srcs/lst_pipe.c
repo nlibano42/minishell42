@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/06 17:05:56 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:42:11 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	ft_pipeadd_back(t_pipe **lst, t_pipe *new)
 	t_pipe	*last_lst;
 
 	if (!*lst)
-	{
+//	{
 		*lst = new;
-		new->before = NULL;
-	}
+//		new->before = NULL;
+//	}
 	else
 	{
 		last_lst = ft_pipelast(*lst);
-		last_lst->next = new;
 		new->before = last_lst;
+		last_lst->next = new;
 	}
 }
 
@@ -60,7 +60,7 @@ void ft_pipedelone(t_pipe *pipe)
 {
 	if(pipe)
 	{
-		free_split(pipe->full_cmd); // creo que al ser ** se tiene que liberar ambos no(?¿)
+		free_split(pipe->full_cmd);
 		free(pipe->path);
 		free(pipe);
 	}
@@ -69,19 +69,14 @@ void ft_pipedelone(t_pipe *pipe)
 void	ft_pipelstclear(t_pipe **lst)
 {
 	t_pipe	*begin;
-	t_pipe	*next;
 
 	if (lst)
 	{
-		begin = *lst;
-		while (begin)
+		while (*lst)
 		{
-			next = begin->next;
-			ft_pipedelone(begin);
-			begin = next;
-			if(begin)
-				begin->before = NULL;
+			begin = (*lst)->next;
+			ft_pipedelone(*lst);
+			*lst = begin;
 		}
-		*lst = NULL;
 	}
 }
