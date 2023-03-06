@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 20:09:54 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:30:10 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_redir
+{
+	char			*key;
+	char			*file;
+	char			*type; //read, read_l, write, append
+	struct s_redir	*next;
+}	t_redir;
+
 //estructura de los comandos. Command + options + arguments
 typedef struct s_pipe
 {
@@ -56,16 +64,9 @@ typedef struct s_pipe
 	int				fd[2];
 	int				infile;
 	int				outfile;
+	struct s_redir	*redir;
 	struct s_pipe	*next;
 }	t_pipe;
-
-typedef struct s_redir
-{
-	char			*key;
-	char			*file;
-	char			*type; //read, read_l, write, append
-	struct s_redir	*next;
-}	t_redir;
 
 typedef struct s_cmd
 {
