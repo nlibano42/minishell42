@@ -6,26 +6,26 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 18:28:53 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:24:20 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	ft_execve(t_cmd *cmd)
+void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 {
 	char	**char_env;
 	char	*p;
 
 	char_env = tab_env(cmd->env);
-	p = cmd->pipe->path;
-	if (is_builtin(cmd->pipe->path))
+	p = pipes->path;
+	if (is_builtin(pipes->path))
 		ft_builtin(cmd);
-	else if(access(cmd->pipe->path, F_OK) == 0)
+	else if(access(pipes->path, F_OK) == 0)
 	{
-		execve(p, cmd->pipe->full_cmd, char_env);
+		execve(p, pipes->full_cmd, char_env);
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(ft_deletequotes(cmd->pipe->full_cmd[0]), 2);
+		ft_putstr_fd(ft_deletequotes(pipes->full_cmd[0]), 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
 }
