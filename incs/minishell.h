@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 21:29:09 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/07 23:40:20 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_redir
+{
+	char			*key;
+	char			*file;
+	char			*type; //read, read_l, write, append
+	struct s_redir	*next;
+}	t_redir;
+
 //estructura de los comandos. Command + options + arguments
 typedef struct s_pipe
 {
@@ -57,17 +65,10 @@ typedef struct s_pipe
 	int				fd[2];
 	int				infile;
 	int				outfile;
+	struct s_redir	*redir;
 	struct s_pipe	*next;
 	struct s_pipe	*before;
 }	t_pipe;
-
-typedef struct s_redir
-{
-	char			*key;
-	char			*file;
-	char			*type; //read, read_l, write, append
-	struct s_redir	*next;
-}	t_redir;
 
 typedef struct s_cmd
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 18:43:47 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 00:54:17 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,34 +57,125 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
+char	**delete_redirection(char **s, int *len)
+{
+	int		i;
+	char	**res;
+
+	*len = 0;
+	i = -1;
+	while (s[++i])
+	{
+		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || !ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
+		{
+			i++;
+			continue;
+		}
+		(*len)++;
+	}
+	res = (char **)malloc(sizeof(char *) * (*len + 1));
+	if (!res)
+		return (NULL);
+	i = -1;
+	while (s[++i])
+	{
+		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || !ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
+		{
+			i++;
+			continue;
+		}
+		res[i] = ft_strdup(ft_strtrim(s[i], " "));
+	}
+	res[i] = NULL;
+	return (res);
+}
+
 void	save_cmds(t_cmd *cmd)
 {
 	int		i;
+	int		j;
 	char	**sp;
+	char	**sp2;
 	int		start;
+	int		flag;
 	t_pipe	*pipe;
 	t_redir	*redir;
 
-//	cmd->pipe = NULL;
-//	cmd->redir = NULL;
 	start = 0;
-	sp = ft_split(cmd->cmd_line, '\n');
+	flag = 0;
+//	sp = ft_split(cmd->cmd_line, '\n');
+	sp = split(cmd->cmd_line, '|');
 	i = -1;
 	while (sp[++i])
 	{
-		if (!ft_strcmp(sp[i], "|"))
+		sp2 = ft_split(sp[i], '\n');
+		j = -1;
+		while (sp2[++j])
 		{
-			// crear listas para pipe. crear, añadir, borrar....
+			if (!ft_strcmp(sp2[j], "<<"))
+			{
+				redir = ft_lstnew_redir();
+				redir->key = ft_strdup(sp2[j + 1]);
+				redir->type = "readl";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
+			else if (!ft_strcmp(sp2[j], "<"))
+			{
+				redir = ft_lstnew_redir();
+				redir->file = ft_strdup(sp2[j + 1]);
+				redir->type = "read";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
+			else if (!ft_strcmp(sp2[j], ">"))
+			{
+				redir = ft_lstnew_redir();
+				redir->file = ft_strdup(sp2[j + 1]);
+				redir->type = "write";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
+			else if (!ft_strcmp(sp2[j], ">>"))
+			{
+				redir = ft_lstnew_redir();
+				redir->file = ft_strdup(sp2[j + 1]);
+				redir->type = "append";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
+		}
+		pipe = ft_newpipe();
+		if (flag == 1)
+		{
+			sp[i] = delete_redirection(sp[i], &j);
+			// conseguir toda la info quitando la redireccion
+			//pipe->full_cmd = subsplit(sp, start, i - start);
+		}
+	///	else
+	///	{
+			pipe->full_cmd = subsplit(sp2[i], 0, j);
+			pipe->path = get_path(sp2[i][0], cmd->env);
+	///	}
+		ft_pipeadd_back(&(cmd->pipe), pipe);
+
+//		if (!ft_strcmp(sp[i], "|"))
+//		{
+/*			// crear listas para pipe. crear, añadir, borrar....
 			pipe = ft_newpipe();
 			pipe->full_cmd = subsplit(sp, start, i - start);
 			pipe->path = get_path(sp[start], cmd->env);
 			// 1: redireccionar la salida a un pipe
 			pipe->outfile = 1;
 			ft_pipeadd_back(&(cmd->pipe), pipe);
-			//printf("cmd:%s path:%s\n", pipe->full_cmd[0], pipe->path);
 			start = i + 1;
-		}
-		else if (!ft_strcmp(sp[i], "<<"))
+*/
+//		}
+/*		else if (!ft_strcmp(sp[i], "<<"))
 		{
 			redir = ft_lstnew_redir();
 			redir->key = ft_strdup(sp[i + 1]);
@@ -96,26 +187,32 @@ void	save_cmds(t_cmd *cmd)
 			redir = ft_lstnew_redir();
 			redir->file = ft_strdup(sp[i + 1]);
 			redir->type = "read";
+			ft_lstadd_back_redir(&(cmd->redir), redir);
 		}
 		else if (!ft_strcmp(sp[i], ">"))
 		{
 			redir = ft_lstnew_redir();
 			redir->file = ft_strdup(sp[i + 1]);
 			redir->type = "write";
-		}
+			ft_lstadd_back_redir(&(cmd->redir), redir);
+	}
 		else if (!ft_strcmp(sp[i], ">>"))
 		{
 			redir = ft_lstnew_redir();
 			redir->file = ft_strdup(sp[i + 1]);
 			redir->type = "append";
+			ft_lstadd_back_redir(&(cmd->redir), redir);
 		}
+*/
 	}
-	if (start < i)
+/*	if (start < i)
 	{
 		pipe = ft_newpipe();
 		pipe->full_cmd = subsplit(sp, start, i - start);
 		pipe->path = get_path(sp[start], cmd->env);
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 	}
+*/
 	free_split(sp);
+	free_split(sp2);
 }
