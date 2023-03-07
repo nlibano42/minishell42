@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 00:40:12 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:46:05 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,21 @@ void	cd_undo(t_cmd *cmd)
 	free(pwd);
 }
 
-void	cd_absolute_path(t_cmd *cmd)
+void	cd_absolute_path(t_cmd *cmd, t_pipe *pipex)
 {
 	char	*oldpwd;
 
-	if (chdir(cmd->pipe->full_cmd[1]) == 0)
+	if (chdir(pipex->full_cmd[1]) == 0)
 	{
 		oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
-		update_val(cmd, "PWD", cmd->pipe->full_cmd[1]);
+		update_val(cmd, "PWD", pipex->full_cmd[1]);
 		update_val(cmd, "OLDPWD", oldpwd);
 		free(oldpwd);
 	}
 	else
 	{
 		ft_putstr_fd("bash: cd: ", 2);
-		ft_putstr_fd(cmd->pipe->full_cmd[1], 2);
+		ft_putstr_fd(pipex->full_cmd[1], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 }
@@ -126,7 +126,7 @@ char	*cd_find_full_path(t_cmd *cmd, char *oldpwd)
 	return (pwd);
 }
 
-void	cd_relative_path(t_cmd *cmd)
+void	cd_relative_path(t_cmd *cmd, t_pipe *pipex)
 {
 	char	*oldpwd;
 	char	*pwd;
@@ -145,29 +145,29 @@ void	cd_relative_path(t_cmd *cmd)
 	else
 	{
 		ft_putstr_fd("bash: cd: ", 2);
-		ft_putstr_fd(cmd->pipe->full_cmd[1], 2);
+		ft_putstr_fd(pipex->full_cmd[1], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		free(oldpwd);
 		free(pwd);
 	}
 }
 
-void	cd(t_cmd *cmd)
+void	cd(t_cmd *cmd, t_pipe *pipex)
 {
 	if (ft_strlen(ft_lstfind_env_val(cmd->env, "OLDPWD")) == 0)
 		export_add(cmd, "OLDPWD");
-	if (!cmd->pipe->full_cmd[1] || !ft_strcmp(cmd->pipe->full_cmd[1], "~"))
+	if (pipex->full_cmd[1] || !ft_strcmp(pipex->full_cmd[1], "~"))
 		cd_no_argumnets(cmd);
-	else if (!ft_strcmp(cmd->pipe->full_cmd[1], ".."))
+	else if (!ft_strcmp(pipex->full_cmd[1], ".."))
 		cd_up_dir(cmd);
-	else if (!ft_strcmp(cmd->pipe->full_cmd[1], "-"))
+	else if (!ft_strcmp(pipex->full_cmd[1], "-"))
 		cd_undo(cmd);
 	else
 	{
-		if (cmd->pipe->full_cmd[1][0] == '/')
-			cd_absolute_path(cmd);
+		if (pipex->full_cmd[1][0] == '/')
+			cd_absolute_path(cmd, pipex);
 		else
-			cd_relative_path(cmd);
+			cd_relative_path(cmd, pipex);
 	}
 	//TODO: cuando sacamos el error hay que expandir ~
 }

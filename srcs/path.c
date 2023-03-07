@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 19:24:20 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:56:38 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	char_env = tab_env(cmd->env);
 	p = pipes->path;
 	if (is_builtin(pipes->path))
-		ft_builtin(cmd);
-	else if(access(pipes->path, F_OK) == 0)
+		ft_builtin(cmd, pipes);
+	else
 	{
 		execve(p, pipes->full_cmd, char_env);
 		ft_putstr_fd("minishell: ", 2);
