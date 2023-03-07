@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 17:46:40 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:59:54 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,23 @@ void	ft_pipex(t_cmd *cmd)
 		free_all(cmd);
 		exit(EXIT_FAILURE);
 	}
-	//close(cmd->pipe->fd[WRITE_END]);
-	waitpid(num_pid, NULL, 0);
-	g_shell.pid = 0;
-/* 	else
+	else
 	{
- 		if(cmd->pipe->next)
+		close(cmd->pipe->fd[WRITE_END]);
+/*  		if(cmd->pipe->next)
 		{
 			//printf("PADRE:\nnext:%s === %s\n" , cmd->pipe->next->path, cmd->pipe->path);
-			cmd->pipe->next->fd[READ_END] = cmd->pipe->fd[READ_END];//guarda el descriptor de archivo de la tubería actual para la siguiente iteración
+			//cmd->pipe->next->fd[READ_END] = cmd->pipe->fd[READ_END];//guarda el descriptor de archivo de la tubería actual para la siguiente iteración
 			close(cmd->pipe->fd[WRITE_END]);
-		}
+		} */
+		waitpid(num_pid, NULL, 0);
+		g_shell.pid = 0;
    		if(cmd->pipe->before)
 		{	
 			//printf("PADRE:\nbefore:%s === %s\n" , cmd->pipe->before->path, cmd->pipe->path);
 			close(cmd->pipe->before->fd[READ_END]); //cierra el archivo del pipe anterior
 		}
-	}  */
+	}
 }
 
 void	pipex_main(t_cmd *cmd)
