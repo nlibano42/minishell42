@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/03 18:46:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:45:28 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	ft_execve(t_cmd *cmd)
+void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 {
 	char	**char_env;
 	char	*p;
 
 	char_env = tab_env(cmd->env);
-	p = cmd->pipe->path;
-	if (is_builtin(cmd->pipe->path))
-		ft_builtin(cmd);
+	p = pipes->path;
+	if (is_builtin(pipes->path))
+		ft_builtin(cmd, pipes);
 	else
-		execve(p, cmd->pipe->full_cmd, char_env);
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(ft_deletequotes(cmd->pipe->full_cmd[0]), 2);
-	ft_putstr_fd(": command not found\n", 2);
+	{
+		execve(p, pipes->full_cmd, char_env);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(ft_deletequotes(pipes->full_cmd[0]), 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 }
 
 int	is_builtin(char *s)
@@ -37,7 +39,6 @@ int	is_builtin(char *s)
 		return (1);
 	else
 		return (0);
-	//TODO: para recortar lineas en la funcion get_path.
 }
 
 char	*get_path(char *s, t_env *env)

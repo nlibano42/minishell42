@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:04:10 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/01 18:00:29 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:57:54 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,23 @@ int	echo_find_n_option(char **str, char *s, int i)
 	return (0);
 }
 
-void	echo(t_cmd *cmd)
+void	echo(t_pipe *pipex)
 {
 	char	*s;
 	int		i;
 
 	i = 0;
-	while (cmd->pipe->full_cmd[++i])
+	while (pipex->full_cmd[++i])
 	{
-		s = ft_deletequotes(cmd->pipe->full_cmd[i]);
+		s = ft_deletequotes(pipex->full_cmd[i]);
 		if (s[0] == '-')
 		{
-			if (echo_find_n_option(cmd->pipe->full_cmd, s, i))
+			if (echo_find_n_option(pipex->full_cmd, s, i))
 				return ;
 		}
 		else
 		{
-			print_echo(&cmd->pipe->full_cmd[i], i);
+			print_echo(&pipex->full_cmd[i], i);
 			free(s);
 			return ;
 		}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/03 18:39:22 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:44:41 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void ft_notpipe(t_cmd *cmd)
+/*void ft_notpipe(t_cmd *cmd)
 {
 	pid_t	num_pid;
 	
@@ -25,74 +25,80 @@ void ft_notpipe(t_cmd *cmd)
 	else if (num_pid == 0)
 	{
 		g_shell.pid = 1;
-		ft_signal();
-		ft_execve(cmd);
+		ft_execve(cmd, cmd->pipe);
 		free_all(cmd);
 		exit(EXIT_FAILURE);
 	}
 	waitpid(num_pid, NULL, 0);
 	g_shell.pid = 0;
 }
+*/
 
-/* void	ft_pipex(t_cmd *cmd, t_env *env)
+void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 {
-	pid_t num_pid;
+	if (pipes->next)//si no es el ultimo comando
+	{
+		dup2(pipes->fd[WRITE_END], STDOUT_FILENO);
+		close(pipes->fd[WRITE_END]);
+	}
+	if (pipes->before)//si no es primer comando
+	{
+		dup2(pipes->before->fd[READ_END], STDIN_FILENO);//Redirige la entrada al descriptor de archivo de la tubería anterior
+		close(pipes->fd[READ_END]);// cierra el descriptor de archivo original.
+	}
+	g_shell.pid = 1;
+	ft_execve(cmd, pipes);
+	free_all(cmd);
+	exit(EXIT_FAILURE);
+}
 
-		num_pid = fork();
+void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
+{
+	pid_t	num_pid;
+
+	if (pipe(pipes->fd) == -1)
+		pipe_error("Error Pipe", EXIT_FAILURE);
+	num_pid = fork();
 	if (num_pid < 0)
-	{
-		perror("fork");
-		exit (EXIT_FAILURE);
-	}
+		pipe_error("Error Fork", EXIT_FAILURE);
 	else if (num_pid == 0)
-	{
-		if(cmd->pipe->before)//si no es primer comando
-		{
-			dup2(cmd->pipe->fd[0], STDIN_FILENO);//Redirige la entrada al descriptor de archivo de la tubería anterior
-			close(cmd->pipe->fd[0]);// cierra el descriptor de archivo original.
-		}
-		if(cmd->pipe->next)//si no es el ultimo comando
-		{
-			dup2(cmd->pipe->fd[1], STDOUT_FILENO);
-			close(cmd->pipe->fd[1]);
-		}
-		g_shell.pid = 1;
-		ft_signal();
-		ft_execve(cmd);
-		free_all(cmd);
-		exit(EXIT_FAILURE);
-	}
+		ft_pipex_child(cmd, pipes);
 	else
 	{
+		close(pipes->fd[WRITE_END]);
 		waitpid(num_pid, NULL, 0);
-		if(cmd->pipe->before)
-			close(cmd->pipe->before->fd[0]); //cierra el archivo del pipe anterior
-		if(cmd->pipe->next)
-		{
-			cmd->pipe->next->fd[0] = cmd->pipe->fd[0];//guarda el descriptor de archivo de la tubería actual para la siguiente iteración
-			close(cmd->pipe->fd[1]);
-		}
+		g_shell.pid = 0;
+		if (pipes->before)
+			close(pipes->before->fd[READ_END]); //cierra el archivo del pipe anterior
 	}
-	
-	
-} */
+}
+
 void	pipex_main(t_cmd *cmd)
 {
-	
-	if (cmd->num_pipes == 0)
+	t_pipe	*pipes;
+
+	pipes = cmd->pipe;
+	while (pipes)
+	{
+		//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
+		ft_pipex(cmd, pipes); // aqui ejecuto el pipe
+		pipes = pipes->next;
+	}
+/* 	if (cmd->num_pipes == 0)
 	{
 		if (is_builtin(cmd->pipe->path))
-			ft_builtin(cmd);
+			ft_builtin(cmd, cmd->pipe);
 		else
 			ft_notpipe(cmd);
 	}
 	else
 	{
-	 	while(cmd->pipe)
+		pipes = cmd->pipe;
+		while(pipes)
 		{
 			//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
-			//ft_pipex(cmd, cmd->env); // aqui ejecuto el pipe
-			cmd->pipe = cmd->pipe->next;
-		} 
-	}		
+			ft_pipex(cmd, pipes); // aqui ejecuto el pipe
+			pipes = pipes->next;
+		}
+	}*/	
 }

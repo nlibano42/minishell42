@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/04 21:30:10 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/07 23:34:56 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 # define READ_END		0  /* index pipe extremo escritura */
 # define WRITE_END		1  /* index pipe extremo lectura */
+# define BUFFER_SIZE	1
 
 typedef struct s_quotes
 {
@@ -66,6 +67,7 @@ typedef struct s_pipe
 	int				outfile;
 	struct s_redir	*redir;
 	struct s_pipe	*next;
+	struct s_pipe	*before;
 }	t_pipe;
 
 typedef struct s_cmd
@@ -116,6 +118,7 @@ int		ft_strcmp(char *s1, char *s2);
 
 //error.c
 void	access_error(char *input);
+void	pipe_error(char *error, int num);
 
 //split.c
 char	**split(char const *s, char c);
@@ -183,28 +186,28 @@ void	free_all(t_cmd *cmd);
 //path.c
 char	*get_path(char *s, t_env *env);
 int		is_builtin(char *s);
-void	ft_execve(t_cmd *cmd);
+void	ft_execve(t_cmd *cmd, t_pipe *pipes);
 char	*get_path(char *s, t_env *env);
 char	**tab_env(t_env *env);
 
 //built.c
-void	ft_builtin(t_cmd *cmd);
+void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
 
 //pipe.c
 void	pipex_main(t_cmd *cmd);
-void	ft_pipex(t_cmd *cmd, t_env *env);
+void	ft_pipex(t_cmd *cmd, t_pipe *pipes);
 
 //export.c
 char	**sort_env(t_env *env);
 void	export_no_args(t_cmd *cmd);
 void	export_add(t_cmd *cmd, char *val);
-void	export(t_cmd *cmd);
+void	export(t_cmd *cmd, t_pipe *pipex);
 
 //pwd
 void	pwd(t_cmd *cmd);
 
 //echo
-void 	echo (t_cmd *cmd);
+void 	echo (t_pipe *pipex);
 int		echo_find_n_option(char **str, char *s, int i);
 void	print_echo(char **s, int n);
 
@@ -212,10 +215,10 @@ void	print_echo(char **s, int n);
 void	ft_exit(t_cmd *cmd);
 
 //unset.c
-void	unset(t_cmd *cmd);
-void	delete_env(t_cmd *cmd, t_env *env, t_env *before, int *i);
+void	unset(t_cmd *cmd, t_pipe *pipex);
+void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i);
 
 //cd.c
-void	cd(t_cmd *cmd);
+void	cd(t_cmd *cmd, t_pipe *pipex);
 
 #endif

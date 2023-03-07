@@ -6,17 +6,20 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 01:54:26 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 00:46:24 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:40:48 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	delete_env(t_cmd *cmd, t_env *env, t_env *before, int *i)
+void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i)
 {
+	t_env	*env;
+
+	env = cmd->env;
 	while (env)
 	{
-		if (ft_strcmp(env->name, cmd->pipe->full_cmd[*i]) == 0)
+		if (ft_strcmp(env->name, pipex->full_cmd[*i]) == 0)
 		{
 			if (before)
 			{
@@ -39,9 +42,8 @@ void	delete_env(t_cmd *cmd, t_env *env, t_env *before, int *i)
 	}	
 }
 
-void	unset(t_cmd *cmd)
+void	unset(t_cmd *cmd, t_pipe *pipex)
 {
-	t_env	*env;
 	t_env	*before;
 	int		i;
 
@@ -51,8 +53,7 @@ void	unset(t_cmd *cmd)
 	while (cmd->pipe->full_cmd[++i])
 	{	
 		before = NULL;
-		env = cmd->env;
-		delete_env(cmd, env, before, &i);
+		delete_env(cmd, pipex, before, &i);
 	}
 	return ;
 }

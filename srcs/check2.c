@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/01 18:04:14 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:01:53 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-int check_spaces(char *readl)
+int	check_spaces(char *readl)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(readl[++i])
+	while (readl[++i])
 	{
-		if(readl[i] != ' ')
-			return(0);
+		if (readl[i] != ' ')
+			return (0);
 	}
 	return (1);
 }
 
 int	is_fin_redirection(char *s)
 {
-	t_quotes quotes;
-	int i;
+	t_quotes	quotes;
+	int			i;
 
 	init_quotes_flags(&quotes);
 	ft_strtrim(s, " ");
@@ -36,30 +36,30 @@ int	is_fin_redirection(char *s)
 	while (s[++i])
 	{
 		check_quotes_flags(&quotes, s[i]);
-		if((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0\
+		if ((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0 \
 			&& quotes.flag_s == 0)
 		{
-			if(s[i + 1] == '<' || s[i + 1] == '>')
+			if (s[i + 1] == '<' || s[i + 1] == '>')
 				i++;
 			if (s[i + 1] == '\0')
 			{
 				ft_putstr_fd("Minishell: syntax error\n", 2);
 				free(s);
-				return(g_shell.pid = 258);
+				return (g_shell.pid = 258);
 			}
 		}
 	}
 	return (0);
 }
 
-int export_check(char **cmd)
+int	export_check(char **cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(cmd[++i])
+	while (cmd[++i])
 	{
-		if(cmd[i][0] == '=')
+		if (cmd[i][0] == '=')
 		{
 			ft_putstr_fd("minishel: export: ", 2);
 			ft_putstr_fd("\'", 2);
