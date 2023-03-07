@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 18:19:36 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:29:13 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,24 @@ void	ft_pipex(t_cmd *cmd)
 	while (pip)
 	{
 		if(pipe(cmd->pipe->fd) == -1)
-		{
-			perror("Error Pipe");
-			exit(EXIT_FAILURE);
-		}
+			pipe_error("Error Pipe", EXIT_FAILURE);
 		num_pid = fork();
 		if (num_pid < 0)
-		{
-			perror("Error Fork");
-			exit (EXIT_FAILURE);
-		}
+			pipe_error("Error Fork", EXIT_FAILURE);
 		else if (num_pid == 0)
 		{
 			//printf("Entra:%s\n", cmd->pipe->path);
-			if(cmd->pipe->next)//si no es el ultimo comando
+			if(pip->next)//si no es el ultimo comando
 			{
 				//printf("HIJO:\nnext:%s === %s\n" , cmd->pipe->next->path, cmd->pipe->path);
-				dup2(cmd->pipe->fd[WRITE_END], STDOUT_FILENO);
-				close(cmd->pipe->fd[WRITE_END]);
+				dup2(pip->fd[WRITE_END], STDOUT_FILENO);
+				close(pip->fd[WRITE_END]);
 			}
-			if(cmd->pipe->before)//si no es primer comando
+			if(pip->before)//si no es primer comando
 			{
 				//printf("HIJO:\nbefore:%s === %s\n" , cmd->pipe->before->path, cmd->pipe->path);
-				dup2(cmd->pipe->before->fd[READ_END], STDIN_FILENO);//Redirige la entrada al descriptor de archivo de la tubería anterior
-				close(cmd->pipe->fd[READ_END]);// cierra el descriptor de archivo original.
+				dup2(pip->before->fd[READ_END], STDIN_FILENO);//Redirige la entrada al descriptor de archivo de la tubería anterior
+				close(pip->fd[READ_END]);// cierra el descriptor de archivo original.
 			}
 			g_shell.pid = 1;
 			ft_execve(cmd);
@@ -83,10 +77,10 @@ void	ft_pipex(t_cmd *cmd)
 			} */
 			waitpid(num_pid, NULL, 0);
 			g_shell.pid = 0;
-			if(cmd->pipe->before)
+			if(pip->before)
 			{	
 				//printf("PADRE:\nbefore:%s === %s\n" , cmd->pipe->before->path, cmd->pipe->path);
-				close(cmd->pipe->before->fd[READ_END]); //cierra el archivo del pipe anterior
+				close(pip->before->fd[READ_END]); //cierra el archivo del pipe anterior
 			}
 		}
 		pip = pip->next;
