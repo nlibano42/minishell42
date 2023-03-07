@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:26:13 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 19:58:11 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:03:02 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_builtin(t_cmd *cmd, t_pipe *pipex)
 {
-//	printf("Aqui va los builtin\n");
 	if (ft_strcmp(pipex->path, "export") == 0)
 		export(cmd, pipex);
 	else if (ft_strcmp(pipex->path, "pwd") == 0)
@@ -25,8 +24,8 @@ void	ft_builtin(t_cmd *cmd, t_pipe *pipex)
 		ft_exit(cmd);
 	else if (ft_strcmp(pipex->path, "cd") == 0)
 		cd(cmd, pipex);
- 	else if (ft_strcmp(pipex->path, "echo") == 0)
+	else if (ft_strcmp(pipex->path, "echo") == 0)
 		echo(pipex);
- 	else if (ft_strcmp(pipex->path, "unset") == 0)
+	else if (ft_strcmp(pipex->path, "unset") == 0)
 		unset(cmd, pipex);
 }

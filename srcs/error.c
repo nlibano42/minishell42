@@ -6,13 +6,13 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:49:57 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 18:21:18 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:55:10 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void access_error(char *input)
+void	access_error(char *input)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(input, 2);
