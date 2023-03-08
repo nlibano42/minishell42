@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 20:13:39 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/07 17:49:14 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/08 19:19:37 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC = ft_strlen.c \
 	  ft_putstr_fd.c \
 	  ft_putchar_fd.c \
 	  ft_strtrim.c \
+	  ft_itoa.c \
 
 	#   ft_isdigit.c \  
 	#   ft_isascii.c \
@@ -50,7 +51,6 @@ SRC = ft_strlen.c \
 	#   ft_strnstr.c \
 	#   ft_atoi.c \
 	#   ft_calloc.c \
-	#   ft_itoa.c \
 	#   ft_strmapi.c \
 	#   ft_striteri.c \
 	#   ft_putendl_fd.c \

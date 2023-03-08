@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/03 21:17:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:24:24 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,35 @@ char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i)
 {
 	check_quotes_flags(quotes, s[*i]);
 	if (s[*i] == '$' && quotes->flag_s == 0 && \
-		find_str(s[*i + 1], "|\"\'$?>< ") == 0) 
+		find_str(s[*i + 1], "|\"\'$>< ") == 0) 
 	{
-		quotes->join_str = ft_strdup("");
-		quotes->join_str = change_env_val(s, env, i, quotes->join_str);
+		if(s[*i + 1] == '?')
+		{	
+			quotes->join_str = ft_strdup("");
+			quotes->join_str = change_quitvalue(s, i, quotes->join_str);
+		}
+		else
+		{
+			quotes->join_str = ft_strdup("");
+			quotes->join_str = change_env_val(s, env, i, quotes->join_str);
+		}
 	}
 	return (quotes->join_str);
+}
+
+char *change_quitvalue(char *s, int *i, char *join_str)
+{
+	char *val;
+
+	if(*i != 0)
+		join_str = ft_strjoin(join_str, ft_substr(s, 0, *i));
+	val = ft_itoa(g_shell.quit_status);
+	join_str = ft_strjoin(join_str, val);
+	*i = ft_strlen(join_str);
+	if(s[*i + 2])
+		join_str = ft_strjoin(join_str,\
+		ft_substr(s, *i + 1, ft_strlen(s) - 1));
+	return(join_str);
 }
 
 char	*change_env_val(char *s, t_env *env, int *i, char *join_str)

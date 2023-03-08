@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/20 18:34:12 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:19:21 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_isalnum(int c);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_itoa(int n);
 
 // int		ft_isalpha(int c);
 // int		ft_isdigit(int c);
@@ -47,7 +48,6 @@ char	*ft_strtrim(char const *s1, char const *set);
 // char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 // int		ft_atoi(const char *str);
 // void	*ft_calloc(size_t nmemb, size_t size);
-// char	*ft_itoa(int n);
 // char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 // void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 // void	ft_putendl_fd(char *s, int fd);

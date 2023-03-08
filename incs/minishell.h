@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 19:57:59 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:46:43 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
 char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
 char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str);
 char	*expand_virgulilla(char*s, t_env *env, t_quotes *quotes, int *i);
+char	*change_quitvalue(char *s, int *i, char *join_str);
 
 //pipecontrol.c
 //char	*expand_pipe_redir(char *cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:49:57 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 18:21:18 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:59:11 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void access_error(char *input)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(input, 2);
 	ft_putstr_fd(": Permission denied\n", 2);
+	g_shell.quit_status = 1;
 }
 
 void	pipe_error(char *error, int num)

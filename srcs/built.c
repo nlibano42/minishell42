@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:26:13 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 19:58:11 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:00:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_builtin(t_cmd *cmd, t_pipe *pipex)
 {
-//	printf("Aqui va los builtin\n");
 	if (ft_strcmp(pipex->path, "export") == 0)
 		export(cmd, pipex);
 	else if (ft_strcmp(pipex->path, "pwd") == 0)

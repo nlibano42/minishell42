@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/08 18:30:25 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:55:56 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(ft_deletequotes(pipes->full_cmd[0]), 2);
 		ft_putstr_fd(": command not found\n", 2);
+		g_shell.quit_status = 127;
+		
 	}
 }
 
