@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/08 20:24:24 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:27:41 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char *change_quitvalue(char *s, int *i, char *join_str)
 	val = ft_itoa(g_shell.quit_status);
 	join_str = ft_strjoin(join_str, val);
 	*i = ft_strlen(join_str);
-	if(s[*i + 2])
+	if(s[*i + 1])
 		join_str = ft_strjoin(join_str,\
 		ft_substr(s, *i + 1, ft_strlen(s) - 1));
 	return(join_str);
