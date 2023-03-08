@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/08 18:07:11 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:26:13 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 		close(pipes->fd[WRITE_END]);
 		waitpid(num_pid, NULL, 0);
 		g_shell.pid = 0;
-		if(pipes->before)
+		if (pipes->before)
 			close(pipes->before->fd[READ_END]); //cierra el archivo del pipe anterior
-		if(!pipes->next)
+		if (!pipes->next)
 			close(pipes->fd[READ_END]);
 	}
 }
