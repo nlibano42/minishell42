@@ -57,12 +57,14 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-char	**delete_redirection(char **s, int *len)
+char	**delete_redirection(char *sp, int *len)
 {
 	int		i;
 	char	**res;
+	char **s;
 
 	*len = 0;
+	s = ft_split(sp, "\n");
 	i = -1;
 	while (s[++i])
 	{
@@ -87,6 +89,7 @@ char	**delete_redirection(char **s, int *len)
 		res[i] = ft_strdup(ft_strtrim(s[i], " "));
 	}
 	res[i] = NULL;
+	free_split(s);
 	return (res);
 }
 
@@ -152,15 +155,22 @@ void	save_cmds(t_cmd *cmd)
 		pipe = ft_newpipe();
 		if (flag == 1)
 		{
-			sp[i] = delete_redirection(sp[i], &j);
+			free_split(sp2);
+			sp2 = delete_redirection(sp[i], &j);
 			// conseguir toda la info quitando la redireccion
-			//pipe->full_cmd = subsplit(sp, start, i - start);
 		}
-	///	else
-	///	{
-			pipe->full_cmd = subsplit(sp2[i], 0, j);
-			pipe->path = get_path(sp2[i][0], cmd->env);
-	///	}
+		pipe->full_cmd = subsplit(sp2, 0, j);
+		pipe->path = get_path(sp2[i][0], cmd->env);
+		pipe->redir = redir;
+		//TODO: ver que numero asignar a cada accion. 0 = x defecto, ...
+		if (redir->type == 'readl')
+			pipe->infile = 2; //leer desde el terminal
+		else if (redir->type == 'read')
+			pipe->infile = 1; // leer de un fichero
+		else if (redir->type == write)
+			pipe->outfile = 3; //escribir en el fichero
+		else if (redir->type == 'apend')
+			pipe->outfile = 4; //escribir en el fichero añadiendo.
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 
 //		if (!ft_strcmp(sp[i], "|"))
