@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 20:10:30 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:07:11 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 		g_shell.pid = 0;
 		if(pipes->before)
 			close(pipes->before->fd[READ_END]); //cierra el archivo del pipe anterior
+		if(!pipes->next)
+			close(pipes->fd[READ_END]);
 	}
 }
 
@@ -76,14 +78,14 @@ void	pipex_main(t_cmd *cmd)
 {
 	t_pipe	*pipes;
 	
-	pipes = cmd->pipe;
+/* 	pipes = cmd->pipe;
 	while(pipes)
 	{
 		//redirections(cmd->pipe->full_cmd); // aqui miro si hay alguna redireccion;
 		ft_pipex(cmd, pipes); // aqui ejecuto el pipe
 		pipes = pipes->next;
-	}
-/* 	if (cmd->num_pipes == 0)
+	}  */
+ 	if (cmd->num_pipes == 0)
 	{
 		if (is_builtin(cmd->pipe->path))
 			ft_builtin(cmd, cmd->pipe);
@@ -99,5 +101,5 @@ void	pipex_main(t_cmd *cmd)
 			ft_pipex(cmd, pipes); // aqui ejecuto el pipe
 			pipes = pipes->next;
 		}
-	}*/	
+	}
 }
