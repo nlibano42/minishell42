@@ -6,7 +6,7 @@
 #    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/07 21:31:41 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/03/09 23:15:16 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS	= main.c\
 		echo.c\
 		unset.c\
 		cd.c\
+		expand_utils.c\
 		
 # Compiler options
 CC			= gcc

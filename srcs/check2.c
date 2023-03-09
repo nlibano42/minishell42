@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 22:01:53 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:11:53 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,30 @@ int	is_fin_redirection(char *s)
 		{
 			if (s[i + 1] == '<' || s[i + 1] == '>')
 				i++;
-			if (s[i + 1] == '\0')
+			 while(ft_isalnum(s[i]) == 0)
 			{
-				ft_putstr_fd("Minishell: syntax error\n", 2);
-				free(s);
-				return (g_shell.pid = 258);
+				if(!find_str(s[i], " *&/|"))
+					if(print_error(s, &i) ==  1)
+						return(g_shell.pid = 258);
+				i++;
 			}
 		}
 	}
 	return (0);
 }
 
-int	export_check(char **cmd)
+int	print_error(char *s, int *i)
+{
+	if(s[*i] == '\0')
+	{
+		ft_putstr_fd("Minishell: syntax error\n", 2);
+		free(s);
+		return (1);
+	}
+	return (0);
+}
+
+int export_check(char **cmd)
 {
 	int	i;
 

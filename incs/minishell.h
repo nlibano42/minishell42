@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 23:40:20 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:09:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int		check_spaces(char *readl);
 int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
+int		print_error(char *s, int  *i);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
@@ -128,10 +129,14 @@ char	**subsplit(char **sp, int start, int len);
 int		line_parse(t_cmd *cmd, t_env *envp);
 char	*prepare_split(char *readl);
 void	expand(char **s, t_env *env);
-char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
-char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
+char	*expand_dolar(char **s, t_env *env, t_quotes *quotes);
+void	dollar_exchange(char *s, int *i, t_quotes *quotes, t_env *env);
+
+//expand_utils.c
+char	*change_quitvalue(char *s, int *i, char *join_str);
+char	*expand_virgulilla(char**s, t_env *env, t_quotes *quotes);
 char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str);
-char	*expand_virgulilla(char*s, t_env *env, t_quotes *quotes, int *i);
+char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
 
 //pipecontrol.c
 //char	*expand_pipe_redir(char *cmd);
