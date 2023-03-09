@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/08 20:27:41 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:32:35 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 
 void	expand(char **s, t_env *env)
 {
-	int			i;
+//	int			i;
 	t_quotes	quotes;
 
 	init_quotes_flags(&quotes);
-	i = -1;
-	while ((*s)[++i] != '\0')
-	{
-		quotes.join_str = expand_dolar(*s, env, &quotes, &i);
-		quotes.join_str = expand_virgulilla(*s, env, &quotes, &i);
-	}
+	quotes.join_str = expand_dolar(s, env, &quotes);
+//	i = -1;
+//	while ((*s)[++i] != '\0')
+//	{
+		quotes.join_str = expand_virgulilla(s, env, &quotes);
+//	}
 	if (quotes.join_str != NULL)
 	{
 		free (*s);
@@ -78,32 +78,50 @@ void	expand(char **s, t_env *env)
 		free(quotes.join_str);
 	}
 }
-char	*expand_virgulilla(char*s, t_env *env, t_quotes *quotes, int *i)
+char	*expand_virgulilla(char **str, t_env *env, t_quotes *quotes)
 {
-	check_quotes_flags(quotes, s[*i]);
-	if(s[*i] == '~' && (quotes->flag_s == 0 || quotes->flag_d == 0)\
-		&& *i == 0)
+	char	*s;
+	int		i;
+
+	s = *str;
+	i = -1;
+	while (s[++i])
 	{
-		quotes->join_str = ft_strdup("");
-		quotes->join_str = change_env_virgu(s, env, i, quotes->join_str);
+		check_quotes_flags(quotes, s[i]);
+		if(s[i] == '~' && (quotes->flag_s == 0 || quotes->flag_d == 0)\
+			&& i == 0)
+		{
+			quotes->join_str = ft_strdup("");
+			quotes->join_str = change_env_virgu(s, env, &i, quotes->join_str);
+		}
 	}
 	return(quotes->join_str);
 }
-char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i)
+
+//char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i)
+char	*expand_dolar(char **str, t_env *env, t_quotes *quotes)
 {
-	check_quotes_flags(quotes, s[*i]);
-	if (s[*i] == '$' && quotes->flag_s == 0 && \
-		find_str(s[*i + 1], "|\"\'$>< ") == 0) 
+	int		i;
+	char	*s;
+
+	s = *str;
+	i = -1;
+	while (s[++i])
 	{
-		if(s[*i + 1] == '?')
-		{	
-			quotes->join_str = ft_strdup("");
-			quotes->join_str = change_quitvalue(s, i, quotes->join_str);
-		}
-		else
+		check_quotes_flags(quotes, s[i]);
+		if (s[i] == '$' && quotes->flag_s == 0 && \
+			find_str(s[i + 1], "|\"\'$>< ") == 0) 
 		{
-			quotes->join_str = ft_strdup("");
-			quotes->join_str = change_env_val(s, env, i, quotes->join_str);
+			if(s[i + 1] == '?')
+			{	
+				quotes->join_str = ft_strdup("");
+				quotes->join_str = change_quitvalue(s, &i, quotes->join_str);
+			}
+			else
+			{
+				quotes->join_str = ft_strdup("");
+				quotes->join_str = change_env_val(s, env, &i, quotes->join_str);
+			}
 		}
 	}
 	return (quotes->join_str);
