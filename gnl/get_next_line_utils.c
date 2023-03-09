@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 18:42:36 by nlibano-          #+#    #+#             */
-/*   Updated: 2022/07/27 18:00:12 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:58:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_str_pos(char *s, int c)
 	return (-1);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*gnl_strjoin(char *s1, char *s2)
 {
 	char	*dst;
 
@@ -37,45 +37,45 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (s2);
 	if (s2[0] == '\0')
 		return (s1);
-	dst = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	dst = (char *)malloc(sizeof(char) * (gnl_strlen(s1) + gnl_strlen(s2)) + 1);
 	if (!dst)
 		return (NULL);
-	ft_strlcpy(dst, s1, ft_strlen(s1) + 1);
-	ft_strlcat(dst, s2, (ft_strlen(s1) + ft_strlen(s2) + 1));
+	gnl_strlcpy(dst, s1, gnl_strlen(s1) + 1);
+	gnl_strlcat(dst, s2, (gnl_strlen(s1) + gnl_strlen(s2) + 1));
 	free(s1);
 	return (dst);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*gnl_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*dst;
 
 	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s))
-		len = ft_strlen(s);
+	if (start > gnl_strlen(s))
+		return (gnl_strdup(""));
+	if (len > gnl_strlen(s))
+		len = gnl_strlen(s);
 	dst = (char *)malloc(sizeof(char) * len + 1);
 	if (dst == NULL)
 		return (NULL);
-	ft_strlcpy(dst, &s[start], len + 1);
+	gnl_strlcpy(dst, &s[start], len + 1);
 	return (dst);
 }
 
-char	*ft_strdup(const char *s1)
+char	*gnl_strdup(const char *s1)
 {
 	char	*dst;
 
-	dst = (char *)malloc(ft_strlen(s1) + 1);
+	dst = (char *)malloc(gnl_strlen(s1) + 1);
 	if (dst == NULL)
 		return (NULL);
-	ft_strlcpy(dst, s1, ft_strlen(s1) + 1);
-	dst[ft_strlen(s1)] = '\0';
+	gnl_strlcpy(dst, s1, gnl_strlen(s1) + 1);
+	dst[gnl_strlen(s1)] = '\0';
 	return (dst);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	gnl_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	src_size;
