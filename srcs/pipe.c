@@ -6,13 +6,13 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/09 23:14:56 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:16:43 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-/*void ft_notpipe(t_cmd *cmd)
+void ft_notpipe(t_cmd *cmd)
 {
 	pid_t	num_pid;
 	
@@ -32,7 +32,6 @@
 	waitpid(num_pid, NULL, 0);
 	g_shell.pid = 0;
 }
-*/
 
 void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 {

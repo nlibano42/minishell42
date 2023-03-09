@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/09 23:00:38 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:33:24 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,68 +167,27 @@ void	save_cmds(t_cmd *cmd)
 		//TODO: ver que numero asignar a cada accion. 0 = x defecto, ...
 		if (redir)
 		{
-			pipe->redir = redir;
+			pipe->redir = redir; // es necesario tener esto?
+			/*
+			* redirecciones:
+			* infile = 0 -> por defecto. params = argumentos
+			* infile = 1 -> leer desde el terminal -> gnl
+			* infile = fd -> fd corresponding to the open file 'infile'
+			* outfile = 1 -> redireccionar al pipe
+			* outfile = fd -> fd corresponding to the open file 'outfile'
+			*/
 			if (!ft_strcmp(redir->type, "readl"))
-				pipe->infile = 2; //leer desde el terminal
+				pipe->infile = 1; //leer desde el terminal
 			else if (!ft_strcmp(redir->type, "read"))
-				pipe->infile = 1; // leer de un fichero
+				pipe->infile = open_file(redir->file, 'r'); // leer de un fichero
 			else if (!ft_strcmp(redir->type, "write"))
-				pipe->outfile = 3; //escribir en el fichero
+				pipe->outfile = open_file(redir->file, 'w'); //escribir en el fichero
 			else if (!ft_strcmp(redir->type, "apend"))
-				pipe->outfile = 4; //escribir en el fichero añadiendo.
+				pipe->outfile = open_file(redir->file, 'a'); //escribir en el fichero añadiendo.
 		}
 		ft_pipeadd_back(&(cmd->pipe), pipe);
-
-//		if (!ft_strcmp(sp[i], "|"))
-//		{
-/*			// crear listas para pipe. crear, añadir, borrar....
-			pipe = ft_newpipe();
-			pipe->full_cmd = subsplit(sp, start, i - start);
-			pipe->path = get_path(sp[start], cmd->env);
-			// 1: redireccionar la salida a un pipe
-			pipe->outfile = 1;
-			ft_pipeadd_back(&(cmd->pipe), pipe);
-			start = i + 1;
-*/
-//		}
-/*		else if (!ft_strcmp(sp[i], "<<"))
-		{
-			redir = ft_lstnew_redir();
-			redir->key = ft_strdup(sp[i + 1]);
-			redir->type = "readl";
-			ft_lstadd_back_redir(&(cmd->redir), redir);
-		}
-		else if (!ft_strcmp(sp[i], "<"))
-		{
-			redir = ft_lstnew_redir();
-			redir->file = ft_strdup(sp[i + 1]);
-			redir->type = "read";
-			ft_lstadd_back_redir(&(cmd->redir), redir);
-		}
-		else if (!ft_strcmp(sp[i], ">"))
-		{
-			redir = ft_lstnew_redir();
-			redir->file = ft_strdup(sp[i + 1]);
-			redir->type = "write";
-			ft_lstadd_back_redir(&(cmd->redir), redir);
 	}
-		else if (!ft_strcmp(sp[i], ">>"))
-		{
-			redir = ft_lstnew_redir();
-			redir->file = ft_strdup(sp[i + 1]);
-			redir->type = "append";
-			ft_lstadd_back_redir(&(cmd->redir), redir);
-		}
-*/
-	}
-/*	if (start < i)
-	{
-		pipe = ft_newpipe();
-		pipe->full_cmd = subsplit(sp, start, i - start);
-		pipe->path = get_path(sp[start], cmd->env);
-		ft_pipeadd_back(&(cmd->pipe), pipe);
-	}
-*/
 	free_split(sp);
 	free_split(sp2);
+	// TODO. cerrar los descriptores cuando no se necesiten y en otro punto.
 }
