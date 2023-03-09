@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/09 20:49:36 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:29:44 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	is_fin_redirection(char *s)
 				i++;
 			 while(ft_isalnum(s[i]) == 0)
 			{
-				if(print_error(s, &i) ==  1)
-					return(g_shell.pid = 258);
+				if(!find_str(s[i], " *&/"))
+					if(print_error(s, &i) ==  1)
+						return(g_shell.pid = 258);
 				i++;
 			}
 		}
