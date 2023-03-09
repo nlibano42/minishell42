@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/09 19:18:39 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:43:34 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int		line_parse(t_cmd *cmd, t_env *envp);
 char	*prepare_split(char *readl);
 void	expand(char **s, t_env *env);
 char	*expand_dolar(char **s, t_env *env, t_quotes *quotes);
+void	dollar_exchange(char *s, int *i, t_quotes *quotes, t_env *env);
 
 //expand_utils.c
 char	*change_quitvalue(char *s, int *i, char *join_str);
