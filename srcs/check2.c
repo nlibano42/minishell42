@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/01 18:04:14 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:49:36 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,24 @@ int	is_fin_redirection(char *s)
 		{
 			if(s[i + 1] == '<' || s[i + 1] == '>')
 				i++;
-			if (s[i + 1] == '\0')
+			 while(ft_isalnum(s[i]) == 0)
 			{
-				ft_putstr_fd("Minishell: syntax error\n", 2);
-				free(s);
-				return(g_shell.pid = 258);
+				if(print_error(s, &i) ==  1)
+					return(g_shell.pid = 258);
+				i++;
 			}
 		}
+	}
+	return (0);
+}
+
+int	print_error(char *s, int *i)
+{
+	if(s[*i] == '\0')
+	{
+		ft_putstr_fd("Minishell: syntax error\n", 2);
+		free(s);
+		return (1);
 	}
 	return (0);
 }

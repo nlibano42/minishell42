@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/09 19:43:34 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:49:47 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int		check_spaces(char *readl);
 int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
+int		print_error(char *s, int  *i);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
