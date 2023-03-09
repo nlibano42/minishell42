@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/09 15:08:29 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:00:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,16 +164,19 @@ void	save_cmds(t_cmd *cmd)
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
-		pipe->redir = redir;
 		//TODO: ver que numero asignar a cada accion. 0 = x defecto, ...
-		if (!ft_strcmp(redir->type, "readl"))
-			pipe->infile = 2; //leer desde el terminal
-		else if (!ft_strcmp(redir->type, "read"))
-			pipe->infile = 1; // leer de un fichero
-		else if (!ft_strcmp(redir->type, "write"))
-			pipe->outfile = 3; //escribir en el fichero
-		else if (!ft_strcmp(redir->type, "apend"))
-			pipe->outfile = 4; //escribir en el fichero añadiendo.
+		if (redir)
+		{
+			pipe->redir = redir;
+			if (!ft_strcmp(redir->type, "readl"))
+				pipe->infile = 2; //leer desde el terminal
+			else if (!ft_strcmp(redir->type, "read"))
+				pipe->infile = 1; // leer de un fichero
+			else if (!ft_strcmp(redir->type, "write"))
+				pipe->outfile = 3; //escribir en el fichero
+			else if (!ft_strcmp(redir->type, "apend"))
+				pipe->outfile = 4; //escribir en el fichero añadiendo.
+		}
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 
 //		if (!ft_strcmp(sp[i], "|"))
