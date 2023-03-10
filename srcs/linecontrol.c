@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/09 19:45:03 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:59:02 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	dollar_exchange(char *s, int *i, t_quotes *quotes, t_env *env)
 			quotes->join_str = ft_strdup("");
 			quotes->join_str = change_quitvalue(s, i, quotes->join_str);
 		}
-		else
+		else if (s[*i + 1] != ' ' && s[*i + 1])
 		{
 			quotes->join_str = ft_strdup("");
 			quotes->join_str = change_env_val(s, env, i, quotes->join_str);
