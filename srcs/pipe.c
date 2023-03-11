@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/08 18:48:35 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:16:43 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ void ft_notpipe(t_cmd *cmd)
 
 void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 {
-	if(pipes->next)
+	if (pipes->next)
 	{
 		dup2(pipes->fd[WRITE_END], STDOUT_FILENO);
 		close(pipes->fd[WRITE_END]);
 	}
-	if(pipes->before)
-	{
+	if (pipes->before)
 		dup2(pipes->before->fd[READ_END], STDIN_FILENO);
-	}
 	g_shell.pid = 1;
 	ft_execve(cmd, pipes);
 	free_all(cmd);
@@ -54,7 +52,7 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 {
 	pid_t	num_pid;
 
-	if(pipe(pipes->fd) == -1)
+	if (pipe(pipes->fd) == -1)
 		pipe_error("Error Pipe", EXIT_FAILURE);
 	num_pid = fork();
 	if (num_pid < 0)

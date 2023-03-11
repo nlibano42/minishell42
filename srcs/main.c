@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 18:43:47 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:33:24 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,65 +57,137 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
+char	**delete_redirection(char *sp, int *len)
+{
+	int		i;
+	int		j;
+	char	**res;
+	char	**s;
+
+	*len = 0;
+	s = ft_split(sp, '\n');
+	i = -1;
+	while (s[++i])
+	{
+		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || !ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
+		{
+			i++;
+			continue;
+		}
+		(*len)++;
+	}
+	res = (char **)malloc(sizeof(char *) * (*len + 1));
+	if (!res)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (s[++i])
+	{
+		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || !ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
+		{
+			i++;
+			continue;
+		}
+		res[j] = ft_strdup(ft_strtrim(s[i], " "));
+		j++;
+	}
+	res[j] = NULL;
+	free_split(s);
+	return (res);
+}
+
 void	save_cmds(t_cmd *cmd)
 {
 	int		i;
+	int		j;
 	char	**sp;
+	char	**sp2;
 	int		start;
+	int		flag;
 	t_pipe	*pipe;
 	t_redir	*redir;
 
-//	cmd->pipe = NULL;
-//	cmd->redir = NULL;
 	start = 0;
-	sp = ft_split(cmd->cmd_line, '\n');
+	flag = 0;
+//	sp = ft_split(cmd->cmd_line, '\n');
+	sp = split(cmd->cmd_line, '|');
 	i = -1;
 	while (sp[++i])
 	{
-		if (!ft_strcmp(sp[i], "|"))
+		sp2 = ft_split(sp[i], '\n');
+		j = -1;
+		while (sp2[++j])
 		{
-			// crear listas para pipe. crear, añadir, borrar....
-			pipe = ft_newpipe();
-			pipe->full_cmd = subsplit(sp, start, i - start);
-			pipe->path = get_path(sp[start], cmd->env);
-			// 1: redireccionar la salida a un pipe
-			pipe->outfile = 1;
-			ft_pipeadd_back(&(cmd->pipe), pipe);
-			//printf("cmd:%s path:%s\n", pipe->full_cmd[0], pipe->path);
-			start = i + 1;
+			if (!ft_strcmp(sp2[j], "<<"))
+			{
+				redir = ft_lstnew_redir();
+				redir->key = ft_strdup(sp2[j + 1]);
+				redir->type = "readl";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
+			else if (!ft_strcmp(sp2[j], "<"))
+			{
+				redir = ft_lstnew_redir();
+				redir->file = ft_strdup(sp2[j + 1]);
+				redir->type = "read";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
+			else if (!ft_strcmp(sp2[j], ">"))
+			{
+				redir = ft_lstnew_redir();
+				redir->file = ft_strdup(sp2[j + 1]);
+				redir->type = "write";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
+			else if (!ft_strcmp(sp2[j], ">>"))
+			{
+				redir = ft_lstnew_redir();
+				redir->file = ft_strdup(sp2[j + 1]);
+				redir->type = "append";
+				ft_lstadd_back_redir(&(cmd->redir), redir);
+				flag = 1;
+				break ;
+			}
 		}
-		else if (!ft_strcmp(sp[i], "<<"))
-		{
-			redir = ft_lstnew_redir();
-			redir->key = ft_strdup(sp[i + 1]);
-			redir->type = "readl";
-			ft_lstadd_back_redir(&(cmd->redir), redir);
-		}
-		else if (!ft_strcmp(sp[i], "<"))
-		{
-			redir = ft_lstnew_redir();
-			redir->file = ft_strdup(sp[i + 1]);
-			redir->type = "read";
-		}
-		else if (!ft_strcmp(sp[i], ">"))
-		{
-			redir = ft_lstnew_redir();
-			redir->file = ft_strdup(sp[i + 1]);
-			redir->type = "write";
-		}
-		else if (!ft_strcmp(sp[i], ">>"))
-		{
-			redir = ft_lstnew_redir();
-			redir->file = ft_strdup(sp[i + 1]);
-			redir->type = "append";
-		}
-	}
-	if (start < i)
-	{
 		pipe = ft_newpipe();
-		pipe->full_cmd = subsplit(sp, start, i - start);
-		pipe->path = get_path(sp[start], cmd->env);
+		if (flag == 1)
+		{
+			free_split(sp2);
+			sp2 = delete_redirection(sp[i], &j);
+			// conseguir toda la info quitando la redireccion
+		}
+		pipe->full_cmd = subsplit(sp2, 0, j);
+		pipe->path = get_path(sp2[0], cmd->env);
+		//TODO: ver que numero asignar a cada accion. 0 = x defecto, ...
+		if (redir)
+		{
+			pipe->redir = redir; // es necesario tener esto?
+			/*
+			* redirecciones:
+			* infile = 0 -> por defecto. params = argumentos
+			* infile = 1 -> leer desde el terminal -> gnl
+			* infile = fd -> fd corresponding to the open file 'infile'
+			* outfile = 1 -> redireccionar al pipe
+			* outfile = fd -> fd corresponding to the open file 'outfile'
+			*/
+			if (!ft_strcmp(redir->type, "readl"))
+				pipe->infile = 1; //leer desde el terminal
+			else if (!ft_strcmp(redir->type, "read"))
+				pipe->infile = open_file(redir->file, 'r'); // leer de un fichero
+			else if (!ft_strcmp(redir->type, "write"))
+				pipe->outfile = open_file(redir->file, 'w'); //escribir en el fichero
+			else if (!ft_strcmp(redir->type, "apend"))
+				pipe->outfile = open_file(redir->file, 'a'); //escribir en el fichero añadiendo.
+		}
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 	}
 	free_split(sp);
+	free_split(sp2);
+	// TODO. cerrar los descriptores cuando no se necesiten y en otro punto.
 }

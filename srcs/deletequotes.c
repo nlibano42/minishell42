@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deletequotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:13:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/03 18:42:50 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:56:26 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ft_deletequotes(char *s)
 	t_quotes	quotes;
 	int			start;
 	int			i;
-
 
 	init_quotes_flags(&quotes);
 	quotes.join_str = ft_strdup("");

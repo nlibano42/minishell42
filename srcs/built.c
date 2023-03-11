@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:26:13 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/08 19:00:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:10:34 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_builtin(t_cmd *cmd, t_pipe *pipex)
 		ft_exit(cmd);
 	else if (ft_strcmp(pipex->path, "cd") == 0)
 		cd(cmd, pipex);
- 	else if (ft_strcmp(pipex->path, "echo") == 0)
+	else if (ft_strcmp(pipex->path, "echo") == 0)
 		echo(pipex);
- 	else if (ft_strcmp(pipex->path, "unset") == 0)
+	else if (ft_strcmp(pipex->path, "unset") == 0)
 		unset(cmd, pipex);
 }

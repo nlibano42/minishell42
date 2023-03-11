@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/08 18:55:56 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:13:20 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	is_builtin(char *s)
 		return (1);
 	else
 		return (0);
-	//TODO: para recortar lineas en la funcion get_path.
 }
 
 char	*get_path(char *s, t_env *env)

@@ -6,9 +6,10 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/10 12:59:02 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:00:55 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../incs/minishell.h"
 
@@ -45,7 +46,6 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 
 	aux = cmd->readl;
 	cmd->cmd_line = prepare_split(aux);
-//	free(aux); //liberar readl? necesitaremos mas adelante este valor?
 	cmd->cmd = ft_split(cmd->cmd_line, '\n');
 	i = -1;
 	while (cmd->cmd[++i])
@@ -53,7 +53,7 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 	join_split(cmd);
 	cmd->cmd_line = expand_pipe_redir(cmd);
 	if (ft_access(cmd->cmd_line) == -1 || is_two_pipes(cmd->cmd_line) == 1)
-		return (g_shell.quit_status = 1); 
+		return (g_shell.quit_status = 1);
 		//devolvemos el error con el quit_status, luego podemos hacer
 		//segun el error el status un write que diga cual es el error, veremos.
 	return (0);

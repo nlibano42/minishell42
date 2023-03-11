@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:38:36 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/27 20:33:51 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:47:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env	*ft_lstnew(char *name, char *val)
 	if (!list)
 		return (NULL);
 	list->name = ft_strdup(name);
-	if(val)
+	if (val)
 		list->val = ft_strdup(val);
 	list->next = NULL;
 	return (list);

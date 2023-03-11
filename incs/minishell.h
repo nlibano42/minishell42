@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/09 20:49:47 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:20:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 # define READ_END		0  /* index pipe extremo escritura */
 # define WRITE_END		1  /* index pipe extremo lectura */
+# define BUFFER_SIZE	1
 
 typedef struct s_quotes
 {
@@ -48,6 +49,14 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_redir
+{
+	char			*key;
+	char			*file;
+	char			*type; //read, read_l, write, append
+	struct s_redir	*next;
+}	t_redir;
+
 //estructura de los comandos. Command + options + arguments
 typedef struct s_pipe
 {
@@ -56,17 +65,10 @@ typedef struct s_pipe
 	int				fd[2];
 	int				infile;
 	int				outfile;
+	struct s_redir	*redir;
 	struct s_pipe	*next;
 	struct s_pipe	*before;
 }	t_pipe;
-
-typedef struct s_redir
-{
-	char			*key;
-	char			*file;
-	char			*type; //read, read_l, write, append
-	struct s_redir	*next;
-}	t_redir;
 
 typedef struct s_cmd
 {
@@ -146,8 +148,9 @@ void	count_pipe(t_cmd *cmd, char *s);
 char	*ft_deletequotes(char *s);
 
 //redirections.c
-void		redirections(char **input);
-int			ft_access(char *input);
+void	redirections(char **input);
+int		ft_access(char *input);
+int		open_file(char *file, char flag);
 
 //env.c
 void	init_env(t_env **envi, char **env);
