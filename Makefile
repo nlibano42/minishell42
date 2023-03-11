@@ -6,7 +6,7 @@
 #    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/09 23:15:16 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/03/11 16:10:42 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME		= minishell
 SRCSDIR		= srcs
 OBJSDIR		= objs
 EXTLIB		= libft
-READLINE_DIR = /usr/local/Cellar/readline/8.2.1
-#READLINE_DIR = ${HOME}/.brew/opt/readline
+#READLINE_DIR = /usr/local/Cellar/readline/8.2.1
+READLINE_DIR = ${HOME}/.brew/opt/readline
 
 SRCS	= main.c\
 		../gnl/get_next_line_utils.c \

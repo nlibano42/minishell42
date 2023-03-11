@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/10 00:33:24 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:06:05 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,18 @@ char	**delete_redirection(char *sp, int *len)
 	return (res);
 }
 
+char	**fill_empty()
+{
+	char	**s;
+
+	s = (char **)malloc(sizeof(char *) * 2);
+	if (!s)
+		return (NULL);
+	s[0] = ft_strdup("");
+	s[1] = NULL;
+	return (s);
+}
+
 void	save_cmds(t_cmd *cmd)
 {
 	int		i;
@@ -109,6 +121,14 @@ void	save_cmds(t_cmd *cmd)
 
 	start = 0;
 	flag = 0;
+	if (ft_strlen(cmd->cmd_line) == 0)
+	{
+		pipe = ft_newpipe();
+		pipe->full_cmd = fill_empty();
+		pipe->path = ft_strdup("");
+		ft_pipeadd_back(&(cmd->pipe), pipe);
+		return ;
+	}
 //	sp = ft_split(cmd->cmd_line, '\n');
 	sp = split(cmd->cmd_line, '|');
 	i = -1;

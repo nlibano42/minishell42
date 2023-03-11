@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/09 23:13:20 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:06:48 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 		ft_builtin(cmd, pipes);
 	else
 	{
+		if (ft_strlen(p) == 0)
+			return ;
 		if(p !=  NULL)
 			execve(p, pipes->full_cmd, char_env);
 		ft_putstr_fd("minishell: ", 2);
