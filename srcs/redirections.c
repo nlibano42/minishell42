@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/11 20:46:05 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/12 00:01:56 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	redirections(t_pipe *pipes)
 	if (pipes->infile == 0 && pipes->outfile == 0)
 		return  (0);
 	if (!ft_strcmp(pipes->redir->type, "read"))
-	{
 		dup2(pipes->infile, STDIN_FILENO);
-	}
+	if (!ft_strcmp(pipes->redir->type, "write"))
+		dup2(pipes->outfile, STDOUT_FILENO);
 	return (0);
 }
 

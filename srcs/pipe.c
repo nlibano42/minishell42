@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/11 20:51:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/11 22:19:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,9 @@ void	close_fd(t_cmd *cmd)
 	while (pip)
 	{
 		if (pip->infile != -1)
-		{
 			close(pip->infile);
-		}
 		if (pip->outfile != -1)
-		{
 			close(pip->outfile);
-		}
 		pip = pip->next;
 	}
 
