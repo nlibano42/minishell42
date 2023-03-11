@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/24 18:35:26 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:46:23 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,32 @@ int	open_file(char *file, char flag)
 	if (flag == 'r')
 		fd = open(file, O_RDONLY);
 	else if (flag == 'w')
-		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC);
+		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (flag == 'a')
-		fd = open(file, O_CREAT | O_WRONLY | O_APPEND);
+		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 		g_shell.quit_status = 1; //mirar que numero debe devolver.
 	return (fd);
 }
 
-/* redirections
-*	s: readline (parse)
-*/
-/* void redirections(char **input) //funciona  pero tenemos que saber cuando usarlo.
+int	redirections(t_pipe *pipes)
 {
-	int		i;
-	int		j;
-
-	i = -1;
-	while (input[++i])
+	if(pipes->infile == -1 || pipes->outfile == -1)
 	{
-		j = -1;
-		while(input[i][++j])
-		{
-			if (!ft_strncmp(input[i], ">", 1))
-			// se llama a la funcion correspondiente;
-			if (!ft_strncmp(input[i], "<", 1))
-			// se llama a la funcion correspondiente;
-			if (!ft_strncmp(input[i], ">>", 2))
-			// se llama a la funcion correspondiente;
-			if (!ft_strncmp(input[i], "<<", 2))
-			// se llama a la funcion correspondiente;;
-		}
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(pipes->redir->file, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return (g_shell.quit_status = 1);
 	}
-} */
+	if (pipes->infile == 0 && pipes->outfile == 0)
+		return  (0);
+	if (!ft_strcmp(pipes->redir->type, "read"))
+	{
+		dup2(pipes->infile, STDIN_FILENO);
+		//close(pipes->infile);
+	}
+	return (0);
+}
 
 int	ft_access(char *input)
 {
@@ -60,7 +53,6 @@ int	ft_access(char *input)
 	char	**cmd_split;
 	int		fd;
 
-//	cmd_split = ft_split(input, ',');
 	cmd_split = ft_split(input, '\n');
 	fd = 0;
 	i = -1;

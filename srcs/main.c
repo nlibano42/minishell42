@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/11 17:20:53 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:24:42 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	save_cmds(t_cmd *cmd)
 		//TODO: ver que numero asignar a cada accion. 0 = x defecto, ...
 		if (redir)
 		{
-			pipe->redir = redir; // es necesario tener esto?
+			pipe->redir = redir;
 			/*
 			* redirecciones:
 			* infile = 0 -> por defecto. params = argumentos
@@ -196,13 +196,13 @@ void	save_cmds(t_cmd *cmd)
 			* outfile = 1 -> redireccionar al pipe
 			* outfile = fd -> fd corresponding to the open file 'outfile'
 			*/
-			if (!ft_strcmp(redir->type, "readl"))
+			if (!ft_strcmp(redir->type, "readl")) // << key
 				pipe->infile = 1; //leer desde el terminal
-			else if (!ft_strcmp(redir->type, "read"))
+			else if (!ft_strcmp(redir->type, "read")) // < file
 				pipe->infile = open_file(redir->file, 'r'); // leer de un fichero
-			else if (!ft_strcmp(redir->type, "write"))
+			else if (!ft_strcmp(redir->type, "write")) // > file
 				pipe->outfile = open_file(redir->file, 'w'); //escribir en el fichero
-			else if (!ft_strcmp(redir->type, "apend"))
+			else if (!ft_strcmp(redir->type, "apend")) // >> file
 				pipe->outfile = open_file(redir->file, 'a'); //escribir en el fichero añadiendo.
 		}
 		ft_pipeadd_back(&(cmd->pipe), pipe);

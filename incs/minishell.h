@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/10 00:20:38 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:36:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	count_pipe(t_cmd *cmd, char *s);
 char	*ft_deletequotes(char *s);
 
 //redirections.c
-void	redirections(char **input);
+int		redirections(t_pipe *pipes);
 int		ft_access(char *input);
 int		open_file(char *file, char flag);
 
@@ -202,6 +202,7 @@ void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
 //pipe.c
 void	pipex_main(t_cmd *cmd);
 void	ft_pipex(t_cmd *cmd, t_pipe *pipes);
+void	close_fd(t_cmd *cmd);
 
 //export.c
 char	**sort_env(t_env *env);
