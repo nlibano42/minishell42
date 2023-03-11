@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/11 19:46:57 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:51:57 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,21 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 void	close_fd(t_cmd *cmd)
 {
 	t_pipe	*pip;
-
+	
 	pip = cmd->pipe;
 	while (pip)
 	{
-		if (pip->infile >= 1)
+		if (pip->infile != -1)
+		{
 			close(pip->infile);
-		if (pip->outfile >= 1)
+		}
+		if (pip->outfile != -1)
+		{
 			close(pip->outfile);
+		}
 		pip = pip->next;
 	}
+
 }
 
 void	pipex_main(t_cmd *cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/11 19:46:23 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:46:05 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	redirections(t_pipe *pipes)
 	if (!ft_strcmp(pipes->redir->type, "read"))
 	{
 		dup2(pipes->infile, STDIN_FILENO);
-		//close(pipes->infile);
 	}
 	return (0);
 }

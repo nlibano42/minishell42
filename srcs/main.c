@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/11 19:24:42 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:02:53 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	main(int argc, char **argv, char **env)
 {	
 	t_cmd	cmd;
+	int		save_stdin;
+	int		save_stdout;
 
 	if (check_init_params(argc, argv))
 		return (1);
@@ -24,9 +26,11 @@ int	main(int argc, char **argv, char **env)
 	ft_signal();
 	while (1)
 	{
+		save_stdin = dup(STDIN_FILENO);
+		save_stdout = dup(STDOUT_FILENO);
 		cmd.readl = readline("Minishell $> ");
 		add_history(cmd.readl);
-		if (!cmd.readl)
+	 	if (!cmd.readl)
 		{
 			//TODO: pone \n antes del exit. Quitar salto de linea inicial
 			ft_exit(&cmd);
@@ -50,6 +54,10 @@ int	main(int argc, char **argv, char **env)
 				pipex_main(&cmd); //la funcion de los pipes!!
 				free_all(&cmd);
 			}
+			dup2(save_stdin, STDIN_FILENO);
+			dup2(save_stdout, STDOUT_FILENO);
+			close(save_stdin);
+			close(save_stdout);
 			//estoy probando si funciona. TODO: hacer que funcione.
 		}
 		//pdte liberar (t_env) env
@@ -116,9 +124,9 @@ void	save_cmds(t_cmd *cmd)
 	char	**sp2;
 	int		start;
 	int		flag;
+
 	t_pipe	*pipe;
 	t_redir	*redir;
-
 	start = 0;
 	flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
