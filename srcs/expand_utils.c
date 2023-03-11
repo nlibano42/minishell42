@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:07:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/09 19:24:17 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:59:55 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*expand_virgulilla(char **str, t_env *env, t_quotes *quotes)
 
 char	*change_env_val(char *s, t_env *env, int *i, char *join_str)
 {
-	char	*str;
+	char	*str = NULL;
 	int		fin;
 	char	*val;
 
