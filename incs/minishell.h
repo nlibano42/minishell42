@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/11 19:36:55 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:16:11 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct s_redir
 	char			*key;
 	char			*file;
 	char			*type; //read, read_l, write, append
-	struct s_redir	*next;
+	int				fd;
+//	struct s_redir	*next;
 }	t_redir;
 
 //estructura de los comandos. Command + options + arguments
@@ -63,9 +64,11 @@ typedef struct s_pipe
 	char			**full_cmd;
 	char			*path;
 	int				fd[2];
-	int				infile;
-	int				outfile;
-	struct s_redir	*redir;
+//	int				infile;
+//	int				outfile;
+//	char			*type;
+	t_redir			*redir;
+	int				num_redi;
 	struct s_pipe	*next;
 	struct s_pipe	*before;
 }	t_pipe;
@@ -95,6 +98,7 @@ void	save_cmds(t_cmd *cmd);
 //init.c
 void	init_cmd(t_cmd *cmd);
 void	init_quotes_flags(t_quotes *quotes);
+t_redir	init_redirection(char *file, char *type, char *key);
 
 //checks.c
 void	check_quotes_flags(t_quotes *quotes, char c);
@@ -202,7 +206,8 @@ void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
 //pipe.c
 void	pipex_main(t_cmd *cmd);
 void	ft_pipex(t_cmd *cmd, t_pipe *pipes);
-void	close_fd(t_cmd *cmd);
+//void	close_fd(t_cmd *cmd);
+void	close_fd(t_redir *redir, int len);
 
 //export.c
 char	**sort_env(t_env *env);

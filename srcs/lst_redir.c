@@ -6,13 +6,13 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 16:25:23 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/24 16:30:34 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/12 15:16:19 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-t_redir	*ft_lstnew_redir(void)
+/*t_redir	*ft_lstnew_redir(void)
 {
 	t_redir	*list;
 
@@ -74,3 +74,4 @@ t_redir	*ft_lstlast_redir(t_redir *lst)
 	}
 	return (lst);
 }
+*/

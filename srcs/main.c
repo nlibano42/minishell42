@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/11 21:02:53 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:47:15 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,36 @@ char	**fill_empty()
 	return (s);
 }
 
+int	count_redirections(char *s)
+{
+	int		i;
+	int		count;
+	char	**sp;
+
+	count = 0;
+	sp = ft_split(s, '\n');
+	i = -1;
+	while (sp[++i])
+	{
+		if (!ft_strcmp(sp[i], "<<") || !ft_strcmp(sp[i], "<") || \
+				!ft_strcmp(sp[i], ">") || !ft_strcmp(sp[i], ">>"))
+			count++;
+	}
+	return (count);
+}
+
 void	save_cmds(t_cmd *cmd)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	**sp;
 	char	**sp2;
 	int		start;
 	int		flag;
-
 	t_pipe	*pipe;
-	t_redir	*redir;
+	t_redir	redir;
+	
 	start = 0;
 	flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
@@ -142,49 +161,75 @@ void	save_cmds(t_cmd *cmd)
 	i = -1;
 	while (sp[++i])
 	{
+		pipe = ft_newpipe();
+		pipe->num_redi = count_redirections(sp[i]);
+		if (pipe->num_redi > 0)
+		{
+			pipe->redir = malloc(sizeof(t_redir) * (pipe->num_redi + 1));
+			if (!pipe->redir)
+				return ;
+		}
 		sp2 = ft_split(sp[i], '\n');
 		j = -1;
+		k = -1;
 		while (sp2[++j])
 		{
+			//TODO: eliminar lst_redir. utilizare array de struct en lugar de listas.
 			if (!ft_strcmp(sp2[j], "<<"))
 			{
-				redir = ft_lstnew_redir();
-				redir->key = ft_strdup(sp2[j + 1]);
-				redir->type = "readl";
-				ft_lstadd_back_redir(&(cmd->redir), redir);
+				redir = init_redirection(NULL, "readl", ft_strdup(sp2[j + 1]));
+//				pipe->infile = 1; //leer desde el terminal
+				redir.fd = 1;
+				//redir = ft_lstnew_redir();
+				//redir->key = ft_strdup(sp2[j + 1]);
+				//redir->type = "readl";
+				//ft_lstadd_back_redir(&(cmd->redir), redir);
 				flag = 1;
-				break ;
+	//			break ;
 			}
 			else if (!ft_strcmp(sp2[j], "<"))
 			{
-				redir = ft_lstnew_redir();
-				redir->file = ft_strdup(sp2[j + 1]);
-				redir->type = "read";
-				ft_lstadd_back_redir(&(cmd->redir), redir);
+				redir = init_redirection(ft_strdup(sp2[j + 1]), "read", NULL);
+//				pipe->infile = open_file(sp2[j + 1], 'r'); // leer de un fichero
+				redir.fd = open_file(sp2[j + 1], 'r'); // leer de un fichero
+//				redir = ft_lstnew_redir();
+//				redir->file = ft_strdup(sp2[j + 1]);
+//				redir->type = "read";
+//				ft_lstadd_back_redir(&(cmd->redir), redir);
 				flag = 1;
-				break ;
+ 	//			break ;
 			}
 			else if (!ft_strcmp(sp2[j], ">"))
 			{
-				redir = ft_lstnew_redir();
-				redir->file = ft_strdup(sp2[j + 1]);
-				redir->type = "write";
-				ft_lstadd_back_redir(&(cmd->redir), redir);
+				redir = init_redirection(ft_strdup(sp2[j + 1]), "write", NULL);
+//				pipe->outfile = open_file(sp2[j + 1], 'w'); //escribir en el fichero
+				redir.fd = open_file(sp2[j + 1], 'w'); //escribir en el fichero
+//				redir = ft_lstnew_redir();
+//				redir->file = ft_strdup(sp2[j + 1]);
+//				redir->type = "write";
+//				ft_lstadd_back_redir(&(cmd->redir), redir);
 				flag = 1;
-				break ;
+	//			break ;
 			}
 			else if (!ft_strcmp(sp2[j], ">>"))
 			{
-				redir = ft_lstnew_redir();
-				redir->file = ft_strdup(sp2[j + 1]);
-				redir->type = "append";
-				ft_lstadd_back_redir(&(cmd->redir), redir);
+				redir = init_redirection(ft_strdup(sp2[j + 1]), "append", NULL);
+//				pipe->outfile = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
+				redir.fd = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
+//				redir = ft_lstnew_redir();
+//				redir->file = ft_strdup(sp2[j + 1]);
+//				redir->type = "append";
+//				ft_lstadd_back_redir(&(cmd->redir), redir);
 				flag = 1;
-				break ;
+	//			break ;
+			}
+			if (flag == 1)
+			{
+				pipe->redir[++k] = redir;
+				flag = 0;
 			}
 		}
-		pipe = ft_newpipe();
-		if (flag == 1)
+		if (k != -1)
 		{
 			free_split(sp2);
 			sp2 = delete_redirection(sp[i], &j);
@@ -193,17 +238,17 @@ void	save_cmds(t_cmd *cmd)
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
 		//TODO: ver que numero asignar a cada accion. 0 = x defecto, ...
-		if (redir)
+/*		if (redir)
 		{
 			pipe->redir = redir;
-			/*
+			/-*
 			* redirecciones:
 			* infile = 0 -> por defecto. params = argumentos
 			* infile = 1 -> leer desde el terminal -> gnl
 			* infile = fd -> fd corresponding to the open file 'infile'
 			* outfile = 1 -> redireccionar al pipe
 			* outfile = fd -> fd corresponding to the open file 'outfile'
-			*/
+			*-/
 			if (!ft_strcmp(redir->type, "readl")) // << key
 				pipe->infile = 1; //leer desde el terminal
 			else if (!ft_strcmp(redir->type, "read")) // < file
@@ -213,6 +258,7 @@ void	save_cmds(t_cmd *cmd)
 			else if (!ft_strcmp(redir->type, "apend")) // >> file
 				pipe->outfile = open_file(redir->file, 'a'); //escribir en el fichero añadiendo.
 		}
+*/
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 	}
 	free_split(sp);

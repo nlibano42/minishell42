@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 21:47:31 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:46:05 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ t_pipe	*ft_newpipe(void)
 		return (NULL);
 	pipe->full_cmd = NULL;
 	pipe->path = NULL;
-	pipe->infile = 0;
-	pipe->outfile = 0;
+//	pipe->infile = 0;
+//	pipe->outfile = 0;
 	pipe->next = NULL;
+	//pipe->redir[0] = init_redirection(NULL, NULL, NULL);
+	pipe->redir = NULL;
+	pipe->num_redi = 0;
 	pipe->before = NULL;
 	return (pipe);
 }
@@ -58,6 +61,8 @@ void	ft_pipedelone(t_pipe *pipe)
 	if (pipe)
 	{
 		free_split(pipe->full_cmd);
+		if (pipe->redir)
+			free(pipe->redir);
 		free(pipe->path);
 		free(pipe);
 	}

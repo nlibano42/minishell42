@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:05:45 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 21:53:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/12 15:16:37 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	free_all(t_cmd *cmd)
 		free(cmd->readl);
 	if (cmd->pipe)
 		ft_pipelstclear(&(cmd->pipe));
-	if (cmd->redir)
-		ft_lstclear_redir(&(cmd->redir));
+//	if (cmd->redir)
+//		ft_lstclear_redir(&(cmd->redir));
 }

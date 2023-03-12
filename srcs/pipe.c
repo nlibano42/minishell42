@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/11 22:19:16 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:17:14 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,24 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 	}
 }
 
-void	close_fd(t_cmd *cmd)
+void	close_fd(t_redir *redir, int len)
 {
-	t_pipe	*pip;
-	
-	pip = cmd->pipe;
-	while (pip)
-	{
-		if (pip->infile != -1)
-			close(pip->infile);
-		if (pip->outfile != -1)
-			close(pip->outfile);
-		pip = pip->next;
-	}
+//	t_pipe	*pip;
+//	t_redir	*redir;
+	int		i;
 
+//	pip = cmd->pipe;
+//	while (pip)
+//	{
+//		redir = pip->redir;
+		i = -1;
+		while (++i < len)
+		{	
+			if (redir[i].fd != -1)
+				close(redir[i].fd);
+		}
+//		pip = pip->next;
+//	}
 }
 
 void	pipex_main(t_cmd *cmd)
@@ -99,6 +103,7 @@ void	pipex_main(t_cmd *cmd)
 			ft_builtin(cmd, cmd->pipe);
 		else
 			ft_notpipe(cmd);
+		close_fd(cmd->pipe->redir, cmd->pipe->num_redi);
 	}
 	else
 	{
@@ -108,8 +113,8 @@ void	pipex_main(t_cmd *cmd)
 			if (redirections(cmd->pipe) == 1)
 				return ;
 			ft_pipex(cmd, pipes);
+			close_fd(pipes->redir, pipes->num_redi);
 			pipes = pipes->next;
 		}
 	}
-	close_fd(cmd);
 }

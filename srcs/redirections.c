@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/12 00:01:56 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:47:05 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,31 @@ int	open_file(char *file, char flag)
 
 int	redirections(t_pipe *pipes)
 {
-	if(pipes->infile == -1 || pipes->outfile == -1)
+	int		i;
+	t_redir	*redir;
+
+	if (!pipes->redir)
+		return (0);
+	redir = pipes->redir;
+	i = -1;
+	while (++i < pipes->num_redi)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(pipes->redir->file, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		return (g_shell.quit_status = 1);
+		if(redir[i].fd == -1)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(redir[i].file, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			return (g_shell.quit_status = 1);
+		}
+		if (redir[i].fd == 0)
+			return  (0);
+		if (!ft_strcmp(redir[i].type, "read"))
+			dup2(redir[i].fd, STDIN_FILENO);
+		if (!ft_strcmp(redir[i].type, "write"))
+			dup2(redir[i].fd, STDOUT_FILENO);
+		if (!ft_strcmp(redir[i].type, "append"))
+			dup2(redir[i].fd, STDOUT_FILENO);
 	}
-	if (pipes->infile == 0 && pipes->outfile == 0)
-		return  (0);
-	if (!ft_strcmp(pipes->redir->type, "read"))
-		dup2(pipes->infile, STDIN_FILENO);
-	if (!ft_strcmp(pipes->redir->type, "write"))
-		dup2(pipes->outfile, STDOUT_FILENO);
 	return (0);
 }
 
