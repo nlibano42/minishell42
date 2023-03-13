@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/13 21:39:20 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/13 23:56:47 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,37 +31,35 @@ int	open_file(char *file, char flag)
 int	redirections(t_pipe *pipes)
 {
 	int		i;
-	t_redir	*redir;
 
 	if (!pipes->redir)
 		return (0);
-	redir = pipes->redir;
 	i = -1;
 	while (++i < pipes->num_redi)
 	{
-		if(redir[i].fd == -1)
+		if(pipes->redir[i].fd == -1)
 		{
 			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(redir[i].file, 2);
+			ft_putstr_fd(pipes->redir[i].file, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
 			return (g_shell.quit_status = 1);
 		}
-		if (redir[i].fd == 0)
+		if (pipes->redir[i].fd == 0)
 			return  (0);
-		if (!ft_strcmp(redir[i].type, "read"))
+		if (!ft_strcmp(pipes->redir[i].type, "read"))
 		{
-			close(redir[i].fd);
-			dup2(redir[i].fd, STDIN_FILENO);
+//			pipes->redir[i].fd = open_file(pipes->redir[i].file, 'r');
+			dup2(pipes->redir[i].fd, STDIN_FILENO);
 		}
-		if (!ft_strcmp(redir[i].type, "write"))
+		if (!ft_strcmp(pipes->redir[i].type, "write"))
 		{
-			redir[i].fd = open_file(redir[i].file, 'w');
-			dup2(redir[i].fd, STDOUT_FILENO);
+//			pipes->redir[i].fd = open_file(pipes->redir[i].file, 'w');
+			dup2(pipes->redir[i].fd, STDOUT_FILENO);
 		}
-		if (!ft_strcmp(redir[i].type, "append"))
+		if (!ft_strcmp(pipes->redir[i].type, "append"))
 		{
-			redir[i].fd = open_file(redir[i].file, 'a');
-			dup2(redir[i].fd, STDOUT_FILENO);
+	//		pipes->redir[i].fd = open_file(pipes->redir[i].file, 'a');
+			dup2(pipes->redir[i].fd, STDOUT_FILENO);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 00:48:46 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:26:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	ft_suppress_output(void)
 
 	if (tcgetattr(0, &config))
 		perror("minishell: tcsetattr");
+	if (g_shell.pid == 0)
 		config.c_lflag &= ~ECHOCTL;
+	else
+		config.c_lflag |= ECHO;
 	if (tcsetattr(0, 0, &config))
 		perror("minishell: tcsetattr");
 }

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/12 21:21:22 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/13 23:47:36 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,24 +184,25 @@ void	save_cmds(t_cmd *cmd)
 			else if (!ft_strcmp(sp2[j], "<"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "read", NULL);
-//				redir.fd = open_file(sp2[j + 1], 'r'); // leer de un fichero
+				redir.fd = open_file(sp2[j + 1], 'r'); // leer de un fichero
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "write", NULL);
-//				redir.fd = open_file(sp2[j + 1], 'w'); //escribir en el fichero
+				redir.fd = open_file(sp2[j + 1], 'w'); //escribir en el fichero
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">>"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "append", NULL);
-//				redir.fd = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
+				redir.fd = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
 				flag = 1;
 			}
 			if (flag == 1)
 			{
-				pipe->redir[++k] = redir;
+				k++;
+				pipe->redir[k] = redir;
 				flag = 0;
 			}
 		}
