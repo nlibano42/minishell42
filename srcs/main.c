@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/12 18:47:15 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/12 21:21:22 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,50 +178,26 @@ void	save_cmds(t_cmd *cmd)
 			if (!ft_strcmp(sp2[j], "<<"))
 			{
 				redir = init_redirection(NULL, "readl", ft_strdup(sp2[j + 1]));
-//				pipe->infile = 1; //leer desde el terminal
 				redir.fd = 1;
-				//redir = ft_lstnew_redir();
-				//redir->key = ft_strdup(sp2[j + 1]);
-				//redir->type = "readl";
-				//ft_lstadd_back_redir(&(cmd->redir), redir);
 				flag = 1;
-	//			break ;
 			}
 			else if (!ft_strcmp(sp2[j], "<"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "read", NULL);
-//				pipe->infile = open_file(sp2[j + 1], 'r'); // leer de un fichero
-				redir.fd = open_file(sp2[j + 1], 'r'); // leer de un fichero
-//				redir = ft_lstnew_redir();
-//				redir->file = ft_strdup(sp2[j + 1]);
-//				redir->type = "read";
-//				ft_lstadd_back_redir(&(cmd->redir), redir);
+//				redir.fd = open_file(sp2[j + 1], 'r'); // leer de un fichero
 				flag = 1;
- 	//			break ;
 			}
 			else if (!ft_strcmp(sp2[j], ">"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "write", NULL);
-//				pipe->outfile = open_file(sp2[j + 1], 'w'); //escribir en el fichero
-				redir.fd = open_file(sp2[j + 1], 'w'); //escribir en el fichero
-//				redir = ft_lstnew_redir();
-//				redir->file = ft_strdup(sp2[j + 1]);
-//				redir->type = "write";
-//				ft_lstadd_back_redir(&(cmd->redir), redir);
+//				redir.fd = open_file(sp2[j + 1], 'w'); //escribir en el fichero
 				flag = 1;
-	//			break ;
 			}
 			else if (!ft_strcmp(sp2[j], ">>"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "append", NULL);
-//				pipe->outfile = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
-				redir.fd = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
-//				redir = ft_lstnew_redir();
-//				redir->file = ft_strdup(sp2[j + 1]);
-//				redir->type = "append";
-//				ft_lstadd_back_redir(&(cmd->redir), redir);
+//				redir.fd = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
 				flag = 1;
-	//			break ;
 			}
 			if (flag == 1)
 			{
@@ -233,7 +209,6 @@ void	save_cmds(t_cmd *cmd)
 		{
 			free_split(sp2);
 			sp2 = delete_redirection(sp[i], &j);
-			// conseguir toda la info quitando la redireccion
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
