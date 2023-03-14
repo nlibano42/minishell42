@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/14 19:48:09 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/14 20:37:41 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int	redirections(t_pipe *pipes)
 		}
 		if (!ft_strcmp(pipes->redir[i].type, "readl"))
 		{
-			ft_here_doc(pipes);
+			
+			ft_here_doc(pipes, pipes->redir[i].fd);
+			dup2(pipes->redir[i].fd, STDIN_FILENO);
+			close(pipes->redir[i].fd);
 		}
 	}
 	return (0);
