@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 19:46:05 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:06:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,10 @@ void	cd_relative_path(t_cmd *cmd, t_pipe *pipex)
 
 void	cd(t_cmd *cmd, t_pipe *pipex)
 {
+
 	if (ft_strlen(ft_lstfind_env_val(cmd->env, "OLDPWD")) == 0)
 		export_add(cmd, "OLDPWD");
-	if (pipex->full_cmd[1] || !ft_strcmp(pipex->full_cmd[1], "~"))
+	if (!pipex->full_cmd[1] || !ft_strcmp(pipex->full_cmd[1], "~"))
 		cd_no_argumnets(cmd);
 	else if (!ft_strcmp(pipex->full_cmd[1], ".."))
 		cd_up_dir(cmd);
