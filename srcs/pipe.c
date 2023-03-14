@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/14 18:38:29 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:37:33 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@ void ft_notpipe(t_cmd *cmd)
 	else if (num_pid == 0)
 	{
 		g_shell.pid = 1;
-		ft_suppress_output();
+//		ft_suppress_output();
 		ft_execve(cmd, cmd->pipe);
 		free_all(cmd);
 		exit(EXIT_FAILURE);
 	}
 	waitpid(num_pid, NULL, 0);
 	g_shell.pid = 0;
-	ft_suppress_output();
+//	ft_suppress_output();
 }
 
 void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 {
 	g_shell.pid = 1;
-	ft_suppress_output();
+//	ft_suppress_output();
 	if (pipes->before)
-	
 		dup2(pipes->before->fd[READ_END], STDIN_FILENO);
 	if (pipes->next)
 	{
@@ -70,7 +69,7 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 		close(pipes->fd[WRITE_END]);
 		waitpid(num_pid, NULL, 0);
 		g_shell.pid = 0;
-		ft_suppress_output();
+//		ft_suppress_output();
 		if (pipes->before)
 			close(pipes->before->fd[READ_END]);
 		if (!pipes->next)
