@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/13 23:48:28 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:54:47 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,5 +232,8 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i);
 
 //cd.c
 void	cd(t_cmd *cmd, t_pipe *pipex);
+
+//here_doc.c
+void ft_here_doc(t_pipe *pipes);
 
 #endif

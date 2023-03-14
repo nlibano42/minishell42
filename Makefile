@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/14 17:08:52 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/14 19:55:01 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS	= main.c\
 		unset.c\
 		cd.c\
 		expand_utils.c\
+		here_doc.c\
 		
 # Compiler options
 CC			= gcc
