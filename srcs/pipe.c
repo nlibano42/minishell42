@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/14 00:24:24 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:38:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 {
 	g_shell.pid = 1;
 	ft_suppress_output();
+	if (pipes->before)
+	
+		dup2(pipes->before->fd[READ_END], STDIN_FILENO);
 	if (pipes->next)
 	{
 		dup2(pipes->fd[WRITE_END], STDOUT_FILENO);
 		close(pipes->fd[WRITE_END]);
 	}
-	if (pipes->before)
-		dup2(pipes->before->fd[READ_END], STDIN_FILENO);
+	if (redirections(pipes) == 1)
+		return ;
 	ft_execve(cmd, pipes);
 	free_all(cmd);
 	exit(EXIT_FAILURE);
@@ -106,8 +109,8 @@ void	pipex_main(t_cmd *cmd)
 		pipes = cmd->pipe;
 		while(pipes)
 		{
-			if (redirections(pipes) == 1)
-				return ;
+/* 			if (redirections(pipes) == 1)
+				return ; */
 			ft_pipex(cmd, pipes);
 			close_fd(pipes->redir, pipes->num_redi);
 			pipes = pipes->next;

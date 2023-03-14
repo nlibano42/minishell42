@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/13 23:56:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:13:18 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,19 @@ int	redirections(t_pipe *pipes)
 		{
 //			pipes->redir[i].fd = open_file(pipes->redir[i].file, 'r');
 			dup2(pipes->redir[i].fd, STDIN_FILENO);
+			close(pipes->redir[i].fd);
 		}
 		if (!ft_strcmp(pipes->redir[i].type, "write"))
 		{
 //			pipes->redir[i].fd = open_file(pipes->redir[i].file, 'w');
 			dup2(pipes->redir[i].fd, STDOUT_FILENO);
+			close(pipes->redir[i].fd);
 		}
 		if (!ft_strcmp(pipes->redir[i].type, "append"))
 		{
 	//		pipes->redir[i].fd = open_file(pipes->redir[i].file, 'a');
 			dup2(pipes->redir[i].fd, STDOUT_FILENO);
+			close(pipes->redir[i].fd);
 		}
 	}
 	return (0);
