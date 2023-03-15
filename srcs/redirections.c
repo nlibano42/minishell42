@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/15 00:04:22 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:57:22 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ int	redirections(t_pipe *pipes)
 		}
 		if (!ft_strcmp(pipes->redir[i].type, "readl"))
 		{
-			ft_here_doc(pipes, pipes->redir[i].fd);
-			dup2(pipes->redir[i].fd, STDIN_FILENO);
-			close(pipes->redir[i].fd);
+			ft_here_doc(pipes, pipes->fd);
+//			close(pipes->fd[0]);
+			dup2(pipes->fd[1], STDIN_FILENO);
+			close(pipes->fd[1]);
 		}
 	}
 	return (0);

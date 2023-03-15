@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/15 17:31:32 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:44:31 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,6 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i);
 void	cd(t_cmd *cmd, t_pipe *pipex);
 
 //here_doc.c
-void ft_here_doc(t_pipe *pipes, int fd);
+void ft_here_doc(t_pipe *pipes, int fd[2]);
 
 #endif
