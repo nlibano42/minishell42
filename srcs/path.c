@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/11 17:54:13 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/15 21:51:34 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 		ft_builtin(cmd, pipes);
 	else
 	{
+		if (pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
+		{
+			if(p == NULL)
+				return;
+		}
 		if(p !=  NULL)
 		{
 			if (ft_strlen(p) == 0)
@@ -33,7 +38,6 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 		ft_putstr_fd(ft_deletequotes(pipes->full_cmd[0]), 2);
 		ft_putstr_fd(": command not found\n", 2);
 		g_shell.quit_status = 127;
-		
 	}
 }
 
@@ -54,6 +58,8 @@ char	*get_path(char *s, t_env *env)
 	char	**sp;
 	int		i;
 
+	if(!s)
+		return(NULL);
 	s = ft_deletequotes(s);
 	if (is_builtin(s))
 		return (ft_strdup(s));
