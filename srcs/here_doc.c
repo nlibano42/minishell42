@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/15 18:29:26 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:27:02 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,15 @@ void ft_here_doc(t_pipe *pipes)
 	if(pid < 0)
 		pipe_error("Error Fork", EXIT_FAILURE);
 	if(pid == 0)
+	{
+		g_shell.pid = 1;
+//		ft_suppress_output(0);
 		write_pipe(fd, pipes);
+	}
 	close(fd[WRITE_END]);
 	waitpid(pid, NULL, 0);
+	g_shell.pid = 0;
+//	ft_suppress_output(1);
 	dup2(fd[READ_END], STDIN_FILENO);
 	close(fd[READ_END]);
 	

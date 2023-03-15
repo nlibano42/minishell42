@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/15 18:07:31 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:47:56 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void	ft_lstdelone_redir(t_redir *lst);
 t_redir	*ft_lstlast_redir(t_redir *lst);
 
 //signal.c
-void	ft_suppress_output(void);
+void	ft_suppress_output(int quit);
 void	sighandler(int sig);
 void	show_readline(void);
 void	ft_signal(void);
