@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/14 20:23:26 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:31:32 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 # include <errno.h>
 # include <stdlib.h>
 # include <limits.h>
+#include <termios.h>
 
 // # include <stdbool.h>
 // # include <stddef.h>
 // # include <stdarg.h>
 // # include <string.h>
 // # include <dirent.h>
-// # include <termios.h>
 
 # define READ_END		0  /* index pipe extremo escritura */
 # define WRITE_END		1  /* index pipe extremo lectura */
@@ -88,6 +88,7 @@ typedef struct s_shell
 {
 	int				quit_status;
 	int				pid;
+	struct termios	save;
 }	t_shell;
 
 t_shell	g_shell;

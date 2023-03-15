@@ -6,30 +6,28 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/14 23:38:07 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/15 15:40:19 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-#include <termios.h>
+
+void	get_termios_config(void)
+{
+	struct termios	config;
+	
+	if (tcgetattr(0, &config))
+		perror("minishell: tcsetattr");
+	g_shell.save = config;
+}
 
 void	ft_signal(void)
 {
-//	get_termios_config();
+	get_termios_config();
 	ft_suppress_output();
 	signal(SIGINT, sighandler);
 	signal(SIGQUIT, sighandler);
 }
-
-/*void	get_termios_config(void)
-{
-	struct termios	config;
-
-	if (tcgetattr(0, &config))
-		perror("minishell: tcsetattr");
-	g_shell.c_lflag = config.c_lflag;
-}
-*/
 
 void	ft_suppress_output(void)
 {
@@ -37,10 +35,10 @@ void	ft_suppress_output(void)
 
 	if (tcgetattr(0, &config))
 		perror("minishell: tcsetattr");
-//	if (g_shell.pid == 0)
+	if (g_shell.pid == 0)
 		config.c_lflag &= ~ECHOCTL;
-//	else
-//		config.c_lflag &= ~ECHO;
+	else
+		config = g_shell.save;
 	if (tcsetattr(0, 0, &config))
 		perror("minishell: tcsetattr");
 }
