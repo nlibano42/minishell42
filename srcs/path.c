@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 19:07:48 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:37:03 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 		ft_putstr_fd(print_cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		g_shell.quit_status = 127;
-		free_split(char_env);
 	}
 	free(print_cmd);
 	free_split(char_env);
@@ -71,7 +70,7 @@ char	*get_path(char *s, t_env *env)
 	s = ft_deletequotes(s);
 	if (is_builtin(s))
 	{
-		free(s);
+		//free(s);
 		return (ft_strdup(s));
 	}
 	else
