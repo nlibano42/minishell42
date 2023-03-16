@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 20:19:28 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/16 20:43:38 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **env)
 				save_cmds(&cmd);
 				pipex_main(&cmd); //la funcion de los pipes!!
 				free_all(&cmd);
-				init_cmd(&cmd);
+				//init_cmd(&cmd);
 			}
 			dup2(save_stdin, STDIN_FILENO);
 			dup2(save_stdout, STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 17:47:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/16 20:49:10 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,16 @@ void	ft_pipedelone(t_pipe *pipe)
 	if (pipe)
 	{
 		free_split(pipe->full_cmd);
+		pipe->full_cmd = NULL;
 		if (pipe->redir)
+		{
 			free(pipe->redir);
+			pipe->redir= NULL;
+		}
 		free(pipe->path);
+		pipe->path = NULL;
 		free(pipe);
+		pipe = NULL;
 	}
 }
 
