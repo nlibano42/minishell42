@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 19:37:54 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:42:10 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 {
 	char *line;
 
+	printf("valor i:%d", i);
 	close(fd[READ_END]);
 	while(1)
 	{
