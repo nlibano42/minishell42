@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 20:37:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/16 21:19:52 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 {
+	(void)fd;
 	char *line;
-
-	close(fd[READ_END]);
+	char *buff;
+	
+	buff = ft_strdup("");
+	//close(fd[READ_END]);
 	while(1)
 	{
 		line = readline("> ");
@@ -26,14 +29,17 @@ void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
+			free(buff);
 			free(line);
-			close(fd[WRITE_END]);
+			//close(fd[WRITE_END]);
 			return ;
 		}
-		write(fd[WRITE_END], line, ft_strlen(line));
-		write(fd[WRITE_END], "\n", 1);
-		free(line);
+		buff = ft_strjoin(buff, line);
+		//write(fd[WRITE_END], line, ft_strlen(line));
+		//write(fd[WRITE_END], "\n", 1);
+		//free(line);
 	}
+	free(buff);
 }
 
 void	write_pipe(int *fd, t_pipe *pipes, int i)
