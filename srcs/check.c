@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:28:18 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 17:53:01 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:59:45 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,11 @@ int	is_two_pipes(char *s)
 		{
 			ft_putstr_fd("Minishell: Error. not allowed two pipes\n", 2);
 			free (s);
+			free_split(sp);
 			return (g_shell.quit_status = 1);
 		}
 	}
+	free_split(sp);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 18:52:21 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:00:47 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	write_pipe_not_last(int *fd, t_pipe *pipes)
 	{
 		line = readline("> ");
 		if (!line)
-			return ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
+			exit(EXIT_SUCCESS); // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
 		if (!ft_strcmp(line, pipes->redir->key))
 		{

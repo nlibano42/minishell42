@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/13 23:47:36 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:32:33 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ int	main(int argc, char **argv, char **env)
 			//usar nuestro builtin de exit en lugar de exit()
 //			exit(g_shell.quit_status);
 		}
-		//EXIT debe ir en el buitin
-		//if(!ft_strncmp(cmd->readl, "exit", 4))
-		//	break ;
 		if (ft_strlen(cmd.readl) > 0)
 		{
 			if (check_spaces(cmd.readl) || is_quotes_opened(cmd.readl)\
@@ -96,7 +93,7 @@ char	**delete_redirection(char *sp, int *len)
 			i++;
 			continue;
 		}
-		res[j] = ft_strdup(ft_strtrim(s[i], " "));
+		res[j] = ft_strtrim(s[i], " ");
 		j++;
 	}
 	res[j] = NULL;
@@ -131,6 +128,7 @@ int	count_redirections(char *s)
 				!ft_strcmp(sp[i], ">") || !ft_strcmp(sp[i], ">>"))
 			count++;
 	}
+	free_split(sp);
 	return (count);
 }
 

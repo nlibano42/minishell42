@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 18:51:03 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:01:21 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,10 @@ int	ft_access(char *input)
 		if (fd == -1)
 		{
 			access_error(cmd_split[i + 1]);
+			free_split(cmd_split);
 			return (fd);
 		}
 	}
+	free_split(cmd_split);
 	return (fd);
 }
