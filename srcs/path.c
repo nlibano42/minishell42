@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 19:01:09 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:07:48 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,11 @@ char	*get_path(char *s, t_env *env)
 			{
 				free(s);
 				free_split(sp);
-				free(s);
 				return (path);
 			}
 		}
 		free(s);
 		free_split(sp);
-		free(s);
 	}
 	return (NULL);
 }
