@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/15 19:46:16 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:52:38 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	write_pipe(int *fd, t_pipe *pipes)
 	{
 		line = readline("> ");
 		if (!line)
-			return ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
+			exit(EXIT_SUCCESS); // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
 		if (!ft_strcmp(line, pipes->redir->key))
 		{

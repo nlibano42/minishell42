@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 00:47:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:01:13 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	**subsplit(char **sp, int start, int len)
 	i = 0;
 	while (--len >= 0)
 	{
-		s[i] = ft_strdup(ft_strtrim(sp[start], " "));
+		s[i] = ft_strtrim(sp[start], " ");
 		i++;
 		start++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/15 21:51:34 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:49:41 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 {
 	char	**char_env;
 	char	*p;
+	char	*print_cmd;
 
+	print_cmd = ft_deletequotes(pipes->full_cmd[0]);
 	char_env = tab_env(cmd->env);
 	p = pipes->path;
 	if (is_builtin(pipes->path))
@@ -35,10 +37,12 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 			execve(p, pipes->full_cmd, char_env);
 		}
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(ft_deletequotes(pipes->full_cmd[0]), 2);
+		ft_putstr_fd(print_cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		g_shell.quit_status = 127;
 	}
+	free(print_cmd);
+	free_split(char_env);
 }
 
 int	is_builtin(char *s)
@@ -74,10 +78,12 @@ char	*get_path(char *s, t_env *env)
 			path = ft_strjoin(path, ft_strdup(s));
 			if (access(path, F_OK) == 0)
 			{
+				free(s);
 				free_split(sp);
 				return (path);
 			}
 		}
+		free(s);
 		free_split(sp);
 	}
 	return (NULL);
