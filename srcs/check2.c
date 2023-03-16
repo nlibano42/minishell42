@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 21:36:05 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:04:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ int	is_fin_redirection(char *str)
 		{
 			if (s[i + 1] == '<' || s[i + 1] == '>')
 				i++;
-			 while(ft_isalnum(s[i]) == 0)
+			while (ft_isalnum(s[i]) == 0)
 			{
-				if(!find_str(s[i], " *&/|"))
-					if(print_error(s, &i) ==  1)
+				if (!find_str(s[i], " *&/|"))
+				{
+					if (print_error(s, &i) == 1)
 					{
 						//free(s);
-						return(g_shell.pid = 258);
+						return (g_shell.pid = 258);
 					}
+				}
 				i++;
 			}
 		}
@@ -60,7 +62,7 @@ int	is_fin_redirection(char *str)
 
 int	print_error(char *s, int *i)
 {
-	if(s[*i] == '\0')
+	if (s[*i] == '\0')
 	{
 		ft_putstr_fd("Minishell: syntax error\n", 2);
 		free(s);
@@ -69,7 +71,7 @@ int	print_error(char *s, int *i)
 	return (0);
 }
 
-int export_check(char **cmd)
+int	export_check(char **cmd)
 {
 	int	i;
 

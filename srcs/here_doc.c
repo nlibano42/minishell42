@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 21:19:52 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:22:29 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 
 void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 {
+	char	*line;
+	char	*buff;
+
 	(void)fd;
-	char *line;
-	char *buff;
-	
 	buff = ft_strdup("");
-	//close(fd[READ_END]);
-	while(1)
+	while (1)
 	{
 		line = readline("> ");
 		if (!line)
@@ -31,23 +30,19 @@ void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 		{
 			free(buff);
 			free(line);
-			//close(fd[WRITE_END]);
 			return ;
 		}
 		buff = ft_strjoin(buff, line);
-		//write(fd[WRITE_END], line, ft_strlen(line));
-		//write(fd[WRITE_END], "\n", 1);
-		//free(line);
 	}
 	free(buff);
 }
 
 void	write_pipe(int *fd, t_pipe *pipes, int i)
 {
-	char *line;
+	char	*line;
 
 	close(fd[READ_END]);
-	while(1)
+	while (1)
 	{
 		line = readline("> ");
 		if (!line)
@@ -62,24 +57,20 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 		write(fd[WRITE_END], line, ft_strlen(line));
 		write(fd[WRITE_END], "\n", 1);
 		free(line);
-//		buffer = ft_strjoin(buffer, line);
-//		buffer = ft_strjoin(buffer, ft_strdup("\n"));
 	}
-//	write(fd, buffer, ft_strlen(buffer));
 }
 
-
-void ft_here_doc(t_pipe *pipes, int i)
+void	ft_here_doc(t_pipe *pipes, int i)
 {
-	int fd[2];
-	pid_t pid;
-	
-	if(pipe(fd) == -1)
+	int		fd[2];
+	pid_t	pid;
+
+	if (pipe(fd) == -1)
 		pipe_error("Error Pipe", EXIT_FAILURE);
 	pid = fork();
-	if(pid < 0)
+	if (pid < 0)
 		pipe_error("Error Fork", EXIT_FAILURE);
-	if(pid == 0)
+	if (pid == 0)
 	{
 		g_shell.pid = 1;
 //		ft_suppress_output(0);
@@ -94,5 +85,4 @@ void ft_here_doc(t_pipe *pipes, int i)
 		close(fd[READ_END]);
 	}
 	waitpid(pid, NULL, 0);
-	
 }

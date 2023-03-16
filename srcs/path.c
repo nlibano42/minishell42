@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 19:37:03 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:38:10 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	{
 		if (pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
 		{
-			if(p == NULL)
-				return;
+			if (p == NULL)
+				return ;
 		}
-		if(p !=  NULL)
+		if (p != NULL)
 		{
 			if (ft_strlen(p) == 0)
 			{
@@ -65,8 +65,8 @@ char	*get_path(char *s, t_env *env)
 	char	**sp;
 	int		i;
 
-	if(!s)
-		return(NULL);
+	if (!s)
+		return (NULL);
 	s = ft_deletequotes(s);
 	if (is_builtin(s))
 	{

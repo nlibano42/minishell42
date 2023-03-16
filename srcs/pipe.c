@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/15 21:34:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:56:40 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void ft_notpipe(t_cmd *cmd)
+void	ft_notpipe(t_cmd *cmd)
 {
 	pid_t	num_pid;
-	
+
 	num_pid = fork();
 	if (num_pid < 0)
 	{
@@ -93,7 +93,7 @@ void	pipex_main(t_cmd *cmd)
 {
 	t_pipe	*pipes;
 
- 	if (cmd->num_pipes == 0)
+	if (cmd->num_pipes == 0)
 	{
 		if (redirections(cmd->pipe) == 1)
 			return ;
@@ -106,10 +106,8 @@ void	pipex_main(t_cmd *cmd)
 	else
 	{
 		pipes = cmd->pipe;
-		while(pipes)
+		while (pipes)
 		{
-/* 			if (redirections(pipes) == 1)
-				return ; */
 			ft_pipex(cmd, pipes);
 			close_fd(pipes->redir, pipes->num_redi);
 			pipes = pipes->next;

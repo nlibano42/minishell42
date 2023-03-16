@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deletequotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:13:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 20:40:20 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:08:13 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ char	*ft_deletequotes(char *s)
 	while (s[++i])
 	{
 		check_quotes_flags(&quotes, s[i]);
-		if ((s[i] == '"' && quotes.flag_s == 0) || (s[i] == '\'' && quotes.flag_d == 0))
+		if ((s[i] == '"' && quotes.flag_s == 0) || \
+			(s[i] == '\'' && quotes.flag_d == 0))
 		{
-			quotes.join_str = ft_strjoin(quotes.join_str, ft_substr(s, start, i - start));
+			quotes.join_str = ft_strjoin(quotes.join_str, \
+				ft_substr(s, start, i - start));
 			start = i + 1;
 		}
 	}
 	if (start < i)
-		quotes.join_str = ft_strjoin(quotes.join_str, ft_substr(s, start, i - start));
+		quotes.join_str = ft_strjoin(quotes.join_str, \
+			ft_substr(s, start, i - start));
 	//free(s); TODO:liberar lugar correspondiente.
 	s = ft_strdup(quotes.join_str);
 	free(quotes.join_str);

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 19:38:15 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:48:18 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,6 @@ t_pipe	*ft_pipelast(t_pipe *pipe);
 void	ft_pipedelone(t_pipe *pipe);
 void	ft_pipelstclear(t_pipe **lst);
 
-//lst_redir.c
-t_redir	*ft_lstnew_redir(void);
-void	ft_lstadd_back_redir(t_redir **lst, t_redir *new);
-void	ft_lstclear_redir(t_redir **lst);
-void	ft_lstdelone_redir(t_redir *lst);
-t_redir	*ft_lstlast_redir(t_redir *lst);
-
 //signal.c
 void	ft_suppress_output(int quit);
 void	sighandler(int sig);
@@ -231,6 +224,15 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i);
 
 //cd.c
 void	cd(t_cmd *cmd, t_pipe *pipex);
+void	cd_no_argumnets(t_cmd *cmd);
+void	cd_up_dir(t_cmd *cmd);
+void	cd_undo(t_cmd *cmd);
+
+//cd_utils.c
+void	update_val(t_cmd *cmd, char *name, char *val);
+char	*cd_find_full_path(t_cmd *cmd, char *oldpwd);
+void	cd_absolute_path(t_cmd *cmd, t_pipe *pipex);
+void	cd_relative_path(t_cmd *cmd, t_pipe *pipex);
 
 //here_doc.c
 void	ft_here_doc(t_pipe *pipes, int i);

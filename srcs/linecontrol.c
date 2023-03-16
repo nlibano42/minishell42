@@ -6,10 +6,9 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/11 18:02:29 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:24:39 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../incs/minishell.h"
 
@@ -91,14 +90,14 @@ char	*expand_dolar(char **str, t_env *env, t_quotes *quotes)
 
 void	dollar_exchange(char *s, int *i, t_quotes *quotes, t_env *env)
 {
-	if (s[*i] =='$' && find_str(s[*i + 1], "\"\'") == 1\
+	if (s[*i] == '$' && find_str(s[*i + 1], "\"\'") == 1 \
 		&& quotes->flag_s == 0 && quotes->flag_d == 0)
 	{
 		quotes->join_str = ft_strdup("");
 		quotes->join_str = change_env_val(s, env, i, quotes->join_str);
 	}
-	else if (s[*i] == '$' && quotes->flag_s == 0 &&\
-		find_str(s[*i + 1], "|\"\'$>< ") == 0) 
+	else if (s[*i] == '$' && quotes->flag_s == 0 && \
+		find_str(s[*i + 1], "|\"\'$>< ") == 0)
 	{
 		if (s[*i + 1] == '?')
 		{	

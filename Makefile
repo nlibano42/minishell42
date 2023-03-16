@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/16 19:30:10 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/17 00:57:37 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,6 @@ EXTLIB		= libft
 READLINE_DIR = ${HOME}/.brew/opt/readline
 
 SRCS	= main.c\
-		../gnl/get_next_line_utils.c \
-		../gnl/get_next_line.c \
 		env.c\
 		lst_env.c\
 		signal.c\
@@ -38,7 +36,6 @@ SRCS	= main.c\
 		path.c\
 		lst_pipe.c\
 		built.c\
-		lst_redir.c\
 		pipe.c\
 		export.c\
 		pwd.c\
@@ -46,6 +43,7 @@ SRCS	= main.c\
 		echo.c\
 		unset.c\
 		cd.c\
+		cd2.c\
 		expand_utils.c\
 		here_doc.c\
 		

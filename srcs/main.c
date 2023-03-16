@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 20:43:38 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:36:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,28 @@ int	main(int argc, char **argv, char **env)
 		save_stdout = dup(STDOUT_FILENO);
 		cmd.readl = readline("Minishell $> ");
 		add_history(cmd.readl);
-	 	if (!cmd.readl)
+		if (!cmd.readl)
 		{
 			//TODO: pone \n antes del exit. Quitar salto de linea inicial
 			ft_exit(&cmd);
-//			printf("exit\n");
-			//usar nuestro builtin de exit en lugar de exit()
-//			exit(g_shell.quit_status);
 		}
 		if (ft_strlen(cmd.readl) > 0)
 		{
-			if (check_spaces(cmd.readl) || is_quotes_opened(cmd.readl)\
-				|| is_fin_redirection(cmd.readl) || is_open_pipe(cmd.readl)\
+			if (check_spaces(cmd.readl) || is_quotes_opened(cmd.readl) \
+				|| is_fin_redirection(cmd.readl) || is_open_pipe(cmd.readl) \
 					|| line_parse(&cmd, cmd.env))
 				continue ;
 			else
 			{
-				count_pipe(&cmd, cmd.cmd_line); //cuenta el numero de pipes para hacer los hijos
+				count_pipe(&cmd, cmd.cmd_line);
 				save_cmds(&cmd);
-				pipex_main(&cmd); //la funcion de los pipes!!
+				pipex_main(&cmd);
 				free_all(&cmd);
-				//init_cmd(&cmd);
 			}
 			dup2(save_stdin, STDIN_FILENO);
 			dup2(save_stdout, STDOUT_FILENO);
 			close(save_stdin);
 			close(save_stdout);
-			//estoy probando si funciona. TODO: hacer que funcione.
 		}
 		//pdte liberar (t_env) env
 	}
@@ -75,10 +70,11 @@ char	**delete_redirection(char *sp, int *len)
 	i = -1;
 	while (s[++i])
 	{
-		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || !ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
+		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || \
+			!ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		(*len)++;
 	}
@@ -89,10 +85,11 @@ char	**delete_redirection(char *sp, int *len)
 	j = 0;
 	while (s[++i])
 	{
-		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || !ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
+		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || \
+			!ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		res[j] = ft_strtrim(s[i], " ");
 		j++;
@@ -102,7 +99,7 @@ char	**delete_redirection(char *sp, int *len)
 	return (res);
 }
 
-char	**fill_empty()
+char	**fill_empty(void)
 {
 	char	**s;
 
@@ -144,7 +141,7 @@ void	save_cmds(t_cmd *cmd)
 	int		flag;
 	t_pipe	*pipe;
 	t_redir	redir;
-	
+
 	start = 0;
 	flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
@@ -155,7 +152,6 @@ void	save_cmds(t_cmd *cmd)
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 		return ;
 	}
-//	sp = ft_split(cmd->cmd_line, '\n');
 	sp = split(cmd->cmd_line, '|');
 	i = -1;
 	while (sp[++i])
@@ -173,7 +169,6 @@ void	save_cmds(t_cmd *cmd)
 		k = -1;
 		while (sp2[++j])
 		{
-			//TODO: eliminar lst_redir. utilizare array de struct en lugar de listas.
 			if (!ft_strcmp(sp2[j], "<<"))
 			{
 				redir = init_redirection(NULL, "readl", ft_strdup(sp2[j + 1]));
@@ -183,19 +178,19 @@ void	save_cmds(t_cmd *cmd)
 			else if (!ft_strcmp(sp2[j], "<"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "read", NULL);
-				redir.fd = open_file(sp2[j + 1], 'r'); // leer de un fichero
+				redir.fd = open_file(sp2[j + 1], 'r');
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "write", NULL);
-				redir.fd = open_file(sp2[j + 1], 'w'); //escribir en el fichero
+				redir.fd = open_file(sp2[j + 1], 'w');
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">>"))
 			{
 				redir = init_redirection(ft_strdup(sp2[j + 1]), "append", NULL);
-				redir.fd = open_file(sp2[j + 1], 'a'); //escribir en el fichero añadiendo.
+				redir.fd = open_file(sp2[j + 1], 'a');
 				flag = 1;
 			}
 			if (flag == 1)
@@ -212,28 +207,6 @@ void	save_cmds(t_cmd *cmd)
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
-		//TODO: ver que numero asignar a cada accion. 0 = x defecto, ...
-/*		if (redir)
-		{
-			pipe->redir = redir;
-			/-*
-			* redirecciones:
-			* infile = 0 -> por defecto. params = argumentos
-			* infile = 1 -> leer desde el terminal -> gnl
-			* infile = fd -> fd corresponding to the open file 'infile'
-			* outfile = 1 -> redireccionar al pipe
-			* outfile = fd -> fd corresponding to the open file 'outfile'
-			*-/
-			if (!ft_strcmp(redir->type, "readl")) // << key
-				pipe->infile = 1; //leer desde el terminal
-			else if (!ft_strcmp(redir->type, "read")) // < file
-				pipe->infile = open_file(redir->file, 'r'); // leer de un fichero
-			else if (!ft_strcmp(redir->type, "write")) // > file
-				pipe->outfile = open_file(redir->file, 'w'); //escribir en el fichero
-			else if (!ft_strcmp(redir->type, "apend")) // >> file
-				pipe->outfile = open_file(redir->file, 'a'); //escribir en el fichero añadiendo.
-		}
-*/
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 	}
 	free_split(sp);

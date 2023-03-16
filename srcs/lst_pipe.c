@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 20:49:10 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:25:19 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ t_pipe	*ft_newpipe(void)
 		return (NULL);
 	pipe->full_cmd = NULL;
 	pipe->path = NULL;
-//	pipe->infile = 0;
-//	pipe->outfile = 0;
 	pipe->next = NULL;
-	//pipe->redir[0] = init_redirection(NULL, NULL, NULL);
 	pipe->redir = NULL;
 	pipe->num_redi = 0;
 	pipe->before = NULL;
@@ -65,7 +62,7 @@ void	ft_pipedelone(t_pipe *pipe)
 		if (pipe->redir)
 		{
 			free(pipe->redir);
-			pipe->redir= NULL;
+			pipe->redir = NULL;
 		}
 		free(pipe->path);
 		pipe->path = NULL;
