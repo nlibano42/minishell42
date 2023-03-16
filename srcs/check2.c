@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 19:00:32 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 21:36:05 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	is_fin_redirection(char *str)
 				if(!find_str(s[i], " *&/|"))
 					if(print_error(s, &i) ==  1)
 					{
-						free(s);
+						//free(s);
 						return(g_shell.pid = 258);
 					}
 				i++;
