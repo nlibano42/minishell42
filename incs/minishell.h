@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 18:51:35 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:38:15 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,6 @@ void	cd(t_cmd *cmd, t_pipe *pipex);
 //here_doc.c
 void	ft_here_doc(t_pipe *pipes, int i);
 void	write_pipe(int *fd, t_pipe *pipes, int i);
-void	write_pipe_not_last(int *fd, t_pipe *pipes);
+void	write_pipe_not_last(int *fd, t_pipe *pipes, int i);
 
 #endif

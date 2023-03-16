@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 19:01:21 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:39:59 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	redirections(t_pipe *pipes)
 		if (!ft_strcmp(pipes->redir[i].type, "readl"))
 		{
 			if (last_redirec(pipes->redir, i, pipes->num_redi) == 1)
-				write_pipe_not_last(pipes->fd, pipes);
+				write_pipe_not_last(pipes->fd, pipes, i);
 			else
 				ft_here_doc(pipes, i);
 		}
