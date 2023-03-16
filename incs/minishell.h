@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/15 18:47:56 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:51:35 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,8 +198,6 @@ void	free_all(t_cmd *cmd);
 char	*get_path(char *s, t_env *env);
 int		is_builtin(char *s);
 void	ft_execve(t_cmd *cmd, t_pipe *pipes);
-char	*get_path(char *s, t_env *env);
-char	**tab_env(t_env *env);
 
 //built.c
 void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
@@ -235,6 +233,8 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i);
 void	cd(t_cmd *cmd, t_pipe *pipex);
 
 //here_doc.c
-void ft_here_doc(t_pipe *pipes);
+void	ft_here_doc(t_pipe *pipes, int i);
+void	write_pipe(int *fd, t_pipe *pipes, int i);
+void	write_pipe_not_last(int *fd, t_pipe *pipes);
 
 #endif

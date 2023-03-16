@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/15 19:46:16 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:52:21 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 //#include "../gnl/get_next_line.h"
 
-void	write_pipe(int *fd, t_pipe *pipes)
+void	write_pipe_not_last(int *fd, t_pipe *pipes)
 {
 	char *line;
 
@@ -25,6 +25,29 @@ void	write_pipe(int *fd, t_pipe *pipes)
 			return ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
 		if (!ft_strcmp(line, pipes->redir->key))
+		{
+			free(line);
+			close(fd[WRITE_END]);
+			return ;
+		}
+		write(fd[WRITE_END], line, ft_strlen(line));
+		write(fd[WRITE_END], "\n", 1);
+		free(line);
+	}
+}
+
+void	write_pipe(int *fd, t_pipe *pipes, int i)
+{
+	char *line;
+
+	close(fd[READ_END]);
+	while(1)
+	{
+		line = readline("> ");
+		if (!line)
+			return ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
+		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
+		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
 			free(line);
 			close(fd[WRITE_END]);
@@ -40,7 +63,7 @@ void	write_pipe(int *fd, t_pipe *pipes)
 }
 
 
-void ft_here_doc(t_pipe *pipes)
+void ft_here_doc(t_pipe *pipes, int i)
 {
 	int fd[2];
 	pid_t pid;
@@ -54,7 +77,7 @@ void ft_here_doc(t_pipe *pipes)
 	{
 		g_shell.pid = 1;
 //		ft_suppress_output(0);
-		write_pipe(fd, pipes);
+		write_pipe(fd, pipes, i);
 	}
 	else
 	{

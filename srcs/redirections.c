@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/15 18:28:00 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:51:03 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ int	open_file(char *file, char flag)
 	if (fd == -1)
 		g_shell.quit_status = 1; //mirar que numero debe devolver.
 	return (fd);
+}
+
+int	last_redirec(t_redir *redir, int i, int len)
+{
+	while(++i < len)
+	{
+		if(!ft_strcmp(redir[i].type, "readl"))
+			return (1);
+	}
+	return (0);
 }
 
 int	redirections(t_pipe *pipes)
@@ -48,28 +58,25 @@ int	redirections(t_pipe *pipes)
 			return  (0);
 		if (!ft_strcmp(pipes->redir[i].type, "read"))
 		{
-//			pipes->redir[i].fd = open_file(pipes->redir[i].file, 'r');
 			dup2(pipes->redir[i].fd, STDIN_FILENO);
 			close(pipes->redir[i].fd);
 		}
 		if (!ft_strcmp(pipes->redir[i].type, "write"))
 		{
-//			pipes->redir[i].fd = open_file(pipes->redir[i].file, 'w');
 			dup2(pipes->redir[i].fd, STDOUT_FILENO);
 			close(pipes->redir[i].fd);
 		}
 		if (!ft_strcmp(pipes->redir[i].type, "append"))
 		{
-	//		pipes->redir[i].fd = open_file(pipes->redir[i].file, 'a');
 			dup2(pipes->redir[i].fd, STDOUT_FILENO);
 			close(pipes->redir[i].fd);
 		}
 		if (!ft_strcmp(pipes->redir[i].type, "readl"))
 		{
-			ft_here_doc(pipes);
-//			close(pipes->fd[0]);
-			//dup2(pipes->redir[i].fd, STDIN_FILENO);
-			//close(pipes->redir[i].fd);
+			if (last_redirec(pipes->redir, i, pipes->num_redi) == 1)
+				write_pipe_not_last(pipes->fd, pipes);
+			else
+				ft_here_doc(pipes, i);
 		}
 	}
 	return (0);

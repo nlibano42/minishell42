@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/09 23:11:53 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:56:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ int	check_spaces(char *readl)
 	return (1);
 }
 
-int	is_fin_redirection(char *s)
+int	is_fin_redirection(char *str)
 {
 	t_quotes	quotes;
 	int			i;
+	char		*s;
 
 	init_quotes_flags(&quotes);
-	ft_strtrim(s, " ");
+	s = ft_strtrim(str, " ");
 	i = -1;
 	while (s[++i])
 	{
@@ -45,11 +46,15 @@ int	is_fin_redirection(char *s)
 			{
 				if(!find_str(s[i], " *&/|"))
 					if(print_error(s, &i) ==  1)
+					{
+						free(s);
 						return(g_shell.pid = 258);
+					}
 				i++;
 			}
 		}
 	}
+	free(s);
 	return (0);
 }
 
