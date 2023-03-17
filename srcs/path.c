@@ -64,6 +64,7 @@ char	*get_path(char *str, t_env *env)
 	char	*path;
 	char	**sp;
 	int		i;
+	char	*s;
 
 	if (!str)
 		return (NULL);
