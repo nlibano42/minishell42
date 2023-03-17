@@ -86,6 +86,7 @@ char	*get_path(char *str, t_env *env)
 				free_split(sp);
 				return (path);
 			}
+			free(path);
 		}
 		free(s);
 		free_split(sp);

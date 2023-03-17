@@ -137,12 +137,9 @@ void	save_cmds(t_cmd *cmd)
 	int		k;
 	char	**sp;
 	char	**sp2;
-	int		start;
 	int		flag;
 	t_pipe	*pipe;
 	t_redir	redir;
-
-	start = 0;
 	flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
 	{
