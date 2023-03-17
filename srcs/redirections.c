@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/16 19:42:26 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:58:15 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,15 @@ int	redirections(t_pipe *pipes)
 			dup2(pipes->redir[i].fd, STDOUT_FILENO);
 			close(pipes->redir[i].fd);
 		}
-		if (!ft_strcmp(pipes->redir[i].type, "readl"))
+		if (!ft_strcmp(pipes->redir[i].type, "readl")) //TODO: <<< o mas ERROR. igual al reves.
+		//TODO vigiliar que "ls | > " fichero o "ls | >> " de error.
 		{
 			if (last_redirec(pipes->redir, i, pipes->num_redi) == 1)
+			{
 				write_pipe_not_last(pipes->fd, pipes, i);
+				if(pipes->redir[i].key)
+					free(pipes->redir[i].key);
+			}
 			else
 				ft_here_doc(pipes, i);
 		}

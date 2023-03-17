@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:05:57 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/17 19:26:33 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:01:42 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ t_redir	init_redirection(char *file, char *type, char *key)
 	t_redir	redir;
 
 	redir.file = file;
-	free(file);
+	//free(file);
 	redir.key = key;
-	free(key);
 	redir.type = type;
 	redir.fd = 0;
 	return (redir);
