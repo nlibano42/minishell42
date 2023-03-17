@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/17 19:58:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:12:36 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,7 @@ int	redirections(t_pipe *pipes)
 		//TODO vigiliar que "ls | > " fichero o "ls | >> " de error.
 		{
 			if (last_redirec(pipes->redir, i, pipes->num_redi) == 1)
-			{
 				write_pipe_not_last(pipes->fd, pipes, i);
-				if(pipes->redir[i].key)
-					free(pipes->redir[i].key);
-			}
 			else
 				ft_here_doc(pipes, i);
 		}
