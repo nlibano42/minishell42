@@ -39,8 +39,14 @@ void	free_all(t_cmd *cmd)
 		free(cmd->readl);
 		cmd->readl = NULL;
 	}
+	if (cmd->pipe->redir)
+	{
+		free(cmd->pipe->redir);
+		cmd->pipe->redir = NULL;
+	}
 	if (cmd->pipe)
+	{
 		ft_pipelstclear(&(cmd->pipe));
-//	if (cmd->redir)
-//		ft_lstclear_redir(&(cmd->redir));
+		cmd->pipe = NULL;
+	}
 }
