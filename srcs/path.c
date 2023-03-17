@@ -59,20 +59,17 @@ int	is_builtin(char *s)
 		return (0);
 }
 
-char	*get_path(char *s, t_env *env)
+char	*get_path(char *str, t_env *env)
 {
 	char	*path;
 	char	**sp;
 	int		i;
 
-	if (!s)
+	if (!str)
 		return (NULL);
-	s = ft_deletequotes(s);
+	s = ft_deletequotes(str);
 	if (is_builtin(s))
-	{
-		//free(s);
-		return (ft_strdup(s));
-	}
+		return (s);
 	else
 	{
 		path = ft_lstfind_env_val(env, "PATH");

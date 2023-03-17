@@ -17,6 +17,7 @@ char	*ft_deletequotes(char *s)
 	t_quotes	quotes;
 	int			start;
 	int			i;
+	char		*res;
 
 	init_quotes_flags(&quotes);
 	quotes.join_str = ft_strdup("");
@@ -37,7 +38,7 @@ char	*ft_deletequotes(char *s)
 		quotes.join_str = ft_strjoin(quotes.join_str, \
 			ft_substr(s, start, i - start));
 	//free(s); TODO:liberar lugar correspondiente.
-	s = ft_strdup(quotes.join_str);
+	res = ft_strdup(quotes.join_str);
 	free(quotes.join_str);
-	return (s);
+	return (res);
 }
