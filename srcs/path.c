@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 19:30:27 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 21:29:24 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	else
 	{
 		access_execve(pipes, char_env, p);
-		execve_error(print_cmd);
+		if (ft_strcmp(pipes->redir->type, "readl"))
+			execve_error(print_cmd);
 		free(print_cmd);
 		free_split(char_env);
 		exit(EXIT_FAILURE);
