@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 19:29:29 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:33:02 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_notpipe(t_cmd *cmd)
 {
 	pid_t	num_pid;
+	int		status;
 
 	num_pid = fork();
 	if (num_pid < 0)
@@ -30,7 +31,11 @@ void	ft_notpipe(t_cmd *cmd)
 		free_all(cmd);
 		exit(EXIT_FAILURE);
 	}
-	waitpid(num_pid, NULL, 0);
+	waitpid(num_pid, &status, 0);
+	if(WIFEXITED(status))
+		g_shell.quit_status = status;
+	else if(WIFSIGNALED(status))
+		g_shell.quit_status = status + 128;
 	g_shell.pid = 0;
 	ft_suppress_output(0);
 }
@@ -56,6 +61,7 @@ void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 {
 	pid_t	num_pid;
+	int		status;
 
 	if (pipe(pipes->fd) == -1)
 		pipe_error("Error Pipe", EXIT_FAILURE);
@@ -68,7 +74,11 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 	else
 	{
 		close(pipes->fd[WRITE_END]);
-		waitpid(num_pid, NULL, 0);
+		waitpid(num_pid, &status, 0);
+		if(WIFEXITED(status))
+			g_shell.quit_status = status;
+		else if(WIFSIGNALED(status))
+			g_shell.quit_status = status + 128;
 		g_shell.pid = 0;
 		ft_suppress_output(0);
 		if (pipes->before)

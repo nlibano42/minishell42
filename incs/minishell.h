@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 16:40:54 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:27:26 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int		ft_strcmp(char *s1, char *s2);
 //error.c
 void	access_error(char *input);
 void	pipe_error(char *error, int num);
+void	execve_error(char *cmd);
 
 //split.c
 char	**split(char const *s, char c);
@@ -193,6 +194,7 @@ void	free_all(t_cmd *cmd);
 char	*get_path(char *s, t_env *env);
 int		is_builtin(char *s);
 void	ft_execve(t_cmd *cmd, t_pipe *pipes);
+void	access_execve(t_pipe *pipes, char **char_env, char *p);
 
 //built.c
 void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
