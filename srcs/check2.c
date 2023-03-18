@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 18:22:43 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:24:52 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ int	is_fin_redirection(char *str)
 			{
 				ft_putstr_fd("Minishell: syntax error\n", 2);
 				free(s);
-				return (g_shell.pid = 258);
+				return (g_shell.quit_status = 258);
 			}
 			while (ft_isalnum(s[i]) == 0)
 			{
 				if (!find_str(s[i], " *&/|"))
 				{
 					if (print_error(s, &i) == 1)
-						return (g_shell.pid = 258);
+						return (g_shell.quit_status = 258);
 				}
 				i++;
 			}
