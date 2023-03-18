@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 19:33:02 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:37:22 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,10 @@ void	pipex_main(t_cmd *cmd)
 		if (is_builtin(cmd->pipe->path))
 			ft_builtin(cmd, cmd->pipe);
 		else
-		ft_suppress_output(1);
+		{
+			ft_suppress_output(1);
 			ft_notpipe(cmd);
+		}
 		close_fd(cmd->pipe->redir, cmd->pipe->num_redi);
 	}
 	else
