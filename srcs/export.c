@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 21:53:58 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:10:45 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ void	export_no_args(t_cmd *cmd)
 		split = ft_split(sort[i], '=');
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(split[0], 1);
-		ft_putstr_fd("=\"", 1);
 		if (split[1])
+		{
+			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(split[1], 1);
-		ft_putstr_fd("\"", 1);
+			ft_putstr_fd("\"", 1);
+		}
 		ft_putstr_fd("\n", 1);
 		free_split(split);
 	}

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 23:48:08 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:18:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	cd_undo(t_cmd *cmd)
 
 void	cd(t_cmd *cmd, t_pipe *pipex)
 {
-	if (ft_strlen(ft_lstfind_env_val(cmd->env, "OLDPWD")) == 0)
-		export_add(cmd, "OLDPWD");
+//	if (ft_strlen(ft_lstfind_env_val(cmd->env, "OLDPWD")) == 0)
+//		export_add(cmd, "OLDPWD");
 	if (!pipex->full_cmd[1] || !ft_strcmp(pipex->full_cmd[1], "~"))
 		cd_no_argumnets(cmd);
 	else if (!ft_strcmp(pipex->full_cmd[1], ".."))

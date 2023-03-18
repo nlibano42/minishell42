@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/02 23:40:28 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:14:41 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_lstfind_env_val(t_env *lst, char *name)
 	while (lst)
 	{
 		if (ft_strlen(lst->name) == ft_strlen(name) && \
-				ft_strncmp(lst->name, name, ft_strlen(name)) == 0)
+				ft_strcmp(lst->name, name) == 0)
 			return (lst->val);
 		lst = lst->next;
 	}

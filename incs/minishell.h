@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 19:27:26 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:27:48 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void	export_add(t_cmd *cmd, char *val);
 void	export(t_cmd *cmd, t_pipe *pipex);
 
 //pwd
-void	pwd(t_cmd *cmd);
+void	pwd(void);
 
 //echo
 void 	echo (t_pipe *pipex);
