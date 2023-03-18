@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 21:07:35 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 21:16:26 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 void	ft_exit(t_cmd *cmd)
 {
+	int size;
+	int i;
+
 	ft_putstr_fd("exit\n", 1);
-	if(ft_strlen(cmd->pipe->full_cmd) > 1)
+	i= -1;
+	size= 0;
+	while (cmd->pipe->full_cmd[++i])
+		size++;
+	if(size > 1)
 	{
-		ft_putstr_fd("bash: exit: too many arguments", 2);
+
+		ft_putstr_fd("bash: exit: too many arguments\n", 2);
 		//funcion para borrar todo.
 		exit(1);
 	}
