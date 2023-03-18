@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/17 20:03:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 12:07:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,29 +55,27 @@ t_pipe	*ft_pipelast(t_pipe *pipe)
 
 void	ft_pipedelone(t_pipe *pipe)
 {
+	int	i;
+
 	if (pipe)
 	{
-		free_split(pipe->full_cmd);
-		pipe->full_cmd = NULL;
+		if (pipe->full_cmd)
+			free_split(pipe->full_cmd);
 		if (pipe->redir)
 		{
-			if(pipe->redir->file)
+			i = -1;
+			while (++i < pipe->num_redi)
 			{
-				free(pipe->redir->file);
-				pipe->redir->file = NULL;
-			}
- 			if(pipe->redir->key)
-			{
-				free(pipe->redir->key);
-				pipe->redir->key = NULL;
+				if (pipe->redir[i].file)
+					free(pipe->redir[i].file);
+				if (pipe->redir[i].key)
+					free(pipe->redir[i].key);
 			}
 			free(pipe->redir);
-			pipe->redir = NULL;
 		}
-		free(pipe->path);
-		pipe->path = NULL;
+		if (pipe->path)
+			free(pipe->path);
 		free(pipe);
-		pipe = NULL;
 	}
 }
 
