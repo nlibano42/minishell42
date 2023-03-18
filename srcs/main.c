@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 16:28:05 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:46:39 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,8 +203,8 @@ void	save_cmds(t_cmd *cmd)
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
 		ft_pipeadd_back(&(cmd->pipe), pipe);
+		free_split(sp2);
 	}
 	free_split(sp);
-	free_split(sp2);
 	// TODO. cerrar los descriptores cuando no se necesiten y en otro punto.
 }
