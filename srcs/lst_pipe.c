@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/17 00:25:19 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:03:07 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ void	ft_pipedelone(t_pipe *pipe)
 		pipe->full_cmd = NULL;
 		if (pipe->redir)
 		{
+			if(pipe->redir->file)
+			{
+				free(pipe->redir->file);
+				pipe->redir->file = NULL;
+			}
+ 			if(pipe->redir->key)
+			{
+				free(pipe->redir->key);
+				pipe->redir->key = NULL;
+			}
 			free(pipe->redir);
 			pipe->redir = NULL;
 		}
