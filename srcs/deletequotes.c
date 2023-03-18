@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:13:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 21:28:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 21:50:01 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ char	*ft_deletequotes(char *s)
 	start = 0;
 	i = -1;
 	if(!s)
+	{
+		free(quotes.join_str);
 		return(s);
+	}
 	while (s[++i])
 	{
 		check_quotes_flags(&quotes, s[i]);
