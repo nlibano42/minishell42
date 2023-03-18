@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:07:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/17 00:15:52 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:51:07 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ char	*change_quitvalue(char *s, int *i, char *join_str)
 		join_str = ft_strjoin(join_str, ft_substr(s, 0, *i));
 	val = ft_itoa(g_shell.quit_status);
 	join_str = ft_strjoin(join_str, val);
-	*i = ft_strlen(join_str);
-	if (s[*i + 1])
+	if (s[*i + 2])
 		join_str = ft_strjoin(join_str, \
-			ft_substr(s, *i + 1, ft_strlen(s) - 1));
+			ft_substr(s, *i + 2, ft_strlen(s) - 1));
 	return (join_str);
 }
 
