@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 18:20:22 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:22:43 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	is_fin_redirection(char *str)
 				if (!find_str(s[i], " *&/|"))
 				{
 					if (print_error(s, &i) == 1)
-	
 						return (g_shell.pid = 258);
 				}
 				i++;
