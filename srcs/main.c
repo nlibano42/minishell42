@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/17 00:36:46 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:28:05 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	main(int argc, char **argv, char **env)
 {	
 	t_cmd	cmd;
-	int		save_stdin;
-	int		save_stdout;
 
 	if (check_init_params(argc, argv))
 		return (1);
@@ -26,8 +24,8 @@ int	main(int argc, char **argv, char **env)
 	ft_signal();
 	while (1)
 	{
-		save_stdin = dup(STDIN_FILENO);
-		save_stdout = dup(STDOUT_FILENO);
+		cmd.save_stdin = dup(STDIN_FILENO);
+		cmd.save_stdout = dup(STDOUT_FILENO);
 		cmd.readl = readline("Minishell $> ");
 		add_history(cmd.readl);
 		if (!cmd.readl)
@@ -48,10 +46,10 @@ int	main(int argc, char **argv, char **env)
 				pipex_main(&cmd);
 				free_all(&cmd);
 			}
-			dup2(save_stdin, STDIN_FILENO);
-			dup2(save_stdout, STDOUT_FILENO);
-			close(save_stdin);
-			close(save_stdout);
+			dup2(cmd.save_stdin, STDIN_FILENO);
+			dup2(cmd.save_stdout, STDOUT_FILENO);
+			close(cmd.save_stdin);
+			close(cmd.save_stdout);
 		}
 		//pdte liberar (t_env) env
 	}

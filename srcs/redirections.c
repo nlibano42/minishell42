@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/17 20:12:36 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:42:00 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	redirections(t_pipe *pipes)
 		if (!ft_strcmp(pipes->redir[i].type, "readl")) //TODO: <<< o mas ERROR. igual al reves.
 		//TODO vigiliar que "ls | > " fichero o "ls | >> " de error.
 		{
+			dup2(pipes->redir[i].fd, STDIN_FILENO);
 			if (last_redirec(pipes->redir, i, pipes->num_redi) == 1)
 				write_pipe_not_last(pipes->fd, pipes, i);
 			else

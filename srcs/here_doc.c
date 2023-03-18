@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/17 20:15:34 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:46:25 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
+			//close(pipes->redir[i].fd);
 			free(buff);
 			free(line);
 			return ;
@@ -52,6 +53,7 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 		{
 			free(line);
 			close(fd[WRITE_END]);
+			//close(pipes->redir[i].fd);
 			exit(EXIT_SUCCESS);
 		}
 		write(fd[WRITE_END], line, ft_strlen(line));
@@ -78,11 +80,11 @@ void	ft_here_doc(t_pipe *pipes, int i)
 	}
 	else
 	{
+		close(fd[WRITE_END]);
+		waitpid(pid, NULL, 0);
 		g_shell.pid = 0;
 	//	ft_suppress_output(1);
-		close(fd[WRITE_END]);
 		dup2(fd[READ_END], STDIN_FILENO);
 		close(fd[READ_END]);
 	}
-	waitpid(pid, NULL, 0);
 }

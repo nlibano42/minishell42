@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/17 00:48:18 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:40:54 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_cmd
 	char			*cmd_line;
 	char			*readl;
 	int				num_pipes;
+	int				save_stdin;
+	int				save_stdout;
 	struct s_pipe	*pipe;
 	struct s_redir	*redir;
 }	t_cmd;
