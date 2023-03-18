@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 16:41:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:29:29 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ void	ft_notpipe(t_cmd *cmd)
 	}
 	else if (num_pid == 0)
 	{
+		ft_suppress_output(1);
 		g_shell.pid = 1;
-//		ft_suppress_output(1);
 		ft_execve(cmd, cmd->pipe);
 		free_all(cmd);
 		exit(EXIT_FAILURE);
 	}
 	waitpid(num_pid, NULL, 0);
 	g_shell.pid = 0;
-//	ft_suppress_output(0);
+	ft_suppress_output(0);
 }
 
 void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 {
 	g_shell.pid = 1;
-//	ft_suppress_output(1);
+	ft_suppress_output(1);
 	if (pipes->before)
 		dup2(pipes->before->fd[READ_END], STDIN_FILENO);
 	if (pipes->next)
@@ -60,6 +60,7 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 	if (pipe(pipes->fd) == -1)
 		pipe_error("Error Pipe", EXIT_FAILURE);
 	num_pid = fork();
+//	ft_suppress_output(1);
 	if (num_pid < 0)
 		pipe_error("Error Fork", EXIT_FAILURE);
 	else if (num_pid == 0)
@@ -69,7 +70,7 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 		close(pipes->fd[WRITE_END]);
 		waitpid(num_pid, NULL, 0);
 		g_shell.pid = 0;
-//		ft_suppress_output(0);
+		ft_suppress_output(0);
 		if (pipes->before)
 			close(pipes->before->fd[READ_END]);
 		if (!pipes->next)
@@ -100,6 +101,7 @@ void	pipex_main(t_cmd *cmd)
 		if (is_builtin(cmd->pipe->path))
 			ft_builtin(cmd, cmd->pipe);
 		else
+		ft_suppress_output(1);
 			ft_notpipe(cmd);
 		close_fd(cmd->pipe->redir, cmd->pipe->num_redi);
 	}

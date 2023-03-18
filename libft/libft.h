@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/08 19:19:21 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:19:43 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
+void	*ft_bzero(void	*s, size_t n);
 
 // int		ft_isalpha(int c);
 // int		ft_isdigit(int c);
 // int		ft_isascii(int c);
 // int		ft_isprint(int c);
 // void	*ft_memset(void *b, int c, size_t len);
-// void	*ft_bzero(void	*s, size_t n);
 // void	*ft_memmove(void *dst, const void *src, size_t len);
 // int		ft_toupper(int c);
 // int		ft_tolower(int c);
