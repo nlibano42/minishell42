@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 20:27:48 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 01:00:42 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 int		print_error(char *s, int  *i);
+int		is_digit(char *s);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);

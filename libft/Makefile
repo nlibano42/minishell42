@@ -6,7 +6,7 @@
 #    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 20:13:39 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/18 19:19:52 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/03/19 00:59:58 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,9 @@ SRC = ft_strlen.c \
 	  ft_strtrim.c \
 	  ft_itoa.c \
 	  ft_bzero.c \
+	  ft_isdigit.c \
+	  ft_atoi.c \
 
-	#   ft_isdigit.c \  
 	#   ft_isascii.c \
 	#   ft_isprint.c \
 	#   ft_strlen.c \
@@ -49,7 +50,6 @@ SRC = ft_strlen.c \
 	#   ft_memchr.c \
 	#   ft_memcmp.c \
 	#   ft_strnstr.c \
-	#   ft_atoi.c \
 	#   ft_calloc.c \
 	#   ft_strmapi.c \
 	#   ft_striteri.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 18:28:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/19 00:49:52 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,17 @@ void	ft_control(char *readl, t_quotes *quotes, int i)
 	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
 		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
 		i++;
+}
+
+int	is_digit(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (!ft_isdigit((int)s[i]))
+			return (1);		
+	}
+	return (0);
 }

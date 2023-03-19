@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 19:19:43 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 00:57:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	ft_putchar_fd(char c, int fd);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
 void	*ft_bzero(void	*s, size_t n);
+int		ft_isdigit(int c);
+int		ft_atoi(const char *str);
 
 // int		ft_isalpha(int c);
-// int		ft_isdigit(int c);
 // int		ft_isascii(int c);
 // int		ft_isprint(int c);
 // void	*ft_memset(void *b, int c, size_t len);
@@ -46,7 +47,6 @@ void	*ft_bzero(void	*s, size_t n);
 // void	*ft_memchr(const void *s, int c, size_t n);
 // int		ft_memcmp(const void *s1, const void *s2, size_t n);
 // char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
-// int		ft_atoi(const char *str);
 // void	*ft_calloc(size_t nmemb, size_t size);
 // char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 // void	ft_striteri(char *s, void (*f)(unsigned int, char*));
