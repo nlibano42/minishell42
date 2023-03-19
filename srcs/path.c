@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/19 11:02:10 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:41:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*get_path(char *str, t_env *env)
 
 	if (!str)
 		return (NULL);
-	if (!ft_strncmp(str, "./", 2))
+	if (!ft_strncmp(str, "./", 2) || !ft_strncmp(str, "/", 1))
 		return (ft_deletequotes(str));
 	s = ft_deletequotes(str);
 	if (is_builtin(s))

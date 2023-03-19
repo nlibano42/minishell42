@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 18:33:31 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:14:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,14 @@ int	main(int argc, char **argv, char **env)
 			else
 			{
 				count_pipe(&cmd, cmd.cmd_line);
-				save_cmds(&cmd);
-				pipex_main(&cmd);
+				if (save_cmds(&cmd) == 0)
+					pipex_main(&cmd);
 				free_all(&cmd);
 			}
 			dup2(cmd.save_stdin, STDIN_FILENO);
 			dup2(cmd.save_stdout, STDOUT_FILENO);
 			close(cmd.save_stdin);
 			close(cmd.save_stdout);
-			
 		}
 		//pdte liberar (t_env) env
 	}
@@ -129,7 +128,7 @@ int	count_redirections(char *s)
 	return (count);
 }
 
-void	save_cmds(t_cmd *cmd)
+int	save_cmds(t_cmd *cmd)
 {
 	int		i;
 	int		j;
@@ -146,7 +145,7 @@ void	save_cmds(t_cmd *cmd)
 		pipe->full_cmd = fill_empty();
 		pipe->path = ft_strdup("");
 		ft_pipeadd_back(&(cmd->pipe), pipe);
-		return ;
+		return (0);
 	}
 	sp = split(cmd->cmd_line, '|');
 	i = -1;
@@ -158,7 +157,7 @@ void	save_cmds(t_cmd *cmd)
 		{
 			pipe->redir = malloc(sizeof(t_redir) * (pipe->num_redi + 1));
 			if (!pipe->redir)
-				return ;
+				return (1);
 		}
 		sp2 = ft_split(sp[i], '\n');
 		j = -1;
@@ -203,9 +202,17 @@ void	save_cmds(t_cmd *cmd)
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
+		if (!is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(pipe->path, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			return (g_shell.quit_status = 127);
+		}
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 		free_split(sp2);
 	}
 	free_split(sp);
 	// TODO. cerrar los descriptores cuando no se necesiten y en otro punto.
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 01:10:28 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:11:04 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_shell
 t_shell	g_shell;
 
 //main.c
-void	save_cmds(t_cmd *cmd);
+int		save_cmds(t_cmd *cmd);
 
 //init.c
 void	init_cmd(t_cmd *cmd);
