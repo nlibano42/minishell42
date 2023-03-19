@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 21:29:24 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:02:10 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	*get_path(char *str, t_env *env)
 
 	if (!str)
 		return (NULL);
+	if (!ft_strncmp(str, "./", 2))
+		return (ft_deletequotes(str));
 	s = ft_deletequotes(str);
 	if (is_builtin(s))
 		return (s);
@@ -83,16 +85,14 @@ char	*get_path(char *str, t_env *env)
 		while (sp[++i])
 		{
 			path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
-			path = ft_strjoin(path, ft_strdup(s));
+			path = ft_strjoin(path, ft_deletequotes(str));
 			if (access(path, F_OK) == 0)
 			{
-				free(s);
 				free_split(sp);
 				return (path);
 			}
 			free(path);
 		}
-		free(s);
 		free_split(sp);
 	}
 	return (NULL);
