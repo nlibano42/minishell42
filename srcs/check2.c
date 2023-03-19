@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/19 00:49:52 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:23:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int	is_digit(char *s)
 	int	i;
 
 	i = -1;
+	if (s[0] == '-')
+		i++;
 	while (s[++i])
 	{
 		if (!ft_isdigit((int)s[i]))
