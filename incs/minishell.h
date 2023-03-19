@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 01:00:42 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 01:10:28 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ void	print_echo(char **s, int n);
 
 //exit.c
 void	ft_exit(t_cmd *cmd);
+void	exit_argument(char	**full_cmd, int num);
 
 //unset.c
 void	unset(t_cmd *cmd, t_pipe *pipex);
