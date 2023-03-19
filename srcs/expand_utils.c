@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:07:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 19:51:07 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:36:05 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str)
 
 	if (!ft_strcmp(s, "~") || !ft_strncmp(s, "~/", 2))
 	{
-		virgu = ft_strdup(ft_lstfind_env_val(env, "HOME"));
+		if(!ft_lstfind_env_val(env, "HOME"))
+			virgu = ft_strdup("");
+		else
+			virgu = ft_strdup(ft_lstfind_env_val(env, "HOME"));
 		if (s[*i + 1] == '/')
 		{
 			join_str = ft_strjoin(virgu, ft_substr(s, *i + 1, \
@@ -77,7 +80,10 @@ char	*change_env_val(char *s, t_env *env, int *i, char *join_str)
 	fin = find_fin_str(s, *i);
 	str = ft_substr(s, *i + 1, fin - (*i + 1));
 	*i += ft_strlen(str);
-	val = ft_strdup(ft_lstfind_env_val(env, str));
+	if (!ft_lstfind_env_val(env, str))
+		val = ft_strdup("");
+	else
+		val = ft_strdup(ft_lstfind_env_val(env, str));
 	join_str = ft_strjoin(join_str, val);
 	free (str);
 	if (s[*i + 1])

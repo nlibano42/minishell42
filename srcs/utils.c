@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/03 00:46:05 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:18:49 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*find_change_str(char *s, t_env *env)
 		aux = ft_substr(s, 1, ft_strlen(s) - 1);
 	else
 		aux = ft_substr(s, 0, ft_strlen(s));
-	val = ft_strdup(ft_lstfind_env_val(env, aux));
+	if (!ft_lstfind_env_val(env, aux))
+		val = ft_strdup("");
+	else
+		val = ft_strdup(ft_lstfind_env_val(env, aux));
 	free(aux);
 	return (val);
 }

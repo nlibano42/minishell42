@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 20:14:41 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:16:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_lstfind_env_val(t_env *lst, char *name)
 			return (lst->val);
 		lst = lst->next;
 	}
-	return ("");
+	return (NULL);
 }
 
 char	**tab_env(t_env *env)

@@ -6,24 +6,29 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 20:18:46 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 23:58:07 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	cd_no_argumnets(t_cmd *cmd)
+int	cd_no_argumnets(t_cmd *cmd)
 {
 	char	*oldpwd;
 	char	*pwd;
 
-	oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
-	pwd = ft_strdup(ft_lstfind_env_val(cmd->env, "HOME"));
-	update_val(cmd, "OLDPWD", oldpwd);
+	pwd = ft_lstfind_env_val(cmd->env, "HOME");
+	if (!pwd)
+	{
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		return (g_shell.quit_status = 1);
+	}
+	oldpwd = ft_lstfind_env_val(cmd->env, "PWD");
+	if (oldpwd)
+		update_val(cmd, "OLDPWD", oldpwd);
 	update_val(cmd, "PWD", pwd);
 	chdir(pwd);
-	free(oldpwd);
-	free(pwd);
+	return (g_shell.quit_status = 0);
 }
 
 void	cd_up_dir(t_cmd *cmd)
@@ -32,43 +37,44 @@ void	cd_up_dir(t_cmd *cmd)
 	char	*pwd;
 	int		i;
 
-	pwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
-	i = ft_strlen(pwd);
-	while (pwd[--i])
+	pwd = ft_lstfind_env_val(cmd->env, "PWD");
+	if (pwd)
 	{
-		if (pwd[i] == '/')
+		i = ft_strlen(pwd);
+		while (pwd[--i])
 		{
-			tmp = ft_substr(pwd, 0, i);
-			update_val(cmd, "OLDPWD", pwd);
-			update_val(cmd, "PWD", tmp);
-			chdir(tmp);
-			free(pwd);
-			free(tmp);
-			return ;
+			if (pwd[i] == '/')
+			{
+				tmp = ft_substr(pwd, 0, i);
+				update_val(cmd, "OLDPWD", pwd);
+				update_val(cmd, "PWD", tmp);
+				chdir(tmp);
+				free(tmp);
+				return ;
+			}
 		}
 	}
-	free(pwd);
 }
 
-void	cd_undo(t_cmd *cmd)
+int	cd_undo(t_cmd *cmd)
 {
 	char	*oldpwd;
 	char	*pwd;
 
-	oldpwd = ft_strdup(ft_lstfind_env_val(cmd->env, "OLDPWD"));
-	if (ft_strlen(oldpwd) == 0)
+	oldpwd = ft_lstfind_env_val(cmd->env, "OLDPWD");
+	if (!oldpwd)
 	{
 		ft_putstr_fd("error: bash: cd: OLDPWD not set\n", 2);
-		return ;
+		return (g_shell.quit_status = 1); //TODO: exit number
 	}
-	pwd = ft_strdup(ft_lstfind_env_val(cmd->env, "PWD"));
+	pwd = ft_lstfind_env_val(cmd->env, "PWD");
 	update_val(cmd, "PWD", oldpwd);
-	update_val(cmd, "OLDPWD", pwd);
+	if (pwd)
+		update_val(cmd, "OLDPWD", pwd);
 	chdir(oldpwd);
 	ft_putstr_fd(oldpwd, 1);
 	ft_putstr_fd("\n", 1);
-	free(oldpwd);
-	free(pwd);
+	return (0);
 }
 
 void	cd(t_cmd *cmd, t_pipe *pipex)

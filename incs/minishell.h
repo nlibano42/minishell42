@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 12:11:04 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 23:48:39 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,9 +230,9 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i);
 
 //cd.c
 void	cd(t_cmd *cmd, t_pipe *pipex);
-void	cd_no_argumnets(t_cmd *cmd);
+int		cd_no_argumnets(t_cmd *cmd);
 void	cd_up_dir(t_cmd *cmd);
-void	cd_undo(t_cmd *cmd);
+int		cd_undo(t_cmd *cmd);
 
 //cd_utils.c
 void	update_val(t_cmd *cmd, char *name, char *val);
