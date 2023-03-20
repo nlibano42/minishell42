@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 16:49:57 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 19:22:00 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:29:08 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,15 @@ void	execve_error(char *cmd)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": command not found\n", 2);
+}
+
+int	print_error(char *s, int *i)
+{
+	if (s[*i] == '\0')
+	{
+		ft_putstr_fd("Minishell: syntax error\n", 2);
+		free(s);
+		return (1);
+	}
+	return (0);
 }

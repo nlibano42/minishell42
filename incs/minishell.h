@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 23:48:39 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:29:36 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <errno.h>
 # include <stdlib.h>
 # include <limits.h>
-#include <termios.h>
+# include <termios.h>
 
 // # include <stdbool.h>
 // # include <stddef.h>
@@ -51,11 +51,10 @@ typedef struct s_env
 
 typedef struct s_redir
 {
-	char			*key;
-	char			*file;
-	char			*type; //read, read_l, write, append
-	int				fd;
-//	struct s_redir	*next;
+	char	*key;
+	char	*file;
+	char	*type;
+	int		fd;
 }	t_redir;
 
 //estructura de los comandos. Command + options + arguments
@@ -64,9 +63,6 @@ typedef struct s_pipe
 	char			**full_cmd;
 	char			*path;
 	int				fd[2];
-//	int				infile;
-//	int				outfile;
-//	char			*type;
 	t_redir			*redir;
 	int				num_redi;
 	struct s_pipe	*next;
@@ -115,7 +111,6 @@ int		check_spaces(char *readl);
 int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
-int		print_error(char *s, int  *i);
 int		is_digit(char *s);
 
 //utils.c
@@ -129,6 +124,7 @@ int		ft_strcmp(char *s1, char *s2);
 void	access_error(char *input);
 void	pipe_error(char *error, int num);
 void	execve_error(char *cmd);
+int		print_error(char *s, int *i);
 
 //split.c
 char	**split(char const *s, char c);
@@ -175,7 +171,7 @@ void	ft_lstdelone(t_env *lst);
 t_env	*ft_lstlast(t_env *lst);
 
 //lst_pipe.c
-t_pipe	*ft_newpipe();
+t_pipe	*ft_newpipe(void);
 void	ft_pipeadd_back(t_pipe **lst, t_pipe *new);
 t_pipe	*ft_pipelast(t_pipe *pipe);
 void	ft_pipedelone(t_pipe *pipe);
@@ -216,7 +212,7 @@ void	export(t_cmd *cmd, t_pipe *pipex);
 void	pwd(void);
 
 //echo
-void 	echo (t_pipe *pipex);
+void	echo(t_pipe *pipex);
 int		echo_find_n_option(char **str, char *s, int i);
 void	print_echo(char **s, int n);
 

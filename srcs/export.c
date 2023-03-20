@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 20:10:45 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:45:44 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,24 @@ void	export_add(t_cmd *cmd, char *val)
 	free_split(sp);
 }
 
+void	export_update_val(t_env **env, char **val, int *exist)
+{
+	while (*env)
+	{
+		if (ft_strcmp((*env)->name, val[0]) == 0)
+		{
+			free((*env)->val);
+			if (!val[1])
+				(*env)->val = ft_strdup("");
+			else
+				(*env)->val = ft_deletequotes(val[1]);
+			*exist = 1;
+			break ;
+		}
+		*env = (*env)->next;
+	}
+}
+
 void	export(t_cmd *cmd, t_pipe *pipex)
 {
 	int		exist;
@@ -96,20 +114,7 @@ void	export(t_cmd *cmd, t_pipe *pipex)
 		val = ft_split(pipex->full_cmd[i], '=');
 		exist = 0;
 		env = cmd->env;
-		while (env)
-		{
-			if (ft_strcmp(env->name, val[0]) == 0)
-			{
-				free(env->val);
-				if (!val[1])
-					env->val = ft_strdup("");
-				else
-					env->val = ft_deletequotes(val[1]);
-				exist = 1;
-				break ;
-			}
-			env = env->next;
-		}
+		export_update_val(&env, val, &exist);
 		if (exist == 0)
 			export_add(cmd, pipex->full_cmd[i]);
 		free_split(val);

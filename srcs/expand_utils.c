@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:07:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/19 19:36:05 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:31:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str)
 
 	if (!ft_strcmp(s, "~") || !ft_strncmp(s, "~/", 2))
 	{
-		if(!ft_lstfind_env_val(env, "HOME"))
+		if (!ft_lstfind_env_val(env, "HOME"))
 			virgu = ft_strdup("");
 		else
 			virgu = ft_strdup(ft_lstfind_env_val(env, "HOME"));

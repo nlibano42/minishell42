@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:05:57 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/17 20:01:42 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:47:00 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_redir	init_redirection(char *file, char *type, char *key)
 	t_redir	redir;
 
 	redir.file = file;
-	//free(file);
 	redir.key = key;
 	redir.type = type;
 	redir.fd = 0;
