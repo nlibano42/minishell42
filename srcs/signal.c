@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/18 19:30:27 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:52:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_signal(void)
 void	ft_suppress_output(int quit)
 {
 	struct termios	config;
-	ft_bzero(&config, sizeof(config));
 
+	ft_bzero(&config, sizeof(config));
 	tcgetattr(STDIN_FILENO, &config);
 	if (quit == 0)
 		config.c_lflag &= ~ECHOCTL;

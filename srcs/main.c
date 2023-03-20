@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 10:48:27 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:18:45 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ int	main(int argc, char **argv, char **env)
 		cmd.readl = readline("Minishell $> ");
 		add_history(cmd.readl);
 		if (!cmd.readl)
-		{
-			//TODO: pone \n antes del exit. Quitar salto de linea inicial
 			ft_exit(&cmd);
-		}
 		if (ft_strlen(cmd.readl) > 0)
 		{
 			if (check_spaces(cmd.readl) || is_quotes_opened(cmd.readl) \

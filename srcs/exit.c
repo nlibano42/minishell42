@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 01:14:13 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:19:22 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@ void	ft_exit(t_cmd *cmd)
 {
 	int	i;
 
-	ft_putstr_fd("exit\n", 1);
+	if (!cmd->readl)
+	{
+		ft_putstr_fd("\x1b[1A", 1);
+		ft_putstr_fd("\033[15C", 1);
+	}
+	ft_putstr_fd("\b\bexit\n", 1);
 	if (cmd->pipe)
 	{	
 		i = 0;
