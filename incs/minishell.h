@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 11:29:36 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:49:30 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,12 @@ int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 int		is_digit(char *s);
+
+//checks3.c
+int	check_syntax_error(char *s, int *i);
+int	check_error_unexpected_token(char *s, int *i);
+int	check_redirection(char *s, int *i);
+int	check_unexpected_newline(char *s, int *i);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
