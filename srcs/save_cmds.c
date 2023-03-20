@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 12:22:23 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:03:55 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ int	save_cmds(t_cmd *cmd)
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
-		if (!is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
+		if (!pipe->redir && find_str('/', pipe->full_cmd[0]) && !is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(pipe->full_cmd[0], 2);
