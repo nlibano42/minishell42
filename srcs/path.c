@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/19 19:21:16 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 01:06:48 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,32 @@ int	is_builtin(char *s)
 		return (0);
 }
 
-char	*get_path(char *str, t_env *env)
+char	*get_findpath(char *str, t_env *env)
 {
 	char	*path;
 	char	**sp;
 	int		i;
+
+	path = ft_lstfind_env_val(env, "PATH");
+	sp = ft_split(path, ':');
+	i = -1;
+	while (sp && sp[++i])
+	{
+		path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
+		path = ft_strjoin(path, ft_deletequotes(str));
+		if (access(path, F_OK) == 0)
+		{
+			free_split(sp);
+			return (path);
+		}
+		free(path);
+	}
+	free_split(sp);
+	return (NULL);
+}
+
+char	*get_path(char *str, t_env *env)
+{
 	char	*s;
 
 	if (!str)
@@ -78,22 +99,6 @@ char	*get_path(char *str, t_env *env)
 	if (is_builtin(s))
 		return (s);
 	else
-	{
-		path = ft_lstfind_env_val(env, "PATH");
-		sp = ft_split(path, ':');
-		i = -1;
-		while (sp && sp[++i])
-		{
-			path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
-			path = ft_strjoin(path, ft_deletequotes(str));
-			if (access(path, F_OK) == 0)
-			{
-				free_split(sp);
-				return (path);
-			}
-			free(path);
-		}
-		free_split(sp);
-	}
+		return (get_findpath(str, env));
 	return (NULL);
 }
