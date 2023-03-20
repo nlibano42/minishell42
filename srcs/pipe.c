@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 00:53:06 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 20:50:06 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	ft_notpipe(t_cmd *cmd)
 		exit(EXIT_FAILURE);
 	}
 	waitpid(num_pid, &status, 0);
-	if(WIFEXITED(status))
-		g_shell.quit_status = status;
+	if(WIFEXITED(status))	
+		g_shell.quit_status = WEXITSTATUS(status);
 	else if(WIFSIGNALED(status))
-		g_shell.quit_status = status + 128;
+		g_shell.quit_status = WTERMSIG(status) + 128;
 	g_shell.pid = 0;
 	ft_suppress_output(0);
 }

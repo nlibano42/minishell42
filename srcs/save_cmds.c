@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 18:03:55 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:27:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,25 +162,30 @@ int	save_cmds(t_cmd *cmd)
 	//		redir = save_redirections(sp2, j, &flag);
 			if (!ft_strcmp(sp2[j], "<<"))
 			{
-				redir = init_redirection(NULL, "readl", ft_strdup(sp2[j + 1]));
+				redir = init_redirection(NULL, "readl", ft_deletequotes(sp2[j + 1]));
 				redir.fd = 1;
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], "<"))
 			{
-				redir = init_redirection(ft_strdup(sp2[j + 1]), "read", NULL);
+				printf("--1--->%s\n", sp2[j + 1]);
+				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "read", NULL);
 				redir.fd = open_file(sp2[j + 1], 'r');
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">"))
 			{
-				redir = init_redirection(ft_strdup(sp2[j + 1]), "write", NULL);
-				redir.fd = open_file(sp2[j + 1], 'w');
+				printf("--2--->%s\n", sp2[j + 1]);
+				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "write", NULL);
+				printf("--2-1-->%s\n",ft_deletequotes(sp2[j + 1]));
+				redir.fd = open_file(ft_deletequotes(sp2[j + 1]), 'w');
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">>"))
 			{
-				redir = init_redirection(ft_strdup(sp2[j + 1]), "append", NULL);
+				//TODO. crear una variable para hacer open y despues liberar
+				printf("--3--->%s\n", sp2[j + 1]);
+				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "append", NULL);
 				redir.fd = open_file(sp2[j + 1], 'a');
 				flag = 1;
 			}
@@ -196,6 +201,8 @@ int	save_cmds(t_cmd *cmd)
 		{
 			free_split(sp2);
 			sp2 = delete_redirection(sp[i], &j);
+		//	if (!sp2)
+				
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 16:27:21 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:30:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	access_execve(t_pipe *pipes, char **char_env, char *p)
 {
 	if (pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
+	{
 		if (p == NULL)
 			return ;
+	 }	
 	if (p != NULL)
 	{
 		if (ft_strlen(p) == 0)
