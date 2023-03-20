@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 11:46:13 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:42:39 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 void	ft_here_doc(t_pipe *pipes, int i)
 {
 	int		fd[2];
+	int		status;
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
@@ -80,7 +81,11 @@ void	ft_here_doc(t_pipe *pipes, int i)
 	else
 	{
 		close(fd[WRITE_END]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if(WIFEXITED(status))
+			g_shell.quit_status = status;
+		else if(WIFSIGNALED(status))
+			g_shell.quit_status = status + 128;
 		g_shell.pid = 0;
 	//	ft_suppress_output(1);
 		dup2(fd[READ_END], STDIN_FILENO);
