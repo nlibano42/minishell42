@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 01:06:48 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:46:36 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,23 @@ char	*get_findpath(char *str, t_env *env)
 	int		i;
 
 	path = ft_lstfind_env_val(env, "PATH");
-	sp = ft_split(path, ':');
-	i = -1;
-	while (sp && sp[++i])
+	if (path)
 	{
-		path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
-		path = ft_strjoin(path, ft_deletequotes(str));
-		if (access(path, F_OK) == 0)
+		sp = ft_split(path, ':');
+		i = -1;
+		while (sp[++i])
 		{
-			free_split(sp);
-			return (path);
+			path = ft_strjoin(ft_strdup(sp[i]), ft_strdup("/"));
+			path = ft_strjoin(path, ft_deletequotes(str));
+			if (access(path, F_OK) == 0)
+			{
+				free_split(sp);
+				return (path);
+			}
+			free(path);
 		}
-		free(path);
+		free_split(sp);
 	}
-	free_split(sp);
 	return (NULL);
 }
 

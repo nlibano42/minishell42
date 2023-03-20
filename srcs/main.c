@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 12:14:46 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:48:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ int	save_cmds(t_cmd *cmd)
 		if (!is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
 		{
 			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(pipe->path, 2);
+			ft_putstr_fd(pipe->full_cmd[0], 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
 			return (g_shell.quit_status = 127);
 		}
