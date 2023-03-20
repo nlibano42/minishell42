@@ -6,7 +6,7 @@
 #    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/17 00:57:37 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/03/20 11:55:14 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS	= main.c\
 		cd2.c\
 		expand_utils.c\
 		here_doc.c\
+		save_cmds.c\
 		
 # Compiler options
 CC			= gcc
