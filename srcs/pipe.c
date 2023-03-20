@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 20:50:06 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:45:43 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 			close(pipes->before->fd[READ_END]);
 		if (!pipes->next)
 			close(pipes->fd[READ_END]);
+	}
 		waitpid(num_pid, &status, 0);
-		if(WIFEXITED(status))
-			g_shell.quit_status = status;
+		if(WIFEXITED(status))	
+			g_shell.quit_status = WEXITSTATUS(status);
 		else if(WIFSIGNALED(status))
-			g_shell.quit_status = status + 128;
+			g_shell.quit_status = WTERMSIG(status) + 128;
 		g_shell.pid = 0;
 		ft_suppress_output(0);
-	}
 }
 
 void	close_fd(t_redir *redir, int len)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:05:57 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 21:13:32 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:52:06 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	init_quotes_flags(t_quotes *quotes)
 t_redir	init_redirection(char *file, char *type, char *key)
 {
 	t_redir	redir;
-printf("**** %s\n", file);
 	redir.file = file;
 	redir.key = key;
 	redir.type = type;

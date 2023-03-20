@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 21:27:38 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 21:59:26 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	save_cmds(t_cmd *cmd)
 	int		k;
 	char	**sp;
 	char	**sp2;
+	char	*aux;
 	int		flag;
 	t_pipe	*pipe;
 	t_redir	redir;
@@ -168,25 +169,28 @@ int	save_cmds(t_cmd *cmd)
 			}
 			else if (!ft_strcmp(sp2[j], "<"))
 			{
-				printf("--1--->%s\n", sp2[j + 1]);
+	
 				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "read", NULL);
-				redir.fd = open_file(sp2[j + 1], 'r');
+				aux = ft_deletequotes(sp2[j + 1]);
+				redir.fd = open_file(aux, 'r');
+				free(aux);
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">"))
 			{
-				printf("--2--->%s\n", sp2[j + 1]);
 				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "write", NULL);
-				printf("--2-1-->%s\n",ft_deletequotes(sp2[j + 1]));
-				redir.fd = open_file(ft_deletequotes(sp2[j + 1]), 'w');
+				aux = ft_deletequotes(sp2[j + 1]);
+				redir.fd = open_file(aux, 'w');
+				free(aux);
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">>"))
 			{
 				//TODO. crear una variable para hacer open y despues liberar
-				printf("--3--->%s\n", sp2[j + 1]);
 				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "append", NULL);
-				redir.fd = open_file(sp2[j + 1], 'a');
+				aux = ft_deletequotes(sp2[j + 1]);
+				redir.fd = open_file(aux, 'a');
+				free(aux);
 				flag = 1;
 			}
 
