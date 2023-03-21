@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 19:39:36 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:09:37 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,50 +23,6 @@ int	check_spaces(char *readl)
 			return (0);
 	}
 	return (1);
-}
-
-int	is_fin_redirection(char *str)
-{
-	t_quotes	quotes;
-	int			i;
-	int			j;
-	char		*s;
-
-	init_quotes_flags(&quotes);
-	s = ft_strtrim(str, " ");
-	i = -1;
-	while (s[++i])
-	{
-		check_quotes_flags(&quotes, s[i]);
-//		if (s[i] == '<' && s[i + 1] == '\0' && quotes.flag_d == 0 && quotes.flag_s == 0)
-//			return (redirections_error(s, 258));
-//		if (s[i] == '>' && s[i + 1] == '\0' && quotes.flag_d == 0 && quotes.flag_s == 0)
-//			return (redirections_error(s, 258));
-//		if (s[i] == '<' && s[i + 1] == '<' && s[i + 2] == '\0' && quotes.flag_d == 0 && quotes.flag_s == 0)
-//			return (redirections_error(s, 258));
-//		if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '\0' && quotes.flag_d == 0 && quotes.flag_s == 0)
-//			return (redirections_error(s, 258));
-//		if (s[i] == '>' && s[i + 1] == '>' && s[i + 2] == '>' && quotes.flag_d == 0 && quotes.flag_s == 0)
-//			return (redirections_error(s, 258));
-//		if (s[i] == '<' && s[i + 1] == '<' && s[i + 2] == '<' && quotes.flag_d == 0 && quotes.flag_s == 0)
-//			return (redirections_error(s, 258));
-		//------------------------------------//
-		if (s[i] == '>' && s[i + 1] == '<' && quotes.flag_d == 0 && quotes.flag_s == 0)
-			return (redirections_error(s, 258));
-		if ((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0 && quotes.flag_s == 0)
-		{
-			if (s[i + 1] == '<' || s[i + 1] == '>')
-				j = i + 2;
-			else
-				j = i + 1;
-			while (s[j] == ' ')
-				j++;
-			if (!s[j] || s[j] == '|' || s[j] == '<' || s[j] == '>')
-				return (redirections_error(s, 258));
-		}
-	}
-	free(s);
-	return (0);
 }
 
 int	export_check(char **cmd)
