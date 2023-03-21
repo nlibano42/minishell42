@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 23:44:07 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 23:56:52 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:25:04 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,17 @@ void	cd_absolute_path(t_cmd *cmd, t_pipe *pipex)
 		ft_putstr_fd(pipex->full_cmd[1], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
+}
+
+int	cd_dot_get_path(char *pwd, char **tmp, int i)
+{
+	if (pwd[i] == '/')
+	{
+		if (i == 0)
+			*tmp = ft_strdup("/");
+		else
+			*tmp = ft_substr(pwd, 0, i);
+		return (1);
+	}
+	return (0);
 }
