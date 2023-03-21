@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:24:18 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 18:37:58 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:13:11 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ int	check_error_unexpected_token(char *s, int *i)
 }
 
 int	check_redirection(char *s, int *i)
-{
+{ 
 	if(s[*i] == '>' && s[*i + 1] == '<')
 	{
 		ft_putstr_fd("bash: syntax error near unexpected token `<'\n", 2);
 		free(s);
 		return (1);
 	}
-	if (s[*i + 1] == '<' || s[*i + 1] == '>')
+	if ((s[*i - 2] == '<' && s[*i] == '<') || (s[*i - 2] == '>' && s[*i] == '>'))
 	{
 		ft_putstr_fd("Minishell: syntax error\n", 2);
 		free(s);

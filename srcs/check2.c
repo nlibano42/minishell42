@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 18:46:33 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:14:07 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,8 @@ int	is_fin_redirection(char *str)
 		{
 			if ((s[i] == '<' && s[i + 1] == '<') || (s[i] == '>' && s[i + 1] == '>'))
 				i++;
-			if(s[i] == '<' && s[i + 1] == '>')
-				return (1);
 			if (check_redirection(s, &i) || check_error_unexpected_token(s, &i) || check_unexpected_newline(s, &i))
 				return(g_shell.quit_status = 258);
-/* 			while (ft_isalnum(s[i]) == 0)
-			{
-				if (!find_str(s[i], " *&/|"))
-				{
-					if (print_error(s, &i) == 1)
-						return (g_shell.quit_status = 258);
-				}
-				i++;
-			} */
 		}
 	}
 	free(s);
