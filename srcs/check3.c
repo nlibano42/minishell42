@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:24:18 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 17:26:45 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:59:41 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ int	check_error_unexpected_token(char *s, int *i)
 	j = *i + 1;
 	while(s[j])
 	{
+		printf("%c\n", s[j]);
 		if(s[j] != ' ')
 			break ;
 		if (s[j] == '>' || s[j] == '<')
 		{
 			ft_putstr_fd("syntax error near unexpected token\n", 2);
 			free(s);
-			return (1);
+		return (1);
 		}
 		j++;
 	}

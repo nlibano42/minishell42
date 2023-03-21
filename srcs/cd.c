@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 14:24:57 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:15:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	cd_no_argumnets(t_cmd *cmd)
 
 void	cd_dot_get_pwd(t_cmd *cmd, char **pwd, char **oldpwd)
 {
-	if (!pwd)
+	if (!(*pwd))
 	{
 		*pwd = (char *)malloc(sizeof(char) * PATH_MAX);
 		getcwd(*pwd, PATH_MAX);
