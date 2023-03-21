@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 01:48:18 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 08:25:51 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ void	ft_here_doc(t_pipe *pipes, int i)
 		close(fd[WRITE_END]);
 		waitpid(pid, NULL, 0);
 		if(WIFEXITED(status))
-			g_shell.quit_status = status;
+			g_shell.quit_status = WEXITSTATUS(status);
 		else if(WIFSIGNALED(status))
-			g_shell.quit_status = status + 128;
+			g_shell.quit_status = WTERMSIG(status) + 128;
 		g_shell.pid = 0;
 	//	ft_suppress_output(1);
 		dup2(fd[READ_END], STDIN_FILENO);
