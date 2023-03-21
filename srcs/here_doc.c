@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 08:25:51 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 08:43:14 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_here_doc(t_pipe *pipes, int i)
 	else
 	{
 		close(fd[WRITE_END]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
 		if(WIFEXITED(status))
 			g_shell.quit_status = WEXITSTATUS(status);
 		else if(WIFSIGNALED(status))
