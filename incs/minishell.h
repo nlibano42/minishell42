@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 16:24:36 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:39:48 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,6 @@ int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 int		is_digit(char *s);
-
-//checks3.c
-int	check_syntax_error(char *s, int *i);
-int	check_error_unexpected_token(char *s, int *i);
-int	check_redirection(char *s, int *i);
-int	check_unexpected_newline(char *s, int *i);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
