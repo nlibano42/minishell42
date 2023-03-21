@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 16:24:44 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:48:00 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 	{
 		line = readline("> ");
 		if (!line)
-			return ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
+			exit(g_shell.quit_status = 0) ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
@@ -74,7 +74,7 @@ void	ft_here_doc(t_pipe *pipes, int i)
 		pipe_error("Error Fork", EXIT_FAILURE);
 	if (pid == 0)
 	{
-		g_shell.pid = 1;
+		g_shell.pid = 2;
 //		ft_suppress_output(0);
 		write_pipe(fd, pipes, i);
 	}
