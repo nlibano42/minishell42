@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:13:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 11:30:25 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:00:46 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*ft_deletequotes(char *s)
 	if (start < i)
 		quotes.join_str = ft_strjoin(quotes.join_str, \
 			ft_substr(s, start, i - start));
-	//free(s); TODO:liberar lugar correspondiente.
 	res = ft_strdup(quotes.join_str);
 	free(quotes.join_str);
 	return (res);
