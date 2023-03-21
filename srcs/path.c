@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 16:27:21 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:17:45 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	char	*p;
 	char	*print_cmd;
 
+	if (!pipes->full_cmd[0])
+		exit(0);
 	print_cmd = ft_deletequotes(pipes->full_cmd[0]);
 	char_env = tab_env(cmd->env);
 	p = pipes->path;
