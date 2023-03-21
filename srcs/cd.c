@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 14:13:17 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:24:57 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@ int	cd_no_argumnets(t_cmd *cmd)
 	return (g_shell.quit_status = 0);
 }
 
+void	cd_dot_get_pwd(t_cmd *cmd, char **pwd, char **oldpwd)
+{
+	if (!pwd)
+	{
+		*pwd = (char *)malloc(sizeof(char) * PATH_MAX);
+		getcwd(*pwd, PATH_MAX);
+		export_add(cmd, "PWD");
+		*oldpwd = "";
+	}
+	else
+	{
+		*pwd = ft_strdup(*pwd);
+		*oldpwd = *pwd;
+	}
+}
+
 void	cd_up_dir(t_cmd *cmd)
 {
 	char	*oldpwd;
@@ -44,31 +60,14 @@ void	cd_up_dir(t_cmd *cmd)
 	char	*tmp;
 	int		i;
 
-//pwd -> oldpwd
-//pwd -> new (up) -> si pwd no existe, getpwd y subir una -> oldpwd = "", pwd = crearlo con el nuevo valor
-
 	pwd = ft_lstfind_env_val(cmd->env, "PWD");
-	if (!pwd)
-	{
-		pwd = (char *)malloc(sizeof(char) * PATH_MAX);
-		getcwd(pwd, PATH_MAX);
-		export_add(cmd, "PWD");
-		oldpwd = "";
-	}
-	else
-	{
-		pwd = ft_strdup(pwd);
-		oldpwd = pwd;
-	}
+	cd_dot_get_pwd(cmd, &pwd, &oldpwd);
 	tmp = ft_strdup(pwd);
 	i = ft_strlen(pwd);
 	while (pwd[--i])
 	{
-		if (pwd[i] == '/')
-		{
-			tmp = ft_substr(pwd, 0, i);
+		if (cd_dot_get_path(pwd, &tmp, i))
 			break ;
-		}
 	}
 	update_val(cmd, "OLDPWD", oldpwd);
 	update_val(cmd, "PWD", tmp);

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 18:49:30 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:24:36 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,10 @@ void	access_error(char *input);
 void	pipe_error(char *error, int num);
 void	execve_error(char *cmd);
 int		print_error(char *s, int *i);
+int		redirections_error(char *s, int num);
+
+//error.c
+void	error_cd_relative_path(char *str);
 
 //split.c
 char	**split(char const *s, char c);
@@ -235,12 +239,14 @@ void	cd(t_cmd *cmd, t_pipe *pipex);
 int		cd_no_argumnets(t_cmd *cmd);
 void	cd_up_dir(t_cmd *cmd);
 int		cd_undo(t_cmd *cmd);
+void	cd_dot_get_pwd(t_cmd *cmd, char **pwd, char **oldpwd);
 
-//cd_utils.c
+//cd2.c
 void	update_val(t_cmd *cmd, char *name, char *val);
 char	*cd_find_full_path(t_cmd *cmd, char *oldpwd);
 void	cd_absolute_path(t_cmd *cmd, t_pipe *pipex);
 void	cd_relative_path(t_cmd *cmd, t_pipe *pipex);
+int		cd_dot_get_path(char *pwd, char **tmp, int i);
 
 //here_doc.c
 void	ft_here_doc(t_pipe *pipes, int i);

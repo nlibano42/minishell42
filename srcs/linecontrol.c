@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/17 00:24:39 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:29:34 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 		expand(&(cmd->cmd[i]), envp);
 	join_split(cmd);
 	cmd->cmd_line = expand_pipe_redir(cmd);
-	if (ft_access(cmd->cmd_line) == -1 || is_two_pipes(cmd->cmd_line) == 1)
+	if (ft_access(cmd->cmd_line) == -1 || is_two_pipes(cmd->cmd_line) == 1 || ft_strlen(cmd->cmd_line) == 0)
 		return (g_shell.quit_status = 1);
 		//devolvemos el error con el quit_status, luego podemos hacer
 		//segun el error el status un write que diga cual es el error, veremos.
@@ -78,12 +78,18 @@ char	*expand_dolar(char **str, t_env *env, t_quotes *quotes)
 	int		i;
 	char	*s;
 
-	s = *str;
+	s = ft_strdup(*str);
 	i = -1;
 	while (s[++i])
 	{
 		check_quotes_flags(quotes, s[i]);
 		dollar_exchange(s, &i, quotes, env);
+		if (quotes->join_str && ft_strcmp(s, quotes->join_str))
+		{
+			i = i + ft_strlen(quotes->join_str) - ft_strlen(s);
+			free(s);
+			s = ft_strdup(quotes->join_str);
+		}
 	}
 	return (quotes->join_str);
 }
