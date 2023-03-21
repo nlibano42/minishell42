@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 21:32:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:52:16 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 	{
 		line = readline("> ");
 		if (!line)
-			return ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
+			exit(g_shell.quit_status = 0) ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
@@ -74,8 +74,9 @@ void	ft_here_doc(t_pipe *pipes, int i)
 	if (pid < 0)
 		pipe_error("Error Fork", EXIT_FAILURE);
 	if (pid == 0)
-	{	
-		ft_suppress_output(0);
+	{
+		g_shell.pid = 2;
+//		ft_suppress_output(0);
 		write_pipe(fd, pipes, i);
 	}
 	else
