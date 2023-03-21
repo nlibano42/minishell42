@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 16:39:28 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:24:13 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ int	is_fin_redirection(char *str)
 		if ((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0 \
 			&& quotes.flag_s == 0)
 		{
-			if (s[i + 1] == '<' || s[i + 1] == '>')
+			if ((s[i] == '<' && s[i + 1] == '<')\
+				||(s[i]== '>' && s[i + 1] == '>'))
 				i++;
+			if(s[i] == '<' && s[i + 1] == '>')
+				return (1);
 			if(check_redirection(s, &i) || check_syntax_error(s, &i)\
 				|| check_error_unexpected_token(s, &i)\
 				|| check_unexpected_newline(s, &i))
