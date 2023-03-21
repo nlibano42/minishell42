@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 13:58:34 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:36:32 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,11 @@ int	save_cmds(t_cmd *cmd)
 		pipe->path = get_path(sp2[0], cmd->env);
 		if (!is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
 		{
-			tmp = ft_deletequotes(pipe->full_cmd[0]);
+			//TODO MIAR Q PASA SI PATH ESTA VACIO
+	//		if (!pipe->full_cmd[0])
+	//			return (g_shell.quit_status = 0);
+	//		else
+				tmp = ft_deletequotes(pipe->full_cmd[0]);
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(tmp, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
