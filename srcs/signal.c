@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 10:52:16 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 21:45:47 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,11 @@ void	sighandler(int sig)
 		printf("\n");
 		rl_redisplay();
 	}
+	if (sig == SIGINT && g_shell.pid == 2)
+	{
+		printf("\n");
+		exit(1);
+	}
+	else if (sig == SIGQUIT && g_shell.pid == 2)
+		printf("Quit: 3\n");
 }
