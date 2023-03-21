@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 12:22:23 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 01:53:18 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**fill_empty(void)
 	return (s);
 }
 
-int	save_without_redir(t_cmd *cmd)
+int	save_empty(t_cmd *cmd)
 {
 	t_pipe	*pipe;
 
@@ -138,10 +138,11 @@ int	save_cmds(t_cmd *cmd)
 	int		flag;
 	t_pipe	*pipe;
 	t_redir	redir;
+	char	*aux;
 	
 	flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
-		return(save_without_redir(cmd));
+		return(save_empty(cmd));
 	sp = split(cmd->cmd_line, '|');
 	i = -1;
 	while (sp[++i])
@@ -162,26 +163,32 @@ int	save_cmds(t_cmd *cmd)
 	//		redir = save_redirections(sp2, j, &flag);
 			if (!ft_strcmp(sp2[j], "<<"))
 			{
-				redir = init_redirection(NULL, "readl", ft_strdup(sp2[j + 1]));
+				redir = init_redirection(NULL, "readl", ft_deletequotes(sp2[j + 1]));
 				redir.fd = 1;
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], "<"))
 			{
-				redir = init_redirection(ft_strdup(sp2[j + 1]), "read", NULL);
-				redir.fd = open_file(sp2[j + 1], 'r');
+				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "read", NULL);
+				aux = ft_deletequotes(sp2[j + 1]);
+				redir.fd = open_file(aux, 'r');
+				free(aux);
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">"))
 			{
-				redir = init_redirection(ft_strdup(sp2[j + 1]), "write", NULL);
+				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "write", NULL);
+				aux = ft_deletequotes(sp2[j + 1]);
 				redir.fd = open_file(sp2[j + 1], 'w');
+				free(aux);
 				flag = 1;
 			}
 			else if (!ft_strcmp(sp2[j], ">>"))
 			{
-				redir = init_redirection(ft_strdup(sp2[j + 1]), "append", NULL);
+				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "append", NULL);
+				aux = ft_deletequotes(sp2[j + 1]);
 				redir.fd = open_file(sp2[j + 1], 'a');
+				free(aux);
 				flag = 1;
 			}
 
