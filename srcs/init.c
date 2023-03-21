@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:05:57 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/28 00:40:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:47:00 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,15 @@ void	init_quotes_flags(t_quotes *quotes)
 	quotes->flag_d = 0;
 	quotes->flag_s = 0;
 	quotes->join_str = NULL;
+}
+
+t_redir	init_redirection(char *file, char *type, char *key)
+{
+	t_redir	redir;
+
+	redir.file = file;
+	redir.key = key;
+	redir.type = type;
+	redir.fd = 0;
+	return (redir);
 }

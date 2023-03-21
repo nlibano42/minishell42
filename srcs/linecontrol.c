@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 21:52:59 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:00:06 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,11 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 
 void	expand(char **s, t_env *env)
 {
-	int			i;
 	t_quotes	quotes;
 
 	init_quotes_flags(&quotes);
-	i = -1;
-	while ((*s)[++i] != '\0')
-	{
-		quotes.join_str = expand_dolar(*s, env, &quotes, &i);
-		quotes.join_str = expand_virgulilla(*s, env, &quotes, &i);
-	}
+	quotes.join_str = expand_dolar(s, env, &quotes);
+	quotes.join_str = expand_virgulilla(s, env, &quotes);
 	if (quotes.join_str != NULL)
 	{
 		free (*s);
@@ -78,67 +73,47 @@ void	expand(char **s, t_env *env)
 	}
 }
 
-char	*expand_virgulilla(char*s, t_env *env, t_quotes *quotes, int *i)
+char	*expand_dolar(char **str, t_env *env, t_quotes *quotes)
 {
-	check_quotes_flags(quotes, s[*i]);
-	if (s[*i] == '~' && (quotes->flag_s == 0 || quotes->flag_d == 0) \
-		&& *i == 0)
+	int		i;
+	char	*s;
+
+	s = ft_strdup(*str);
+	i = -1;
+	while (s[++i])
 	{
-		quotes->join_str = ft_strdup("");
-		quotes->join_str = change_env_virgu(s, env, i, quotes->join_str);
+		check_quotes_flags(quotes, s[i]);
+		dollar_exchange(s, &i, quotes, env);
+		if (quotes->join_str && ft_strcmp(s, quotes->join_str))
+		{
+			i = i + ft_strlen(quotes->join_str) - ft_strlen(s);
+			free(s);
+			s = ft_strdup(quotes->join_str);
+		}
 	}
 	return (quotes->join_str);
 }
 
-char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i)
+void	dollar_exchange(char *s, int *i, t_quotes *quotes, t_env *env)
 {
-	check_quotes_flags(quotes, s[*i]);
-	if (s[*i] == '$' && quotes->flag_s == 0 && \
-		find_str(s[*i + 1], "|\"\'$?>< ") == 0)
+	if (s[*i] == '$' && find_str(s[*i + 1], "\"\'") == 1 \
+		&& quotes->flag_s == 0 && quotes->flag_d == 0)
 	{
 		quotes->join_str = ft_strdup("");
 		quotes->join_str = change_env_val(s, env, i, quotes->join_str);
 	}
-	return (quotes->join_str);
-}
-
-char	*change_env_val(char *s, t_env *env, int *i, char *join_str)
-{
-	char	*str;
-	int		fin;
-	char	*val;
-
-	// cogemos la primera parte del string si i != 0
-	if (*i != 0)
-		join_str = ft_strjoin(join_str, ft_substr(s, 0, *i));
-	// cogemos la parte a sustituir ej: $USER
-	fin = find_fin_str(s, *i);
-	str = ft_substr(s, *i + 1, fin - (*i + 1));
-	*i += ft_strlen(str);
-	val = ft_strdup(ft_lstfind_env_val(env, str));
-	join_str = ft_strjoin(join_str, val);
-	free (str);
-	// cogemos la parte final del string si i != '\0'
-	if (s[*i + 1])
-		join_str = ft_strjoin(join_str, \
-		ft_substr(s, *i + 1, ft_strlen(s) - 1));
-	return (join_str);
-}
-
-char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str)
-{
-	char	*virgu;
-
-	if (!ft_strcmp(s, "~") || !ft_strncmp(s , "~/", 2))
+	else if (s[*i] == '$' && quotes->flag_s == 0 && \
+		find_str(s[*i + 1], "|\"\'$>< ") == 0)
 	{
-		virgu = ft_strdup(ft_lstfind_env_val(env, "HOME"));
-		if (s[*i + 1] == '/')
-		{
-			join_str = ft_strjoin(virgu, ft_substr(s, *i + 1, ft_strlen(s) - 1));
-			return (join_str);
+		if (s[*i + 1] == '?')
+		{	
+			quotes->join_str = ft_strdup("");
+			quotes->join_str = change_quitvalue(s, i, quotes->join_str);
 		}
-		else
-			return (virgu);
+		else if (s[*i + 1] != ' ' && s[*i + 1])
+		{
+			quotes->join_str = ft_strdup("");
+			quotes->join_str = change_env_val(s, env, i, quotes->join_str);
+		}
 	}
-	return (join_str = ft_strdup(s)); //libera ese dup??
 }

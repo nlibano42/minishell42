@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:26:13 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/07 22:03:02 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:27:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_builtin(t_cmd *cmd, t_pipe *pipex)
 	if (ft_strcmp(pipex->path, "export") == 0)
 		export(cmd, pipex);
 	else if (ft_strcmp(pipex->path, "pwd") == 0)
-		pwd(cmd);
+		pwd();
 	else if (ft_strcmp(pipex->path, "env") == 0)
 		env(cmd);
 	else if (ft_strcmp(pipex->path, "exit") == 0)

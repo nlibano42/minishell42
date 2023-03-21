@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 19:23:33 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/20 18:34:12 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/19 00:57:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ int		ft_isalnum(int c);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_itoa(int n);
+void	*ft_bzero(void	*s, size_t n);
+int		ft_isdigit(int c);
+int		ft_atoi(const char *str);
 
 // int		ft_isalpha(int c);
-// int		ft_isdigit(int c);
 // int		ft_isascii(int c);
 // int		ft_isprint(int c);
 // void	*ft_memset(void *b, int c, size_t len);
-// void	*ft_bzero(void	*s, size_t n);
 // void	*ft_memmove(void *dst, const void *src, size_t len);
 // int		ft_toupper(int c);
 // int		ft_tolower(int c);
@@ -45,9 +47,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 // void	*ft_memchr(const void *s, int c, size_t n);
 // int		ft_memcmp(const void *s1, const void *s2, size_t n);
 // char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
-// int		ft_atoi(const char *str);
 // void	*ft_calloc(size_t nmemb, size_t size);
-// char	*ft_itoa(int n);
 // char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 // void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 // void	ft_putendl_fd(char *s, int fd);

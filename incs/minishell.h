@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 23:34:56 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:46:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 # include <errno.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <termios.h>
 
 // # include <stdbool.h>
 // # include <stddef.h>
 // # include <stdarg.h>
 // # include <string.h>
 // # include <dirent.h>
-// # include <termios.h>
 
 # define READ_END		0  /* index pipe extremo escritura */
 # define WRITE_END		1  /* index pipe extremo lectura */
@@ -51,10 +51,10 @@ typedef struct s_env
 
 typedef struct s_redir
 {
-	char			*key;
-	char			*file;
-	char			*type; //read, read_l, write, append
-	struct s_redir	*next;
+	char	*key;
+	char	*file;
+	char	*type;
+	int		fd;
 }	t_redir;
 
 //estructura de los comandos. Command + options + arguments
@@ -63,9 +63,8 @@ typedef struct s_pipe
 	char			**full_cmd;
 	char			*path;
 	int				fd[2];
-	int				infile;
-	int				outfile;
-	struct s_redir	*redir;
+	t_redir			*redir;
+	int				num_redi;
 	struct s_pipe	*next;
 	struct s_pipe	*before;
 }	t_pipe;
@@ -77,6 +76,8 @@ typedef struct s_cmd
 	char			*cmd_line;
 	char			*readl;
 	int				num_pipes;
+	int				save_stdin;
+	int				save_stdout;
 	struct s_pipe	*pipe;
 	struct s_redir	*redir;
 }	t_cmd;
@@ -85,16 +86,18 @@ typedef struct s_shell
 {
 	int				quit_status;
 	int				pid;
+	struct termios	save;
 }	t_shell;
 
 t_shell	g_shell;
 
 //main.c
-void	save_cmds(t_cmd *cmd);
+int		save_cmds(t_cmd *cmd);
 
 //init.c
 void	init_cmd(t_cmd *cmd);
 void	init_quotes_flags(t_quotes *quotes);
+t_redir	init_redirection(char *file, char *type, char *key);
 
 //checks.c
 void	check_quotes_flags(t_quotes *quotes, char c);
@@ -108,6 +111,7 @@ int		check_spaces(char *readl);
 int		is_fin_redirection(char *s);
 int		export_check(char **cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
+int		is_digit(char *s);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
@@ -119,6 +123,12 @@ int		ft_strcmp(char *s1, char *s2);
 //error.c
 void	access_error(char *input);
 void	pipe_error(char *error, int num);
+void	execve_error(char *cmd);
+int		print_error(char *s, int *i);
+int		redirections_error(char *s, int num);
+
+//error.c
+void	error_cd_relative_path(char *str);
 
 //split.c
 char	**split(char const *s, char c);
@@ -128,10 +138,14 @@ char	**subsplit(char **sp, int start, int len);
 int		line_parse(t_cmd *cmd, t_env *envp);
 char	*prepare_split(char *readl);
 void	expand(char **s, t_env *env);
-char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
-char	*expand_dolar(char *s, t_env *env, t_quotes *quotes, int *i);
+char	*expand_dolar(char **s, t_env *env, t_quotes *quotes);
+void	dollar_exchange(char *s, int *i, t_quotes *quotes, t_env *env);
+
+//expand_utils.c
+char	*change_quitvalue(char *s, int *i, char *join_str);
+char	*expand_virgulilla(char**s, t_env *env, t_quotes *quotes);
 char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str);
-char	*expand_virgulilla(char*s, t_env *env, t_quotes *quotes, int *i);
+char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
 
 //pipecontrol.c
 //char	*expand_pipe_redir(char *cmd);
@@ -143,8 +157,9 @@ void	count_pipe(t_cmd *cmd, char *s);
 char	*ft_deletequotes(char *s);
 
 //redirections.c
-void		redirections(char **input);
-int			ft_access(char *input);
+int		redirections(t_pipe *pipes);
+int		ft_access(char *input);
+int		open_file(char *file, char flag);
 
 //env.c
 void	init_env(t_env **envi, char **env);
@@ -160,21 +175,14 @@ void	ft_lstdelone(t_env *lst);
 t_env	*ft_lstlast(t_env *lst);
 
 //lst_pipe.c
-t_pipe	*ft_newpipe();
+t_pipe	*ft_newpipe(void);
 void	ft_pipeadd_back(t_pipe **lst, t_pipe *new);
 t_pipe	*ft_pipelast(t_pipe *pipe);
 void	ft_pipedelone(t_pipe *pipe);
 void	ft_pipelstclear(t_pipe **lst);
 
-//lst_redir.c
-t_redir	*ft_lstnew_redir(void);
-void	ft_lstadd_back_redir(t_redir **lst, t_redir *new);
-void	ft_lstclear_redir(t_redir **lst);
-void	ft_lstdelone_redir(t_redir *lst);
-t_redir	*ft_lstlast_redir(t_redir *lst);
-
 //signal.c
-void	ft_suppress_output(void);
+void	ft_suppress_output(int quit);
 void	sighandler(int sig);
 void	show_readline(void);
 void	ft_signal(void);
@@ -187,8 +195,7 @@ void	free_all(t_cmd *cmd);
 char	*get_path(char *s, t_env *env);
 int		is_builtin(char *s);
 void	ft_execve(t_cmd *cmd, t_pipe *pipes);
-char	*get_path(char *s, t_env *env);
-char	**tab_env(t_env *env);
+void	access_execve(t_pipe *pipes, char **char_env, char *p);
 
 //built.c
 void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
@@ -196,6 +203,8 @@ void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
 //pipe.c
 void	pipex_main(t_cmd *cmd);
 void	ft_pipex(t_cmd *cmd, t_pipe *pipes);
+//void	close_fd(t_cmd *cmd);
+void	close_fd(t_redir *redir, int len);
 
 //export.c
 char	**sort_env(t_env *env);
@@ -204,15 +213,16 @@ void	export_add(t_cmd *cmd, char *val);
 void	export(t_cmd *cmd, t_pipe *pipex);
 
 //pwd
-void	pwd(t_cmd *cmd);
+void	pwd(void);
 
 //echo
-void 	echo (t_pipe *pipex);
+void	echo(t_pipe *pipex);
 int		echo_find_n_option(char **str, char *s, int i);
 void	print_echo(char **s, int n);
 
 //exit.c
 void	ft_exit(t_cmd *cmd);
+void	exit_argument(char	**full_cmd, int num);
 
 //unset.c
 void	unset(t_cmd *cmd, t_pipe *pipex);
@@ -220,5 +230,21 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i);
 
 //cd.c
 void	cd(t_cmd *cmd, t_pipe *pipex);
+int		cd_no_argumnets(t_cmd *cmd);
+void	cd_up_dir(t_cmd *cmd);
+int		cd_undo(t_cmd *cmd);
+void	cd_dot_get_pwd(t_cmd *cmd, char **pwd, char **oldpwd);
+
+//cd2.c
+void	update_val(t_cmd *cmd, char *name, char *val);
+char	*cd_find_full_path(t_cmd *cmd, char *oldpwd);
+void	cd_absolute_path(t_cmd *cmd, t_pipe *pipex);
+void	cd_relative_path(t_cmd *cmd, t_pipe *pipex);
+int		cd_dot_get_path(char *pwd, char **tmp, int i);
+
+//here_doc.c
+void	ft_here_doc(t_pipe *pipes, int i);
+void	write_pipe(int *fd, t_pipe *pipes, int i);
+void	write_pipe_not_last(int *fd, t_pipe *pipes, int i);
 
 #endif

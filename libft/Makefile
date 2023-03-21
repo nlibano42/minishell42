@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 20:13:39 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/07 17:49:14 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/19 00:59:58 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,15 @@ SRC = ft_strlen.c \
 	  ft_putstr_fd.c \
 	  ft_putchar_fd.c \
 	  ft_strtrim.c \
+	  ft_itoa.c \
+	  ft_bzero.c \
+	  ft_isdigit.c \
+	  ft_atoi.c \
 
-	#   ft_isdigit.c \  
 	#   ft_isascii.c \
 	#   ft_isprint.c \
 	#   ft_strlen.c \
 	#   ft_memset.c \
-	#   ft_bzero.c \
 	#   ft_memmove.c \
 	#   ft_toupper.c \
 	#   ft_tolower.c \
@@ -48,9 +50,7 @@ SRC = ft_strlen.c \
 	#   ft_memchr.c \
 	#   ft_memcmp.c \
 	#   ft_strnstr.c \
-	#   ft_atoi.c \
 	#   ft_calloc.c \
-	#   ft_itoa.c \
 	#   ft_strmapi.c \
 	#   ft_striteri.c \
 	#   ft_putendl_fd.c \

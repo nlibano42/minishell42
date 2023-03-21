@@ -6,29 +6,30 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/03 00:48:46 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:52:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-#include <termios.h>
 
 void	ft_signal(void)
-{	
-	ft_suppress_output();
+{
+	ft_suppress_output(0);
 	signal(SIGINT, sighandler);
 	signal(SIGQUIT, sighandler);
 }
 
-void	ft_suppress_output(void)
+void	ft_suppress_output(int quit)
 {
 	struct termios	config;
 
-	if (tcgetattr(0, &config))
-		perror("minishell: tcsetattr");
+	ft_bzero(&config, sizeof(config));
+	tcgetattr(STDIN_FILENO, &config);
+	if (quit == 0)
 		config.c_lflag &= ~ECHOCTL;
-	if (tcsetattr(0, 0, &config))
-		perror("minishell: tcsetattr");
+	else
+		config.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &config);
 }
 
 void	show_readline(void)
