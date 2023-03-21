@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 14:26:15 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:46:16 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ void	pipe_error(char *error, int num);
 void	execve_error(char *cmd);
 int		print_error(char *s, int *i);
 int		redirections_error(char *s, int num);
+
+//error.c
+void	error_cd_relative_path(char *str);
 
 //split.c
 char	**split(char const *s, char c);
