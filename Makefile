@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/20 11:55:14 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/03/21 19:41:19 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS	= main.c\
 		split.c\
 		redirections.c\
 		error.c\
+		error2.c\
 		path.c\
 		lst_pipe.c\
 		built.c\

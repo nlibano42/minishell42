@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 18:36:32 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:48:41 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int	save_cmds(t_cmd *cmd)
 			{
 				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "write", NULL);
 				aux = ft_deletequotes(sp2[j + 1]);
-				redir.fd = open_file(sp2[j + 1], 'w');
+				redir.fd = open_file(aux, 'w');
 				free(aux);
 				flag = 1;
 			}
@@ -188,7 +188,7 @@ int	save_cmds(t_cmd *cmd)
 			{
 				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "append", NULL);
 				aux = ft_deletequotes(sp2[j + 1]);
-				redir.fd = open_file(sp2[j + 1], 'a');
+				redir.fd = open_file(aux, 'a');
 				free(aux);
 				flag = 1;
 			}
@@ -207,7 +207,7 @@ int	save_cmds(t_cmd *cmd)
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
-		if (!is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
+		if (!pipe->redir && find_str('/', pipe->full_cmd[0]) && !is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
 		{
 			//TODO MIAR Q PASA SI PATH ESTA VACIO
 	//		if (!pipe->full_cmd[0])
@@ -224,6 +224,5 @@ int	save_cmds(t_cmd *cmd)
 		free_split(sp2);
 	}
 	free_split(sp);
-	// TODO. cerrar los descriptores cuando no se necesiten y en otro punto.
 	return (0);
 }

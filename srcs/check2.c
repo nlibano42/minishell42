@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 19:18:21 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:39:36 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,6 @@ int	is_fin_redirection(char *str)
 				j++;
 			if (!s[j] || s[j] == '|' || s[j] == '<' || s[j] == '>')
 				return (redirections_error(s, 258));
-		}
-		if ((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0 \
-			&& quotes.flag_s == 0)
-		{
-			if (s[i + 1] == '<' || s[i + 1] == '>')
-				i++;
-			if (s[i + 1] == '<' || s[i + 1] == '>')
-			{
-				ft_putstr_fd("Minishell: syntax error\n", 2);
-				free(s);
-				return (g_shell.quit_status = 258);
-			}
-			while (ft_isalnum(s[i]) == 0)
-			{
-				if (!find_str(s[i], " *&/|"))
-				{
-					if (print_error(s, &i) == 1)
-						return (g_shell.quit_status = 258);
-				}
-				i++;
-			}
 		}
 	}
 	free(s);

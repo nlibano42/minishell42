@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 10:46:36 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:27:21 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	else
 	{
 		access_execve(pipes, char_env, p);
-		if (ft_strcmp(pipes->redir->type, "readl"))
+		if (pipes->redir) 
+		{
+			if(ft_strcmp(pipes->redir->type, "readl"))
+				execve_error(print_cmd);	
+		}
+		else
 			execve_error(print_cmd);
 		free(print_cmd);
 		free_split(char_env);
