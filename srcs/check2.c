@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 20:09:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:02:14 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,30 @@ int	check_spaces(char *readl)
 	return (1);
 }
 
+int	print_error_export(char **cmd, int *i)
+{
+	ft_putstr_fd("minishel: export: ", 2);
+	ft_putstr_fd("\'", 2);
+	ft_putstr_fd(ft_deletequotes(cmd[*i]), 2);
+	ft_putstr_fd("\'", 2);
+	ft_putstr_fd(": not a valid identifier\n", 2);
+	return(g_shell.quit_status = 1);
+}
+
 int	export_check(char **cmd)
 {
 	int	i;
+	int j;
 
 	i = 0;
 	while (cmd[++i])
 	{
+		j = -1;
+		while(cmd[i][++j])
+		{
+			if(ft_isalnum(cmd[i][j]) == 0)
+				print_error_export(cmd, &i);
+		} 		
 		if (cmd[i][0] == '=')
 		{
 			ft_putstr_fd("minishel: export: ", 2);
@@ -40,7 +57,7 @@ int	export_check(char **cmd)
 			ft_putstr_fd("\'", 2);
 			ft_putstr_fd(": not a valid identifier\n", 2);
 			return (g_shell.quit_status = 1, 1);
-		}		
+		}
 	}
 	return (0);
 }
