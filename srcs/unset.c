@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 01:54:26 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/07 21:40:48 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 00:10:54 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i)
 {
 	t_env	*env;
+//	char	*name;
 
 	env = cmd->env;
 	while (env)
 	{
+	//	name = ft_deletequotes(pipex->full_cmd[*i]);
 		if (ft_strcmp(env->name, pipex->full_cmd[*i]) == 0)
 		{
 			if (before)
@@ -35,8 +37,10 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i)
 				cmd->env = cmd->env->next;
 				ft_lstdelone(before);
 			}
+	//		free(name);
 			return ;
 		}
+	//	free(name);
 		before = env;
 		env = env->next;
 	}	

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 14:51:25 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:16:14 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 		access_execve(pipes, char_env, p);
 		if (pipes->redir)
 		{
-			if (ft_strcmp(pipes->redir->type, "readl"))
+		//	printf ("pasamod por aqui?? \n");
+			if (ft_strcmp(pipes->redir->type, "readl") && pipes->path)
 				execve_error(print_cmd);
 		}
 		else

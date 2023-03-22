@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 19:48:41 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:53:54 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,39 +95,6 @@ int	save_empty(t_cmd *cmd)
 	return (0);
 }
 
-/*int	save_redirections(char **sp, int i, t_redir	*redir)
-{
-	int	flag;
-
-	flag == 0
-	if (!ft_strcmp(sp[i], "<<"))
-	{
-		*redir = init_redirection(NULL, "readl", ft_strdup(sp[i + 1]));
-		redir->fd = 1;
-		flag = 1;
-	}
-	else if (!ft_strcmp(sp[i], "<"))
-	{
-		*redir = init_redirection(ft_strdup(sp[i + 1]), "read", NULL);
-		redir->fd = open_file(sp[i + 1], 'r');
-		flag = 1;
-	}
-	else if (!ft_strcmp(sp[i], ">"))
-	{
-		*redir = init_redirection(ft_strdup(sp[i + 1]), "write", NULL);
-		redir->fd = open_file(sp[i + 1], 'w');
-		flag = 1;
-	}
-	else if (!ft_strcmp(sp[i], ">>"))
-	{
-		*redir = init_redirection(ft_strdup(sp[i + 1]), "append", NULL);
-		redir->fd = open_file(sp[i + 1], 'a');
-		flag = 1;
-	}
-	return (flag);
-}
-*/
-
 int	save_cmds(t_cmd *cmd)
 {
 	int		i;
@@ -141,6 +108,9 @@ int	save_cmds(t_cmd *cmd)
 	char	*aux;
 	char	*tmp;
 	
+	t_pipe	*lastpipe;
+	lastpipe = NULL;
+
 	flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
 		return(save_empty(cmd));
@@ -220,6 +190,8 @@ int	save_cmds(t_cmd *cmd)
 			free(tmp);
 			return (g_shell.quit_status = 127);
 		}
+		if (!cmd->pipe && !pipe->redir && !ft_strcmp(pipe->full_cmd[0], "cat"))
+			pipe->wait = 1;
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 		free_split(sp2);
 	}
