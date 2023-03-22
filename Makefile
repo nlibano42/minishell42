@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/22 20:41:33 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/03/22 22:16:54 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,6 @@ SRCS	= main.c\
 		expand_utils.c\
 		here_doc.c\
 		save_cmds.c\
-		check3.c\
 		
 # Compiler options
 CC			= gcc
