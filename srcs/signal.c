@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 10:52:16 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 00:32:24 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	show_readline(void)
 void	sighandler(int sig)
 {
 	if (sig == SIGQUIT && g_shell.pid == 0)
+	{
 		show_readline();
+	}
 	else if (sig == SIGINT && g_shell.pid == 0)
 	{
 		printf("\n");
@@ -60,5 +62,10 @@ void	sighandler(int sig)
 		printf("Quit: 3\n");
 		printf("\n");
 		rl_redisplay();
+	}
+	if (sig == SIGINT && g_shell.pid == 2)
+	{
+		g_shell.pid = 0;
+		exit(g_shell.quit_status = 1);
 	}
 }

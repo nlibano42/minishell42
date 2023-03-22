@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 21:48:00 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 00:31:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 	{
 		line = readline("> ");
 		if (!line)
+		{
+			ft_putstr_fd("\x1b[1A", 1);
+			ft_putstr_fd("\033[2C", 1);
 			exit(g_shell.quit_status = 0) ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
 		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
+		}
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
 			free(line);
@@ -75,7 +79,6 @@ void	ft_here_doc(t_pipe *pipes, int i)
 	if (pid == 0)
 	{
 		g_shell.pid = 2;
-//		ft_suppress_output(0);
 		write_pipe(fd, pipes, i);
 	}
 	else
@@ -87,7 +90,6 @@ void	ft_here_doc(t_pipe *pipes, int i)
 		else if(WIFSIGNALED(status))
 			g_shell.quit_status = WTERMSIG(status) + 128;
 		g_shell.pid = 0;
-	//	ft_suppress_output(1);
 		dup2(fd[READ_END], STDIN_FILENO);
 		close(fd[READ_END]);
 	}
