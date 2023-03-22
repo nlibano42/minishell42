@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/21 19:41:19 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/22 18:30:19 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS	= main.c\
 		lst_pipe.c\
 		built.c\
 		pipe.c\
+		pipe2.c\
 		export.c\
 		pwd.c\
 		exit.c\
@@ -48,6 +49,7 @@ SRCS	= main.c\
 		expand_utils.c\
 		here_doc.c\
 		save_cmds.c\
+		check3.c\
 		
 # Compiler options
 CC			= gcc
