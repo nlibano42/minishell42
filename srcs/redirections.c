@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 17:49:18 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:41:01 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ int	open_file(char *file, char flag)
 	else if (flag == 'a')
 		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
-		g_shell.quit_status = 1; //mirar que numero debe devolver.
+		g_shell.quit_status = 1;
 	return (fd);
 }
 
 int	last_redirec(t_redir *redir, int i, int len)
 {
-	while(++i < len)
+	while (++i < len)
 	{
-		if(!ft_strcmp(redir[i].type, "readl"))
+		if (!ft_strcmp(redir[i].type, "readl"))
 			return (1);
 	}
 	return (0);
@@ -47,39 +47,14 @@ int	redirections(t_pipe *pipes)
 	i = -1;
 	while (++i < pipes->num_redi)
 	{
-		if(pipes->redir[i].fd == -1)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(pipes->redir[i].file, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			return (g_shell.quit_status = 1);
-		}
+		if (pipes->redir[i].fd == -1)
+			return (error_open_file(pipes->redir[i].file));
 		if (pipes->redir[i].fd == 0)
-			return  (0);
-		if (!ft_strcmp(pipes->redir[i].type, "read"))
-		{
-			dup2(pipes->redir[i].fd, STDIN_FILENO);
-			close(pipes->redir[i].fd);
-		}
-		if (!ft_strcmp(pipes->redir[i].type, "write"))
-		{
-			dup2(pipes->redir[i].fd, STDOUT_FILENO);
-			close(pipes->redir[i].fd);
-		}
-		if (!ft_strcmp(pipes->redir[i].type, "append"))
-		{
-			dup2(pipes->redir[i].fd, STDOUT_FILENO);
-			close(pipes->redir[i].fd);
-		}
-		if (!ft_strcmp(pipes->redir[i].type, "readl")) //TODO: <<< o mas ERROR. igual al reves.
-		//TODO vigiliar que "ls | > " fichero o "ls | >> " de error.
-		{
-			dup2(pipes->redir[i].fd, STDIN_FILENO);
-			if (last_redirec(pipes->redir, i, pipes->num_redi) == 1)
-				write_pipe_not_last(pipes->fd, pipes, i);
-			else
-				ft_here_doc(pipes, i);
-		}
+			return (0);
+		action_read(pipes->redir[i].type, pipes->redir[i].fd);
+		action_write(pipes->redir[i].type, pipes->redir[i].fd);
+		action_append(pipes->redir[i].type, pipes->redir[i].fd);
+		action_read_line(pipes, i);
 	}
 	return (0);
 }
@@ -87,27 +62,27 @@ int	redirections(t_pipe *pipes)
 int	ft_access(char *input)
 {
 	int		i;
-	char	**cmd_split;
+	char	**cmd_sp;
 	int		fd;
 
-	cmd_split = ft_split(input, '\n');
+	cmd_sp = ft_split(input, '\n');
 	fd = 0;
 	i = -1;
-	while (cmd_split[++i])
+	while (cmd_sp[++i])
 	{
-		if (!ft_strncmp(cmd_split[i], ">", 1) && !access(cmd_split[i + 1], F_OK))
-			fd = access(cmd_split[i + 1], W_OK);
-		if (!ft_strncmp(cmd_split[i], "<", 1) && !access(cmd_split[i + 1], F_OK))
-			fd = access(cmd_split[i + 1], R_OK );
-		if (!ft_strncmp(cmd_split[i], ">>", 2) && !access(cmd_split[i + 1], F_OK))
-			fd = access(cmd_split[i + 1], W_OK);
+		if (!ft_strncmp(cmd_sp[i], ">", 1) && !access(cmd_sp[i + 1], F_OK))
+			fd = access(cmd_sp[i + 1], W_OK);
+		if (!ft_strncmp(cmd_sp[i], "<", 1) && !access(cmd_sp[i + 1], F_OK))
+			fd = access(cmd_sp[i + 1], R_OK);
+		if (!ft_strncmp(cmd_sp[i], ">>", 2) && !access(cmd_sp[i + 1], F_OK))
+			fd = access(cmd_sp[i + 1], W_OK);
 		if (fd == -1)
 		{
-			access_error(cmd_split[i + 1]);
-			free_split(cmd_split);
+			access_error(cmd_sp[i + 1]);
+			free_split(cmd_sp);
 			return (fd);
 		}
 	}
-	free_split(cmd_split);
+	free_split(cmd_sp);
 	return (fd);
 }

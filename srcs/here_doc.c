@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 19:52:10 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:13:34 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 	{
 		line = readline("> ");
 		if (!line)
-			exit(EXIT_SUCCESS); // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
-		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
+			exit(EXIT_SUCCESS);
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
 			free(buff);
@@ -45,13 +44,15 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 	{
 		line = readline("> ");
 		if (!line)
-			exit(g_shell.quit_status = 0) ; // TODO: ctrl+d -> salir sin escribir ni ejecutar nada y sin salto de linea.
-		//TODO: ctrl+c -> salir sin escribir ni ejecutar nada y con salto de linea.
+		{
+			ft_putstr_fd("\x1b[1A", 1);
+			ft_putstr_fd("\033[2C", 1);
+			exit(g_shell.quit_status = 0);
+		}
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
 			free(line);
 			close(fd[WRITE_END]);
-			//close(pipes->redir[i].fd);
 			exit(EXIT_SUCCESS);
 		}
 		write(fd[WRITE_END], line, ft_strlen(line));
@@ -60,13 +61,28 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 	}
 }
 
+void	ft_here_doc_dad(int fd[2], pid_t pid)
+{
+	int	status;
+
+	close(fd[WRITE_END]);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		g_shell.quit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_shell.quit_status = WTERMSIG(status) + 128;
+	g_shell.pid = 0;
+	ft_signal();
+	dup2(fd[READ_END], STDIN_FILENO);
+	close(fd[READ_END]);
+}
+
 void	ft_here_doc(t_pipe *pipes, int i)
 {
 	int		fd[2];
-	int		status;
 	pid_t	pid;
 
-	g_shell.pid = 2;
+	ft_signal_heredoc();
 	if (pipe(fd) == -1)
 		pipe_error("Error Pipe", EXIT_FAILURE);
 	pid = fork();
@@ -75,20 +91,8 @@ void	ft_here_doc(t_pipe *pipes, int i)
 	if (pid == 0)
 	{
 		g_shell.pid = 2;
-//		ft_suppress_output(0);
 		write_pipe(fd, pipes, i);
 	}
 	else
-	{
-		close(fd[WRITE_END]);
-		dup2(fd[READ_END], STDIN_FILENO);
-		close(fd[READ_END]);
-		waitpid(pid, &status, 0);
-		if(WIFEXITED(status))
-			g_shell.quit_status = WEXITSTATUS(status);
-		else if(WIFSIGNALED(status))
-			g_shell.quit_status = WTERMSIG(status) + 128;
-		ft_suppress_output(1);
-	}
-	g_shell.pid = 0;
+		ft_here_doc_dad(fd, pid);
 }

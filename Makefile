@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
+#    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/21 20:13:55 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/22 20:41:33 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	= main.c\
 		env.c\
 		lst_env.c\
 		signal.c\
+		signal_heredoc.c\
 		free_params.c\
 		linecontrol.c\
 		utils.c\
@@ -33,12 +34,14 @@ SRCS	= main.c\
 		check3.c\
 		split.c\
 		redirections.c\
+		redir_actions.c\
 		error.c\
 		error2.c\
 		path.c\
 		lst_pipe.c\
 		built.c\
 		pipe.c\
+		pipe2.c\
 		export.c\
 		pwd.c\
 		exit.c\
@@ -49,6 +52,7 @@ SRCS	= main.c\
 		expand_utils.c\
 		here_doc.c\
 		save_cmds.c\
+		check3.c\
 		
 # Compiler options
 CC			= gcc

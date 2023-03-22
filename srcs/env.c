@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:35:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/19 19:16:46 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 00:05:34 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ char	**tab_env(t_env *env)
 	i = -1;
 	while (env)
 	{
-		s = ft_strjoin(ft_strdup(env->name), ft_strdup("="));
-		s = ft_strjoin(s, ft_strdup(env->val));
+		s = ft_strjoin(ft_deletequotes(env->name), ft_strdup("="));
+		s = ft_strjoin(s, ft_deletequotes(env->val));
 		tab[++i] = s;
 		env = env->next;
 	}
