@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 20:17:45 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:51:25 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	else
 	{
 		access_execve(pipes, char_env, p);
-		if (pipes->redir) 
+		if (pipes->redir)
 		{
-			if(ft_strcmp(pipes->redir->type, "readl"))
-				execve_error(print_cmd);	
+			if (ft_strcmp(pipes->redir->type, "readl"))
+				execve_error(print_cmd);
 		}
 		else
 			execve_error(print_cmd);

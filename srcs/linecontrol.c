@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linecontrol.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/21 16:29:34 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:15:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 		expand(&(cmd->cmd[i]), envp);
 	join_split(cmd);
 	cmd->cmd_line = expand_pipe_redir(cmd);
-	if (ft_access(cmd->cmd_line) == -1 || is_two_pipes(cmd->cmd_line) == 1 || ft_strlen(cmd->cmd_line) == 0)
+	if (ft_access(cmd->cmd_line) == -1 || is_two_pipes(cmd->cmd_line) == 1 || \
+			ft_strlen(cmd->cmd_line) == 0)
 		return (g_shell.quit_status = 1);
-		//devolvemos el error con el quit_status, luego podemos hacer
-		//segun el error el status un write que diga cual es el error, veremos.
 	return (0);
 }
 

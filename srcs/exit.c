@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 11:19:22 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:18:30 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	ft_exit(t_cmd *cmd)
 	free_all(cmd);
 	close(cmd->save_stdin);
 	close(cmd->save_stdout);
-	//TODO: mirar todo lo que se necesita liberar. 
 	exit(g_shell.quit_status);
-	//TODO: mirar porque no termina todo. 
 }
 
 void	exit_argument(char	**full_cmd, int num)

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error2.c                                           :+:      :+:    :+:   */
+/*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 14:40:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/22 19:46:58 by nlibano-         ###   ########.fr       */
+/*   Created: 2023/03/22 19:03:30 by nlibano-          #+#    #+#             */
+/*   Updated: 2023/03/22 19:06:32 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-void	error_cd_relative_path(char *str)
+void	ft_signal_heredoc(void)
 {
-	ft_putstr_fd("bash: cd: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_suppress_output(0);
+	signal(SIGINT, sighandler_heredoc);
+	signal(SIGQUIT, sighandler_heredoc);
 }
 
-int	error_open_file(char *str)
-{	
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
-	return (g_shell.quit_status = 1);
+void	sighandler_heredoc(int sig)
+{
+	if (sig == SIGINT && g_shell.pid == 2)
+		exit(g_shell.quit_status = 1);
+	if (sig == SIGQUIT && g_shell.pid == 2)
+		rl_redisplay();
 }
