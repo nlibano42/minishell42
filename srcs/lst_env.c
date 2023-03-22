@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:38:36 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 20:28:22 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:12:02 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_env	*ft_lstnew(char *name, char *val)
 {
 	t_env	*list;
-	
 
 	list = malloc(sizeof(t_env));
 	if (!list)

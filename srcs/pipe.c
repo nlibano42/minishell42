@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 18:25:08 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:21:14 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,33 @@ void	ft_notpipe(t_cmd *cmd)
 	ft_suppress_output(0);
 }
 
+void	ft_pipex_child_before(t_pipe *pipes)
+{
+	if (pipes->before->redir && \
+			!ft_strcmp(pipes->before->redir->type, "readl"))
+		dup2(pipes->fd[READ_END], STDIN_FILENO);
+	else
+	{
+		if (pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
+			redirections(pipes);
+		else
+			dup2(pipes->before->fd[READ_END], STDIN_FILENO);
+	}
+}
+
 void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 {
 	g_shell.pid = 1;
 	ft_suppress_output(1);
 	if (pipes->before)
-	{
-		if(pipes->before->redir && !ft_strcmp(pipes->before->redir->type, "readl"))
-			dup2(pipes->fd[READ_END], STDIN_FILENO);
-		else
-		{
-			if(pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
-				redirections(pipes);
-			else
-				dup2(pipes->before->fd[READ_END], STDIN_FILENO);
-		}
-	}
+		ft_pipex_child_before(pipes);
 	if (pipes->next)
 	{
-		if(pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
+		if (pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
 			redirections(pipes);
 		else
 		{
-	 		dup2(pipes->fd[WRITE_END], STDOUT_FILENO);
+			dup2(pipes->fd[WRITE_END], STDOUT_FILENO);
 			close(pipes->fd[WRITE_END]);
 		}
 	}

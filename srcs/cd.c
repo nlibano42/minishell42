@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 17:15:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:11:35 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,4 @@ void	cd(t_cmd *cmd, t_pipe *pipex)
 		else
 			cd_relative_path(cmd, pipex);
 	}
-	//TODO: cuando sacamos el error hay que expandir ~
 }

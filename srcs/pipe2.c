@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 18:25:25 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/22 21:46:06 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:05:52 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	pipex_main_with_pipe(t_cmd *cmd)
 			continue ;
 		}
 		ft_pipex(cmd, pipes);
+		close_fd(pipes->redir, pipes->num_redi);
 		pipes = pipes->next;
 	}
-	close_fd(pipes->redir, pipes->num_redi);
 	if (cmd->pipe->wait == 1)
 	{
 		g_shell.pid = 1;
