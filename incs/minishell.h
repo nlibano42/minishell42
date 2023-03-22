@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/22 18:24:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:47:31 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,10 @@ void	ft_suppress_output(int quit);
 void	sighandler(int sig);
 void	show_readline(void);
 void	ft_signal(void);
+
+//signals_heredoc.c
+void	ft_signal_heredoc(void);
+void	sighandler_heredoc(int sig);
 
 //free_params.c
 void	free_split(char **s);
