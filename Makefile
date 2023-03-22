@@ -31,6 +31,7 @@ SRCS	= main.c\
 		init.c\
 		check.c\
 		check2.c\
+		check3.c\
 		split.c\
 		redirections.c\
 		redir_actions.c\

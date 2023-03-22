@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
 /*   Updated: 2023/03/22 18:25:08 by nlibano-         ###   ########.fr       */
@@ -45,14 +45,32 @@ void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 	g_shell.pid = 1;
 	ft_suppress_output(1);
 	if (pipes->before)
-		dup2(pipes->before->fd[READ_END], STDIN_FILENO);
+	{
+		if(pipes->before->redir && !ft_strcmp(pipes->before->redir->type, "readl"))
+			dup2(pipes->fd[READ_END], STDIN_FILENO);
+		else
+		{
+			if(pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
+				redirections(pipes);
+			else
+				dup2(pipes->before->fd[READ_END], STDIN_FILENO);
+		}
+	}
 	if (pipes->next)
 	{
-		dup2(pipes->fd[WRITE_END], STDOUT_FILENO);
-		close(pipes->fd[WRITE_END]);
+		if(pipes->redir && !ft_strcmp(pipes->redir->type, "readl"))
+			redirections(pipes);
+		else
+		{
+	 		dup2(pipes->fd[WRITE_END], STDOUT_FILENO);
+			close(pipes->fd[WRITE_END]);
+		}
 	}
-	if (redirections(pipes) == 1)
-		return ;
+	if (pipes->redir && ft_strcmp(pipes->redir->type, "readl"))
+	{
+		if (redirections(pipes) == 1)
+			return ;
+	}
 	ft_execve(cmd, pipes);
 	free_all(cmd);
 	exit(EXIT_FAILURE);
