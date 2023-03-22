@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/22 18:47:31 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:38:55 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,9 @@ void	execve_error(char *cmd);
 int		print_error(char *s, int *i);
 int		redirections_error(char *s, int num);
 
-//error.c
+//error2.c
 void	error_cd_relative_path(char *str);
+int		error_open_file(char *str);
 
 //split.c
 char	**split(char const *s, char c);
@@ -161,6 +162,13 @@ char	*ft_deletequotes(char *s);
 int		redirections(t_pipe *pipes);
 int		ft_access(char *input);
 int		open_file(char *file, char flag);
+int		last_redirec(t_redir *redir, int i, int len);
+
+//redir_actions.c
+void	action_read(char *type, int fd);
+void	action_write(char *type, int fd);
+void	action_append(char *type, int fd);
+void	action_read_line(t_pipe *pipes, int i);
 
 //env.c
 void	init_env(t_env **envi, char **env);
