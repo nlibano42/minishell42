@@ -6,7 +6,7 @@
 #    By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/22 19:07:09 by nlibano-         ###   ########.fr        #
+#    Updated: 2023/03/22 20:41:33 by nlibano-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS	= main.c\
 		check2.c\
 		split.c\
 		redirections.c\
+		redir_actions.c\
 		error.c\
 		error2.c\
 		path.c\
