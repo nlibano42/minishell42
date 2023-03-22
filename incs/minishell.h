@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 19:39:48 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:24:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_pipe
 	int				fd[2];
 	t_redir			*redir;
 	int				num_redi;
+	int				wait;
 	struct s_pipe	*next;
 	struct s_pipe	*before;
 }	t_pipe;
@@ -190,6 +191,7 @@ void	ft_signal(void);
 //free_params.c
 void	free_split(char **s);
 void	free_all(t_cmd *cmd);
+void	close_fd(t_redir *redir, int len);
 
 //path.c
 char	*get_path(char *s, t_env *env);
@@ -201,10 +203,15 @@ void	access_execve(t_pipe *pipes, char **char_env, char *p);
 void	ft_builtin(t_cmd *cmd, t_pipe *pipex);
 
 //pipe.c
-void	pipex_main(t_cmd *cmd);
+void	ft_notpipe(t_cmd *cmd);
+void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes);
+void	ft_pipex_dad(t_pipe *pipes, pid_t num_pid);
 void	ft_pipex(t_cmd *cmd, t_pipe *pipes);
-//void	close_fd(t_cmd *cmd);
-void	close_fd(t_redir *redir, int len);
+
+//pipe2.c
+void	pipex_main_no_pipe(t_cmd *cmd);
+void	pipex_main_with_pipe(t_cmd *cmd);
+void	pipex_main(t_cmd *cmd);
 
 //export.c
 char	**sort_env(t_env *env);

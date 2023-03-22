@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/21 20:09:42 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:59:32 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	is_fin_redirection(char *str)
 	while (s[++i])
 	{
 		check_quotes_flags(&quotes, s[i]);
-		if (s[i] == '>' && s[i + 1] == '<' && quotes.flag_d == 0 \
-				&& quotes.flag_s == 0)
+		if (((s[i] == '>' && s[i + 1] == '<') || (s[i] == '<' && \
+				s[i + 1] == '>')) && quotes.flag_d == 0 && quotes.flag_s == 0)
 			return (redirections_error(s, 258));
 		if ((s[i] == '<' || s[i] == '>') && quotes.flag_d == 0 && \
 				quotes.flag_s == 0)

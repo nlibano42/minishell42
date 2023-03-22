@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:41:00 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/18 12:07:55 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:47:11 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_pipe	*ft_newpipe(void)
 	pipe->redir = NULL;
 	pipe->num_redi = 0;
 	pipe->before = NULL;
+	pipe->wait = 0;
 	return (pipe);
 }
 

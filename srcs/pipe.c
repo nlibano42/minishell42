@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 14:53:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:25:08 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,27 @@ void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 	exit(EXIT_FAILURE);
 }
 
+void	ft_pipex_dad(t_pipe *pipes, pid_t num_pid)
+{
+	int		status;
+
+	close(pipes->fd[WRITE_END]);
+	if (pipes->before)
+		close(pipes->before->fd[READ_END]);
+	if (!pipes->next)
+		close(pipes->fd[READ_END]);
+	waitpid(num_pid, &status, 0);
+	if (WIFEXITED(status))
+		g_shell.quit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_shell.quit_status = WTERMSIG(status) + 128;
+	g_shell.pid = 0;
+	ft_suppress_output(0);
+}
+
 void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 {
 	pid_t	num_pid;
-	int		status;
 
 	if (pipe(pipes->fd) == -1)
 		pipe_error("Error Pipe", EXIT_FAILURE);
@@ -72,61 +89,5 @@ void	ft_pipex(t_cmd *cmd, t_pipe *pipes)
 	else if (num_pid == 0)
 		ft_pipex_child(cmd, pipes);
 	else
-	{
-		close(pipes->fd[WRITE_END]);
-		if (pipes->before)
-			close(pipes->before->fd[READ_END]);
-		if (!pipes->next)
-			close(pipes->fd[READ_END]);
-		waitpid(num_pid, &status, 0);
-		if (WIFEXITED(status))
-			g_shell.quit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			g_shell.quit_status = WTERMSIG(status) + 128;
-		g_shell.pid = 0;
-		ft_suppress_output(0);
-	}
-}
-
-void	close_fd(t_redir *redir, int len)
-{
-	int		i;
-
-	i = -1;
-	while (++i < len)
-	{	
-		if (redir[i].fd > -1)
-			close(redir[i].fd);
-	}
-}
-
-void	pipex_main(t_cmd *cmd)
-{
-	t_pipe	*pipes;
-
-	if (cmd->num_pipes == 0)
-	{
-		if (redirections(cmd->pipe) == 1)
-			return ;
-		if (is_builtin(cmd->pipe->path))
-			ft_builtin(cmd, cmd->pipe);
-		else
-		{
-			g_shell.pid = 1;
-			ft_suppress_output(1);
-			ft_notpipe(cmd);
-			g_shell.pid = 0;
-		}
-		close_fd(cmd->pipe->redir, cmd->pipe->num_redi);
-	}
-	else
-	{
-		pipes = cmd->pipe;
-		while (pipes)
-		{
-			ft_pipex(cmd, pipes);
-			close_fd(pipes->redir, pipes->num_redi);
-			pipes = pipes->next;
-		}
-	}
+		ft_pipex_dad(pipes, num_pid);
 }
