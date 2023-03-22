@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:36:21 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 11:45:44 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:02:10 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,18 @@ void	export(t_cmd *cmd, t_pipe *pipex)
 		export_no_args(cmd);
 		return ;
 	}
-	if (export_check(pipex->full_cmd))
-		return ;
 	i = 0;
 	while (pipex->full_cmd[++i])
 	{
 		val = ft_split(pipex->full_cmd[i], '=');
 		exist = 0;
 		env = cmd->env;
-		export_update_val(&env, val, &exist);
-		if (exist == 0)
-			export_add(cmd, pipex->full_cmd[i]);
+		if (export_check(ft_deletequotes(val[0])) == 0)
+		{	
+			export_update_val(&env, val, &exist);
+			if (exist == 0)
+				export_add(cmd, pipex->full_cmd[i]);
+		}
 		free_split(val);
 	}
 }
