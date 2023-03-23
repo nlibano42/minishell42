@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 09:50:07 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:19:54 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ void	ft_here_doc_dad(int fd[2], pid_t pid)
 
 	close(fd[WRITE_END]);
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		g_shell.quit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		g_shell.quit_status = WTERMSIG(status) + 128;
+	ft_status(status);
 	g_shell.pid = 0;
 	ft_signal();
 	dup2(fd[READ_END], STDIN_FILENO);
