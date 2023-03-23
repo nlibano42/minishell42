@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 16:47:31 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 18:29:18 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	line_parse(t_cmd *cmd, t_env *envp)
 	cmd->cmd_line = expand_pipe_redir(cmd);
 	if (ft_access(cmd->cmd_line) == -1 || is_two_pipes(cmd->cmd_line) == 1 || \
 			ft_strlen(cmd->cmd_line) == 0)
-		return (g_shell.quit_status = 1);
+		return (1);
 	return (0);
 }
 

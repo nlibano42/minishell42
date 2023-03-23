@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:28:18 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 18:59:45 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 18:27:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	is_two_pipes(char *s)
 	while (sp[++i])
 	{
 		check_quotes_flags(&quotes, s[i]);
+		if (sp[i][0] == '|' && !sp[i + 1])
+			return (1);
 		if (sp[i][0] == '|' && sp[i + 1][0] == '|'\
 			&& quotes.flag_d == 0 && quotes.flag_s == 0)
 		{
