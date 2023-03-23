@@ -6,21 +6,17 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 11:58:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:41:18 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-char	**delete_redirection(char *sp, int *len)
+int	delete_redir_len(char **s, int *len)
 {
-	int		i;
-	int		j;
-	char	**res;
-	char	**s;
+	int	i;
 
 	*len = 0;
-	s = ft_split(sp, '\n');
 	i = -1;
 	while (s[++i])
 	{
@@ -32,7 +28,18 @@ char	**delete_redirection(char *sp, int *len)
 		}
 		(*len)++;
 	}
-	res = (char **)malloc(sizeof(char *) * (*len + 1));
+	return (*len);
+}
+
+char	**delete_redirection(char *sp, int *len)
+{
+	int		i;
+	int		j;
+	char	**res;
+	char	**s;
+
+	s = ft_split(sp, '\n');
+	res = (char **)malloc(sizeof(char *) * (delete_redir_len(s, len) + 1));
 	if (!res)
 		return (NULL);
 	i = -1;
@@ -95,6 +102,90 @@ int	save_empty(t_cmd *cmd)
 	return (0);
 }
 
+int	init_redir_size(t_pipe **pipe)
+{
+	if ((*pipe)->num_redi > 0)
+	{
+		(*pipe)->redir = malloc(sizeof(t_redir) * ((*pipe)->num_redi + 1));
+		if (!(*pipe)->redir)
+			return (1);
+	}
+	return (0);
+}
+
+void	save_redir_readline(char *str, char *next, int *flag, t_redir *redir)
+{
+	if (!ft_strcmp(str, "<<"))
+	{
+		*redir = init_redirection(NULL, "readl", ft_deletequotes(next));
+		redir->fd = 1;
+		*flag = 1;
+	}
+}
+
+void	save_redir_read(char *str, char *next, int *flag, t_redir *redir)
+{
+	char	*aux;
+
+	if (!ft_strcmp(str, "<"))
+	{
+		*redir = init_redirection(ft_deletequotes(next), "read", NULL);
+		aux = ft_deletequotes(next);
+		redir->fd = open_file(aux, 'r');
+		free(aux);
+		*flag = 1;
+	}
+}
+
+void	save_redir_write(char *str, char *next, int *flag, t_redir *redir)
+{
+	char	*aux;
+
+	if (!ft_strcmp(str, ">"))
+	{
+		*redir = init_redirection(ft_deletequotes(next), "write", NULL);
+		aux = ft_deletequotes(next);
+		redir->fd = open_file(aux, 'w');
+		free(aux);
+		*flag = 1;
+	}
+}
+
+void	save_redir_append(char *str, char *next, int *flag, t_redir *redir)
+{
+	char	*aux;
+
+	if (!ft_strcmp(str, ">>"))
+	{
+		*redir = init_redirection(ft_deletequotes(next), "append", NULL);
+		aux = ft_deletequotes(next);
+		redir->fd = open_file(aux, 'a');
+		free(aux);
+		*flag = 1;
+	}
+}
+
+int	error_pipe_redir(t_pipe *pipe)
+{
+	char	*tmp;
+
+	if (!pipe->redir && find_str('/', pipe->full_cmd[0]) && \
+		!is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
+	{
+		//TODO MIAR Q PASA SI PATH ESTA VACIO
+//		if (!pipe->full_cmd[0])
+//			return (g_shell.quit_status = 0);
+//		else
+		tmp = ft_deletequotes(pipe->full_cmd[0]);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(tmp, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		free(tmp);
+		return (g_shell.quit_status = 127);
+	}
+	return (0);
+}
+
 int	save_cmds(t_cmd *cmd)
 {
 	int		i;
@@ -105,64 +196,27 @@ int	save_cmds(t_cmd *cmd)
 	int		flag;
 	t_pipe	*pipe;
 	t_redir	redir;
-	char	*aux;
-	char	*tmp;
-	
-	t_pipe	*lastpipe;
-	lastpipe = NULL;
 
 	flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
-		return(save_empty(cmd));
+		return (save_empty(cmd));
 	sp = split(cmd->cmd_line, '|');
 	i = -1;
 	while (sp[++i])
 	{
 		pipe = ft_newpipe();
 		pipe->num_redi = count_redirections(sp[i]);
-		if (pipe->num_redi > 0)
-		{
-			pipe->redir = malloc(sizeof(t_redir) * (pipe->num_redi + 1));
-			if (!pipe->redir)
-				return (1);
-		}
+		if (init_redir_size(&pipe) == 1)
+			return (1);
 		sp2 = ft_split(sp[i], '\n');
 		j = -1;
 		k = -1;
 		while (sp2[++j])
 		{
-	//		redir = save_redirections(sp2, j, &flag);
-			if (!ft_strcmp(sp2[j], "<<"))
-			{
-				redir = init_redirection(NULL, "readl", ft_deletequotes(sp2[j + 1]));
-				redir.fd = 1;
-				flag = 1;
-			}
-			else if (!ft_strcmp(sp2[j], "<"))
-			{
-				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "read", NULL);
-				aux = ft_deletequotes(sp2[j + 1]);
-				redir.fd = open_file(aux, 'r');
-				free(aux);
-				flag = 1;
-			}
-			else if (!ft_strcmp(sp2[j], ">"))
-			{
-				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "write", NULL);
-				aux = ft_deletequotes(sp2[j + 1]);
-				redir.fd = open_file(aux, 'w');
-				free(aux);
-				flag = 1;
-			}
-			else if (!ft_strcmp(sp2[j], ">>"))
-			{
-				redir = init_redirection(ft_deletequotes(sp2[j + 1]), "append", NULL);
-				aux = ft_deletequotes(sp2[j + 1]);
-				redir.fd = open_file(aux, 'a');
-				free(aux);
-				flag = 1;
-			}
-
+			save_redir_readline(sp2[j], sp2[j + 1], &flag, &redir);
+			save_redir_read(sp2[j], sp2[j + 1], &flag, &redir);
+			save_redir_write(sp2[j], sp2[j + 1], &flag, &redir);
+			save_redir_append(sp2[j], sp2[j + 1], &flag, &redir);
 			if (flag == 1)
 			{
 				k++;
@@ -177,20 +231,10 @@ int	save_cmds(t_cmd *cmd)
 		}
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
-		if (!pipe->redir && find_str('/', pipe->full_cmd[0]) && !is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
-		{
-			//TODO MIAR Q PASA SI PATH ESTA VACIO
-	//		if (!pipe->full_cmd[0])
-	//			return (g_shell.quit_status = 0);
-	//		else
-				tmp = ft_deletequotes(pipe->full_cmd[0]);
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(tmp, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			free(tmp);
-			return (g_shell.quit_status = 127);
-		}
-		if (!cmd->pipe && !pipe->redir && (!ft_strcmp(pipe->full_cmd[0], "cat") || !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && !pipe->full_cmd[1])
+		if (error_pipe_redir(pipe) != 0)
+			return (g_shell.quit_status);
+		if (!cmd->pipe && !pipe->redir && (!ft_strcmp(pipe->full_cmd[0], "cat") \
+			|| !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && !pipe->full_cmd[1])
 			pipe->wait = 1;
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 		free_split(sp2);
