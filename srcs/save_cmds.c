@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 23:01:17 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 23:16:21 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir)
 	int		k;
 	int		flag;
 	t_redir	redir;
-	
+
 	flag = 0;
 	*j = -1;
 	k = -1;
@@ -216,14 +216,10 @@ int	save_cmds(t_cmd *cmd)
 {
 	int		i;
 	int		j;
-//	int		k;
 	char	**sp;
 	char	**sp2;
-//	int		flag;
 	t_pipe	*pipe;
-//	t_redir	redir;
 
-//flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
 		return (save_empty(cmd));
 	sp = split(cmd->cmd_line, '|');
@@ -236,34 +232,13 @@ int	save_cmds(t_cmd *cmd)
 			return (1);
 		sp2 = ft_split(sp[i], '\n');
 		sp2 = save_cmd_redir(sp[i], sp2, &j, &(pipe->redir));
-/*		j = -1;
-		k = -1;
-		while (sp2[++j])
-		{
-			save_redir_readline(sp2[j], sp2[j + 1], &flag, &redir);
-			save_redir_read(sp2[j], sp2[j + 1], &flag, &redir);
-			save_redir_write(sp2[j], sp2[j + 1], &flag, &redir);
-			save_redir_append(sp2[j], sp2[j + 1], &flag, &redir);
-			if (flag == 1)
-			{
-				k++;
-				pipe->redir[k] = redir;
-				flag = 0;
-			}
-		}
-		if (k != -1)
-		{
-			free_split(sp2);
-			sp2 = delete_redirection(sp[i], &j);
-		}
-*/
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
 		if (error_pipe_redir(pipe) != 0)
 			return (g_shell.quit_status);
 		if (!cmd->pipe && !pipe->redir && (!ft_strcmp(pipe->full_cmd[0], "cat") \
-			|| !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && (!pipe->full_cmd[1] \
-			|| !ft_strcmp(pipe->full_cmd[1], "-e"))) 
+			|| !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && \
+			(!pipe->full_cmd[1] || !ft_strcmp(pipe->full_cmd[1], "-e")))
 			pipe->wait = 1;
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 		free_split(sp2);
