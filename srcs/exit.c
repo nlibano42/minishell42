@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 18:22:39 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:04:02 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int	exit_argument(char	**full_cmd, int num)
 		ft_putstr_fd(full_cmd[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		g_shell.quit_status = 255;
-		return(0);
+		return (0);
 	}
 	else if (num > 2)
 	{		
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
 		g_shell.quit_status = 1;
-		return(1);
+		return (1);
 	}
 	else
 	{

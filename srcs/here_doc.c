@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 21:50:03 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:00:49 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_here_doc_dad(int fd[2], pid_t pid)
 
 	close(fd[WRITE_END]);
 	waitpid(pid, &status, 0);
-
 	ft_status_heredoc(status);
 	g_shell.pid = 0;
 	ft_signal();
