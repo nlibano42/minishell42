@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 15:41:18 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 23:01:17 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,6 @@ int	error_pipe_redir(t_pipe *pipe)
 	if (!pipe->redir && find_str('/', pipe->full_cmd[0]) && \
 		!is_builtin(pipe->path) && access(pipe->path, F_OK) != 0)
 	{
-		//TODO MIAR Q PASA SI PATH ESTA VACIO
-//		if (!pipe->full_cmd[0])
-//			return (g_shell.quit_status = 0);
-//		else
 		tmp = ft_deletequotes(pipe->full_cmd[0]);
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(tmp, 2);
@@ -186,18 +182,48 @@ int	error_pipe_redir(t_pipe *pipe)
 	return (0);
 }
 
+char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir)
+{
+	int		k;
+	int		flag;
+	t_redir	redir;
+	
+	flag = 0;
+	*j = -1;
+	k = -1;
+	while (sp[++(*j)])
+	{
+		save_redir_readline(sp[*j], sp[*j + 1], &flag, &redir);
+		save_redir_read(sp[*j], sp[*j + 1], &flag, &redir);
+		save_redir_write(sp[*j], sp[*j + 1], &flag, &redir);
+		save_redir_append(sp[*j], sp[*j + 1], &flag, &redir);
+		if (flag == 1)
+		{
+			k++;
+			(*pipe_redir)[k] = redir;
+			flag = 0;
+		}
+	}
+	if (k != -1)
+	{
+		free_split(sp);
+		sp = delete_redirection(s, j);
+	}
+	return (sp);
+}
+
 int	save_cmds(t_cmd *cmd)
 {
 	int		i;
 	int		j;
-	int		k;
+//	int		k;
 	char	**sp;
 	char	**sp2;
-	int		flag;
+//	int		flag;
 	t_pipe	*pipe;
-	t_redir	redir;
+//	t_redir	redir;
 
-	flag = 0;
+//flag = 0;
 	if (ft_strlen(cmd->cmd_line) == 0)
 		return (save_empty(cmd));
 	sp = split(cmd->cmd_line, '|');
@@ -209,7 +235,8 @@ int	save_cmds(t_cmd *cmd)
 		if (init_redir_size(&pipe) == 1)
 			return (1);
 		sp2 = ft_split(sp[i], '\n');
-		j = -1;
+		sp2 = save_cmd_redir(sp[i], sp2, &j, &(pipe->redir));
+/*		j = -1;
 		k = -1;
 		while (sp2[++j])
 		{
@@ -229,12 +256,14 @@ int	save_cmds(t_cmd *cmd)
 			free_split(sp2);
 			sp2 = delete_redirection(sp[i], &j);
 		}
+*/
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
 		if (error_pipe_redir(pipe) != 0)
 			return (g_shell.quit_status);
 		if (!cmd->pipe && !pipe->redir && (!ft_strcmp(pipe->full_cmd[0], "cat") \
-			|| !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && !pipe->full_cmd[1])
+			|| !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && (!pipe->full_cmd[1] \
+			|| !ft_strcmp(pipe->full_cmd[1], "-e"))) 
 			pipe->wait = 1;
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 		free_split(sp2);

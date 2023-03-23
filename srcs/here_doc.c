@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 22:00:49 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:22:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 void	write_pipe(int *fd, t_pipe *pipes, int i)
 {
 	char	*line;
-	
+
 	close(fd[READ_END]);
 	while (1)
 	{
@@ -90,7 +90,6 @@ void	ft_here_doc(t_pipe *pipes, int i)
 	{
 		g_shell.pid = 2;
 		write_pipe(fd, pipes, i);
-		
 	}
 	else
 		ft_here_doc_dad(fd, pid);

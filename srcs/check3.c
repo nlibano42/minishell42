@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 16:16:41 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 23:13:04 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,39 @@ int	is_fin_redirection(char *str)
 	}
 	free(s);
 	return (0);
+}
+
+void	ft_status(int status)
+{	
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == 2)
+			g_shell.quit_status = 130;
+		else if ((WTERMSIG(status) == 3))
+			g_shell.quit_status = 131;
+	}
+	if (WIFEXITED(status))
+	{	
+		if (g_shell.quit_status == 256)
+			g_shell.quit_status = 1;
+		else if (status == 256)
+		{
+			g_shell.quit_status = WEXITSTATUS(status) + 126;
+			if (g_shell.quit_status == 127)
+				g_shell.quit_status = 1;
+		}
+		else
+			g_shell.quit_status = WEXITSTATUS(status);
+	}
+}
+
+void	ft_status_heredoc(int status)
+{
+	if (WIFEXITED(status))
+	{
+		if (status == 256)
+			g_shell.quit_status = 256;
+		else
+			g_shell.quit_status = WEXITSTATUS(status);
+	}
 }

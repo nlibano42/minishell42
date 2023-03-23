@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 21:50:55 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 22:25:17 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,37 +65,4 @@ int	is_digit(char *s)
 			return (1);
 	}
 	return (0);
-}
-
-void	ft_status(int status)
-{	
-	if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == 2)
-			g_shell.quit_status = 130;
-		else if ((WTERMSIG(status) == 3))
-			g_shell.quit_status = 131;
-	}
-	
-	if (WIFEXITED(status))
-	{	
-		
-		if(g_shell.quit_status == 256)
-			g_shell.quit_status = 1;
-		else if (status == 256)
-			g_shell.quit_status = WEXITSTATUS(status) + 126;
-		else
-			g_shell.quit_status = WEXITSTATUS(status);
-	}
-}
-
-void	ft_status_heredoc(int status)
-{
-	if (WIFEXITED(status))
-	{
-		if (status == 256)
-			g_shell.quit_status = 256;
-		else
-			g_shell.quit_status = WEXITSTATUS(status);
-	}
 }
