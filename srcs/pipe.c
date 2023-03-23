@@ -6,24 +6,11 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 16:13:45 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:21:32 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-
-void	ft_status(int status)
-{	
-	if (WIFEXITED(status))
-	{
-		if (status == 256)
-			g_shell.quit_status = WEXITSTATUS(status) + 126;
-		else
-			g_shell.quit_status = WEXITSTATUS(status);
-	}
-	else if (WIFSIGNALED(status))
-		g_shell.quit_status = WTERMSIG(status) + 128;
-}
 
 void	ft_notpipe(t_cmd *cmd)
 {
