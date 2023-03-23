@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:26 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 19:13:34 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 09:50:07 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	write_pipe_not_last(int *fd, t_pipe *pipes, int i)
 	{
 		line = readline("> ");
 		if (!line)
-			exit(EXIT_SUCCESS);
+			exit(g_shell.quit_status = EXIT_SUCCESS);
 		if (!ft_strcmp(line, pipes->redir[i].key))
 		{
 			free(buff);
@@ -53,7 +53,7 @@ void	write_pipe(int *fd, t_pipe *pipes, int i)
 		{
 			free(line);
 			close(fd[WRITE_END]);
-			exit(EXIT_SUCCESS);
+			exit(g_shell.quit_status = EXIT_SUCCESS);
 		}
 		write(fd[WRITE_END], line, ft_strlen(line));
 		write(fd[WRITE_END], "\n", 1);

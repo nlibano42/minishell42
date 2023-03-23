@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 22:21:14 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 09:52:00 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_notpipe(t_cmd *cmd)
 		ft_suppress_output(1);
 		ft_execve(cmd, cmd->pipe);
 		free_all(cmd);
-		exit(EXIT_FAILURE);
+		exit(g_shell.quit_status = EXIT_FAILURE);
 	}
 	waitpid(num_pid, &status, 0);
 	if (WIFEXITED(status))
@@ -77,7 +77,7 @@ void	ft_pipex_child(t_cmd *cmd, t_pipe *pipes)
 	}
 	ft_execve(cmd, pipes);
 	free_all(cmd);
-	exit(EXIT_FAILURE);
+	exit(g_shell.quit_status = EXIT_FAILURE);
 }
 
 void	ft_pipex_dad(t_pipe *pipes, pid_t num_pid)

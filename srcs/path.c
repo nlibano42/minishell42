@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/22 15:16:14 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 09:51:32 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	char	*print_cmd;
 
 	if (!pipes->full_cmd[0])
-		exit(0);
+		exit(g_shell.quit_status = 0);
 	print_cmd = ft_deletequotes(pipes->full_cmd[0]);
 	char_env = tab_env(cmd->env);
 	p = pipes->path;
@@ -54,7 +54,7 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 			execve_error(print_cmd);
 		free(print_cmd);
 		free_split(char_env);
-		exit(EXIT_FAILURE);
+		exit(g_shell.quit_status = EXIT_FAILURE);
 	}
 	free(print_cmd);
 	free_split(char_env);
