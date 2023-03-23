@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 01:01:22 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 18:22:39 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+void	ft_close_exit(t_cmd *cmd)
+{
+	free_all(cmd);
+	close(cmd->save_stdin);
+	close(cmd->save_stdout);
+	exit(g_shell.quit_status);
+}
 
 void	ft_exit(t_cmd *cmd)
 {
@@ -28,18 +36,18 @@ void	ft_exit(t_cmd *cmd)
 		while (cmd->pipe->full_cmd[i])
 			i++;
 		if (i > 1)
-			exit_argument(cmd->pipe->full_cmd, i);
+		{
+			if (exit_argument(cmd->pipe->full_cmd, i) == 1)
+				return ;
+		}
 		else
 			g_shell.quit_status = 0;
 	}
 	ft_lstclear(&(cmd->env));
-	free_all(cmd);
-	close(cmd->save_stdin);
-	close(cmd->save_stdout);
-	exit(g_shell.quit_status);
+	ft_close_exit(cmd);
 }
 
-void	exit_argument(char	**full_cmd, int num)
+int	exit_argument(char	**full_cmd, int num)
 {
 	if (is_digit(full_cmd[1]))
 	{
@@ -47,12 +55,17 @@ void	exit_argument(char	**full_cmd, int num)
 		ft_putstr_fd(full_cmd[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		g_shell.quit_status = 255;
+		return(0);
 	}
 	else if (num > 2)
-	{	
+	{		
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
 		g_shell.quit_status = 1;
+		return(1);
 	}
 	else
+	{
 		g_shell.quit_status = ft_atoi(full_cmd[1]);
+		return (0);
+	}
 }

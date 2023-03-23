@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 16:18:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 18:23:10 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,6 @@ char	*change_env_virgu(char *s, t_env *env, int *i, char *join_str);
 char	*change_env_val(char *s, t_env *env, int *i, char *join_str);
 
 //pipecontrol.c
-//char	*expand_pipe_redir(char *cmd);
 char	*expand_pipe_redir(t_cmd *cmd);
 void	join_with_nl(char *s, int *i, t_quotes *quotes, int *start);
 void	count_pipe(t_cmd *cmd, char *s);
@@ -246,7 +245,8 @@ void	print_echo(char **s, int n);
 
 //exit.c
 void	ft_exit(t_cmd *cmd);
-void	exit_argument(char	**full_cmd, int num);
+int		exit_argument(char	**full_cmd, int num);
+void	ft_close_exit(t_cmd *cmd);
 
 //unset.c
 void	unset(t_cmd *cmd, t_pipe *pipex);
