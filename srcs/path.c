@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 09:51:32 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:48:41 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,10 @@ char	*get_path(char *str, t_env *env)
 	if (is_builtin(s))
 		return (s);
 	else
+	{
+		free(s);
 		return (get_findpath(str, env));
+	}
+	free(s);
 	return (NULL);
 }
