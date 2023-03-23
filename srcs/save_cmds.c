@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/22 17:53:54 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:58:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ int	save_cmds(t_cmd *cmd)
 			free(tmp);
 			return (g_shell.quit_status = 127);
 		}
-		if (!cmd->pipe && !pipe->redir && !ft_strcmp(pipe->full_cmd[0], "cat"))
+		if (!cmd->pipe && !pipe->redir && (!ft_strcmp(pipe->full_cmd[0], "cat") || !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && !pipe->full_cmd[1])
 			pipe->wait = 1;
 		ft_pipeadd_back(&(cmd->pipe), pipe);
 		free_split(sp2);
