@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 00:04:09 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:18:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,14 @@ int		check_init_params(int argc, char **argv);
 
 //checks2.c
 int		check_spaces(char *readl);
-int		is_fin_redirection(char *s);
 int		export_check(char *val);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 int		is_digit(char *s);
+void	ft_status(int status);
+
+//check3.c
+int		is_fin_redirection(char *s);
+void	redirections_find_space(char *s, int i, int *j);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);
