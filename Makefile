@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/23 17:57:43 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/23 18:24:54 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRCS	= main.c\
 		
 # Compiler options
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
 F_READLINE	= -I$(READLINE_DIR)/include
 DFLAG		= -lreadline -L$(READLINE_DIR)/lib
 

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 18:23:10 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:26:31 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		export_check(char *val);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 int		is_digit(char *s);
 void	ft_status(int status);
+void	ft_status_heredoc(int status);
 
 //check3.c
 int		is_fin_redirection(char *s);
