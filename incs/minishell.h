@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 20:26:31 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:36:19 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <termios.h>
-
-// # include <stdbool.h>
-// # include <stddef.h>
-// # include <stdarg.h>
-// # include <string.h>
-// # include <dirent.h>
 
 # define READ_END		0  /* index pipe extremo escritura */
 # define WRITE_END		1  /* index pipe extremo lectura */
@@ -57,7 +51,6 @@ typedef struct s_redir
 	int		fd;
 }	t_redir;
 
-//estructura de los comandos. Command + options + arguments
 typedef struct s_pipe
 {
 	char			**full_cmd;
@@ -209,6 +202,7 @@ void	sighandler_heredoc(int sig);
 void	free_split(char **s);
 void	free_all(t_cmd *cmd);
 void	close_fd(t_redir *redir, int len);
+void	close_stdin_stdout(t_cmd *cmd);
 
 //path.c
 char	*get_path(char *s, t_env *env);

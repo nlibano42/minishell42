@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/20 12:28:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:52:27 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ int	main(int argc, char **argv, char **env)
 					pipex_main(&cmd);
 				free_all(&cmd);
 			}
-			dup2(cmd.save_stdin, STDIN_FILENO);
-			dup2(cmd.save_stdout, STDOUT_FILENO);
-			close(cmd.save_stdin);
-			close(cmd.save_stdout);
+			close_stdin_stdout(&cmd);
 		}
 	}
 	return (0);
