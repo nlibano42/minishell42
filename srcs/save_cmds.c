@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 23:16:21 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 01:09:30 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,14 @@ int	error_pipe_redir(t_pipe *pipe)
 	return (0);
 }
 
+void	save_redir(char *str, char *next, int *flag, t_redir *redir)
+{
+	save_redir_readline(str, next, flag, redir);
+	save_redir_read(str, next, flag, redir);
+	save_redir_write(str, next, flag, redir);
+	save_redir_append(str, next, flag, redir);
+}
+
 char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir)
 {
 	int		k;
@@ -193,10 +201,7 @@ char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir)
 	k = -1;
 	while (sp[++(*j)])
 	{
-		save_redir_readline(sp[*j], sp[*j + 1], &flag, &redir);
-		save_redir_read(sp[*j], sp[*j + 1], &flag, &redir);
-		save_redir_write(sp[*j], sp[*j + 1], &flag, &redir);
-		save_redir_append(sp[*j], sp[*j + 1], &flag, &redir);
+		save_redir(sp[*j], sp[*j + 1], &flag, &redir);
 		if (flag == 1)
 		{
 			k++;
