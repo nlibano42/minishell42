@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:05:57 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/22 17:46:53 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:57:25 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,15 @@ t_redir	init_redirection(char *file, char *type, char *key)
 	redir.type = type;
 	redir.fd = 0;
 	return (redir);
+}
+
+int	init_minishell(int argc, char **argv, char **env, t_cmd	*cmd)
+{
+	if (check_init_params(argc, argv))
+		return (1);
+	g_shell.pid = 0;
+	init_cmd(cmd);
+	init_env(&(cmd->env), env);
+	ft_signal();
+	return (0);
 }

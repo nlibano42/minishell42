@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 15:36:19 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:00:02 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int		save_cmds(t_cmd *cmd);
 void	init_cmd(t_cmd *cmd);
 void	init_quotes_flags(t_quotes *quotes);
 t_redir	init_redirection(char *file, char *type, char *key);
+int	init_minishell(int argc, char **argv, char **env, t_cmd	*cmd);
 
 //checks.c
 void	check_quotes_flags(t_quotes *quotes, char c);
