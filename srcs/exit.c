@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 14:06:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 20:13:21 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_exit(t_cmd *cmd)
 
 int	exit_argument(char	**full_cmd, int num)
 {
+	
 	if (is_digit(full_cmd[1]))
 	{
 		ft_putstr_fd("bash: exit: ", 2);
@@ -65,7 +66,10 @@ int	exit_argument(char	**full_cmd, int num)
 	}
 	else
 	{
-		g_shell.quit_status = ft_atoi(full_cmd[1]);
+		num = ft_atoi(full_cmd[1]);
+		if (num == 1)
+			num = INT_MAX;
+		g_shell.quit_status = num;
 		return (0);
 	}
 }
