@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 21:04:44 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 23:56:49 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_exit(t_cmd *cmd)
 				return ;
 		}
 		else
-			g_shell.quit_status = 127;
+			g_shell.quit_status = 0;
 	}
 	ft_lstclear(&(cmd->env));
 	ft_close_exit(cmd);
@@ -65,10 +65,7 @@ int	exit_argument(char	**full_cmd, int num)
 	}
 	else
 	{
-		num = ft_atoi(full_cmd[1]);
-		if (num == 1)
-			num = 91982;
-		g_shell.quit_status = num;
+		g_shell.quit_status = ft_atoi(full_cmd[1]);
 		return (0);
 	}
 }
