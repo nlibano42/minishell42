@@ -3,32 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/15 19:29:54 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:00:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-#include <termios.h>
 
 void	ft_signal(void)
-{	
-	ft_suppress_output();
+{
+	ft_suppress_output(0);
 	signal(SIGINT, sighandler);
 	signal(SIGQUIT, sighandler);
 }
 
-void	ft_suppress_output(void)
+void	ft_suppress_output(int quit)
 {
 	struct termios	config;
 
-	if (tcgetattr(0, &config))
-		perror("minishell: tcsetattr");
+	ft_bzero(&config, sizeof(config));
+	tcgetattr(STDIN_FILENO, &config);
+	if (quit == 0)
 		config.c_lflag &= ~ECHOCTL;
-	if (tcsetattr(0, 0, &config))
-		perror("minishell: tcsetattr");
+	else
+		config.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &config);
 }
 
 void	show_readline(void)
@@ -46,6 +47,7 @@ void	sighandler(int sig)
 	{
 		printf("\n");
 		show_readline();
+		g_shell.quit_status = 1;
 	}
 	if (sig == SIGINT && g_shell.pid == 1)
 	{
@@ -57,7 +59,6 @@ void	sighandler(int sig)
 	else if (sig == SIGQUIT && g_shell.pid == 1)
 	{
 		printf("Quit: 3\n");
-		printf("\n");
 		rl_redisplay();
 	}
 }

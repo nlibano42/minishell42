@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/02/18 16:59:39 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/23 18:24:54 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ EXTLIB		= libft
 #READLINE_DIR = /usr/local/Cellar/readline/8.2.1
 READLINE_DIR = ${HOME}/.brew/opt/readline
 
-
 SRCS	= main.c\
 		env.c\
 		lst_env.c\
 		signal.c\
+		signal_heredoc.c\
 		free_params.c\
 		linecontrol.c\
 		utils.c\
@@ -30,9 +30,28 @@ SRCS	= main.c\
 		deletequotes.c\
 		init.c\
 		check.c\
+		check2.c\
+		check3.c\
 		split.c\
 		redirections.c\
+		redir_actions.c\
 		error.c\
+		error2.c\
+		path.c\
+		lst_pipe.c\
+		built.c\
+		pipe.c\
+		pipe2.c\
+		export.c\
+		pwd.c\
+		exit.c\
+		echo.c\
+		unset.c\
+		cd.c\
+		cd2.c\
+		expand_utils.c\
+		here_doc.c\
+		save_cmds.c\
 		
 # Compiler options
 CC			= gcc
@@ -56,7 +75,7 @@ $(NAME): $(OBJS) $(EXTLIB)/$(EXTLIB).a
 $(OBJS): $(OBJSDIR)/%.o: $(SRCSDIR)/%.c
 	@mkdir -p $(@D)
 	@echo Compiling $<
-	$(CC) $(CFLAGS) $(F_READLINE) -I$(EXTLIB)/incs -c $< -o $@
+	$(CC) $(CFLAGS) $(F_READLINE) -I$(EXTLIB) -c $< -o $@
 
 $(EXTLIB)/$(EXTLIB).a:
 	@echo "Compiling $@"

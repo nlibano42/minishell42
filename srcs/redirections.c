@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:02:29 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 17:06:21 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:41:01 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,71 +20,69 @@ int	open_file(char *file, char flag)
 	if (flag == 'r')
 		fd = open(file, O_RDONLY);
 	else if (flag == 'w')
-		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC);
+		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (flag == 'a')
-		fd = open(file, O_CREAT | O_WRONLY | O_APPEND);
+		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
-		g_shell.quit_status = 1; //mirar que numero debe devolver.
+		g_shell.quit_status = 1;
 	return (fd);
 }
 
-/* redirections
-*	s: readline (parse)
-*/
-int	redirections(char *input) //funciona  pero tenemos que saber cuando usarlo.
+int	last_redirec(t_redir *redir, int i, int len)
+{
+	while (++i < len)
+	{
+		if (!ft_strcmp(redir[i].type, "readl"))
+			return (1);
+	}
+	return (0);
+}
+
+int	redirections(t_pipe *pipes)
 {
 	int		i;
-	char	**cmd_split;
-	int		fd;
 
-	cmd_split = ft_split(input, ',');
-	fd = 0;
+	if (!pipes->redir)
+		return (0);
 	i = -1;
-	while (cmd_split[++i])
+	while (++i < pipes->num_redi)
 	{
-		if (!ft_strncmp(cmd_split[i], ">", 1))
-			fd = open_file(cmd_split[i + 1], 'w');
-		if (!ft_strncmp(cmd_split[i], "<", 1))
-			fd = open_file(cmd_split[i + 1], 'r');
-		if (!ft_strncmp(cmd_split[i], ">>", 2))
-			fd = open_file(cmd_split[i + 1], 'a');
-		if (!ft_strncmp(cmd_split[i], "<<", 2))
-			fd = open_file(cmd_split[i + 1], 'r');
-		if (fd == -1)
-		{
-			printf("entra\n");
-			break ;
-		}
-		//fd = open_file(cmd_split[i + 1], flag);
-		printf("%s\n", cmd_split[i]);
+		if (pipes->redir[i].fd == -1)
+			return (error_open_file(pipes->redir[i].file));
+		if (pipes->redir[i].fd == 0)
+			return (0);
+		action_read(pipes->redir[i].type, pipes->redir[i].fd);
+		action_write(pipes->redir[i].type, pipes->redir[i].fd);
+		action_append(pipes->redir[i].type, pipes->redir[i].fd);
+		action_read_line(pipes, i);
 	}
-	return (fd);
+	return (0);
 }
 
 int	ft_access(char *input)
 {
 	int		i;
-	char	**cmd_split;
+	char	**cmd_sp;
 	int		fd;
 
-	cmd_split = ft_split(input, ',');
+	cmd_sp = ft_split(input, '\n');
 	fd = 0;
 	i = -1;
-	while (cmd_split[++i])
+	while (cmd_sp[++i])
 	{
-		if (!ft_strncmp(cmd_split[i], ">", 1))
-			fd = access(cmd_split[i + 1], W_OK);
-		if (!ft_strncmp(cmd_split[i], "<", 1))
-			fd = access(cmd_split[i + 1], R_OK);
-		if (!ft_strncmp(cmd_split[i], ">>", 2))
-			fd = access(cmd_split[i + 1], W_OK);
-		if (!ft_strncmp(cmd_split[i], "<<", 2))
-			fd = open_file(cmd_split[i + 1], R_OK);
+		if (!ft_strncmp(cmd_sp[i], ">", 1) && !access(cmd_sp[i + 1], F_OK))
+			fd = access(cmd_sp[i + 1], W_OK);
+		if (!ft_strncmp(cmd_sp[i], "<", 1) && !access(cmd_sp[i + 1], F_OK))
+			fd = access(cmd_sp[i + 1], R_OK);
+		if (!ft_strncmp(cmd_sp[i], ">>", 2) && !access(cmd_sp[i + 1], F_OK))
+			fd = access(cmd_sp[i + 1], W_OK);
 		if (fd == -1)
 		{
-			access_error(cmd_split[i + 1]);
+			access_error(cmd_sp[i + 1]);
+			free_split(cmd_sp);
 			return (fd);
 		}
 	}
+	free_split(cmd_sp);
 	return (fd);
 }

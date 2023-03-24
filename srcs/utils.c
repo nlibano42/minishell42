@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:46:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/18 18:24:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:38:26 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*find_change_str(char *s, t_env *env)
 		aux = ft_substr(s, 1, ft_strlen(s) - 1);
 	else
 		aux = ft_substr(s, 0, ft_strlen(s));
-	val = ft_strdup(ft_lstfind_env_val(env, aux));
+	if (!ft_lstfind_env_val(env, aux))
+		val = ft_strdup("");
+	else
+		val = ft_strdup(ft_lstfind_env_val(env, aux));
 	free(aux);
 	return (val);
 }
@@ -32,10 +35,8 @@ int	find_str(char c, char *s)
 
 	i = -1;
 	while (s[++i])
-	{
 		if (c == s[i])
 			return (1);
-	}
 	return (0);
 }
 
@@ -58,17 +59,21 @@ int	join_split(t_cmd *cmd)
 	i = -1;
 	while (cmd->cmd[++i])
 	{
+		if (i != 0)
+			cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("\n"));
 		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(cmd->cmd[i]));
-		cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup(","));
 	}	
-	cmd->cmd_line = ft_strjoin(cmd->cmd_line, ft_strdup("NULL"));
 	return (0);
 }
 
-void	ft_control(char *readl, t_quotes *quotes, int i)
+int	ft_strcmp(char *s1, char *s2)
 {
-	check_quotes_flags(quotes, readl[i]);
-	if (readl[i] == '\\' && (readl[i + 1] == '"' || \
-		readl[i + 1] == '\'' || readl[i + 1] == '\\'))
+	int	i;
+
+	if (!s1 || !s2)
+		return (1);
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
+	return (s1[i] - s2[i]);
 }

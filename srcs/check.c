@@ -6,11 +6,22 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:28:18 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 19:04:15 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/23 18:27:29 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+int	check_init_params(int argc, char **argv)
+{
+	(void)argv;
+	if (argc != 1)
+	{
+		printf("Error. Incorrect parameters\n");
+		return (1);
+	}
+	return (0);
+}
 
 void	check_quotes_flags(t_quotes *quotes, char c)
 {
@@ -46,19 +57,26 @@ int	is_two_pipes(char *s)
 {
 	t_quotes	quotes;
 	int			i;
-	init_quotes_flags(&quotes);
+	char		**sp;
 
+	init_quotes_flags(&quotes);
+	sp = ft_split(s, '\n');
 	i = -1;
-	while (s[++i])
+	while (sp[++i])
 	{
-   	    check_quotes_flags(&quotes, s[i]);
-	    if (s[i] == '|' && s[i + 1] == '|' && quotes.flag_d == 0 && quotes.flag_s == 0)
+		check_quotes_flags(&quotes, s[i]);
+		if (sp[i][0] == '|' && !sp[i + 1])
+			return (1);
+		if (sp[i][0] == '|' && sp[i + 1][0] == '|'\
+			&& quotes.flag_d == 0 && quotes.flag_s == 0)
 		{
 			ft_putstr_fd("Minishell: Error. not allowed two pipes\n", 2);
 			free (s);
+			free_split(sp);
 			return (g_shell.quit_status = 1);
 		}
 	}
+	free_split(sp);
 	return (0);
 }
 
@@ -66,18 +84,21 @@ int	is_open_pipe(char *s)
 {
 	t_quotes	quotes;
 	int			i;
-	init_quotes_flags(&quotes);
 
+	init_quotes_flags(&quotes);
+	s = ft_strtrim(s, " ");
 	i = -1;
 	while (s[++i])
 	{
 		check_quotes_flags(&quotes, s[i]);
-		if(s[i] == '|' && !(s[i + 1]) && quotes.flag_d == 0 && quotes.flag_s == 0)
+		if ((s[i] == '|' && !(s[i + 1]) \
+			&& quotes.flag_d == 0 && quotes.flag_s == 0) || s[0] == '|')
 		{
-			ft_putstr_fd("Minishell: Error. Open pipe\n", 2);
+			ft_putstr_fd("Minishell: Error pipe\n", 2);
 			free (s);
 			return (g_shell.quit_status = 1);
 		}
 	}
+	free(s);
 	return (0);
 }

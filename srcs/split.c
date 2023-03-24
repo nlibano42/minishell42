@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/19 00:56:17 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:01:13 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static size_t	get_split_size(char const *s, char c)
 	count = 0;
 	while (*s)
 	{
-		while ((*s != c || (*s == c && (quotes.flag_d == 1 || quotes.flag_s == 1))) && *s)
+		while ((*s != c || (*s == c && (quotes.flag_d == 1 || \
+			quotes.flag_s == 1))) && *s)
 		{
 			check_quotes_flags(&quotes, *s);
 			s++;
@@ -54,12 +55,13 @@ static void	split_while(const char *s, char c, size_t *i, char **dst)
 {
 	t_quotes	quotes;
 	size_t		len;
-	
+
 	init_quotes_flags(&quotes);
 	while (*s)
 	{
 		len = 0;
-		while ((*s != c || (*s == c && (quotes.flag_d == 1 || quotes.flag_s == 1))) && *s)
+		while ((*s != c || (*s == c && (quotes.flag_d == 1 || \
+			quotes.flag_s == 1))) && *s)
 		{
 			check_quotes_flags(&quotes, *s);
 			len++;
@@ -92,4 +94,23 @@ char	**split(char const *s, char c)
 	split_while(s, c, &i, dst);
 	dst[i] = NULL;
 	return (dst);
+}
+
+char	**subsplit(char **sp, int start, int len)
+{
+	char	**s;
+	int		i;
+
+	s = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (--len >= 0)
+	{
+		s[i] = ft_strtrim(sp[start], " ");
+		i++;
+		start++;
+	}
+	s[i] = NULL;
+	return (s);
 }

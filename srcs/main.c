@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/02/18 19:44:07 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:01:19 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,39 @@
 int	main(int argc, char **argv, char **env)
 {	
 	t_cmd	cmd;
-	t_env	*envp = NULL;
 
-	(void)argc;
-	(void)argv;
-	init_env(&(envp), env);
+	if (init_minishell(argc, argv, env, &cmd))
+		return (1);
+/*	if (check_init_params(argc, argv))
+		return (1);
+	g_shell.pid = 0;
 	init_cmd(&cmd);
+	init_env(&(cmd.env), env);
 	ft_signal();
+*/
 	while (1)
 	{
+		cmd.save_stdin = dup(STDIN_FILENO);
+		cmd.save_stdout = dup(STDOUT_FILENO);
 		cmd.readl = readline("Minishell $> ");
 		add_history(cmd.readl);
 		if (!cmd.readl)
-		{
-			printf("exit\n");
-			//usar nuestro builtin de exit en lugar de exit()
-			exit(g_shell.quit_status);
-		}
-		//EXIT debe ir en el buitin
-		//if(!ft_strncmp(cmd->readl, "exit", 4))
-		//	break ;
+			ft_exit(&cmd);
 		if (ft_strlen(cmd.readl) > 0)
 		{
-			if (is_quotes_opened(cmd.readl) || is_two_pipes(cmd.readl)\
-				|| is_open_pipe(cmd.readl) || line_parse(&cmd, envp))
+			if (check_spaces(cmd.readl) || is_quotes_opened(cmd.readl) \
+				|| is_fin_redirection(cmd.readl) || is_open_pipe(cmd.readl) \
+					|| line_parse(&cmd, cmd.env))
 				continue ;
 			else
 			{
-				count_pipe(&cmd, cmd.cmd_line); //cuenta el numero de pipes para hacer los hijos
-				cmd.cmd = split(cmd.cmd_line, '|');
-				//printf("pipe:%d\n", cmd.num_pipes);
+				count_pipe(&cmd, cmd.cmd_line);
+				if (save_cmds(&cmd) == 0)
+					pipex_main(&cmd);
+				free_all(&cmd);
 			}
-			//estoy probando si funciona. TODO: hacer que funcione.
-			
-			//esta ando errores
-			//redirections(cmd->cmd_line); 
-// Esto debe ir en otra parte, donde necesitemos:
-//			cmd->cmd_line = ft_deletequotes(cmd->cmd_line);
+			close_stdin_stdout(&cmd);
 		}
-		//pdte liberar (t_env) env
 	}
 	return (0);
 }
