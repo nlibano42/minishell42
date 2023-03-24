@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 20:38:45 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 21:04:44 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exit_argument(char	**full_cmd, int num)
 	{
 		num = ft_atoi(full_cmd[1]);
 		if (num == 1)
-			num = INT_MAX;
+			num = 91982;
 		g_shell.quit_status = num;
 		return (0);
 	}
