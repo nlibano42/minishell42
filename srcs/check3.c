@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 23:13:04 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 14:07:37 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,7 @@ void	ft_status(int status)
 		if (g_shell.quit_status == 256)
 			g_shell.quit_status = 1;
 		else if (status == 256)
-		{
 			g_shell.quit_status = WEXITSTATUS(status) + 126;
-			if (g_shell.quit_status == 127)
-				g_shell.quit_status = 1;
-		}
 		else
 			g_shell.quit_status = WEXITSTATUS(status);
 	}
