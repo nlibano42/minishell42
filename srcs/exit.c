@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 14:06:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 21:04:44 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	exit_argument(char	**full_cmd, int num)
 	}
 	else
 	{
-		g_shell.quit_status = ft_atoi(full_cmd[1]);
+		num = ft_atoi(full_cmd[1]);
+		if (num == 1)
+			num = 91982;
+		g_shell.quit_status = num;
 		return (0);
 	}
 }
