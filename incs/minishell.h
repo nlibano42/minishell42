@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 16:41:39 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:13:59 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,15 @@ typedef struct s_shell
 t_shell	g_shell;
 
 //main.c
+int		check_minishell(t_cmd *cmd);
+void	run_minishell(t_cmd *cmd);
 
 //save_cmds.c
 int		save_cmds(t_cmd *cmd);
 char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir);
 int		error_pipe_redir(t_pipe *pipe);
 int		count_redirections(char *s);
+int		ft_fin_cmds(t_pipe *pipe, t_cmd *cmd, char **sp2);
 
 //save_redir.c
 void	save_redir(char *str, char *next, int *flag, t_redir *redir);

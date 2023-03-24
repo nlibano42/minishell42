@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 16:41:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:14:18 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,19 @@ char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir)
 	return (sp);
 }
 
+int	ft_fin_cmds(t_pipe *pipe, t_cmd *cmd, char **sp2)
+{
+	if (error_pipe_redir(pipe) != 0)
+		return (0);
+	if (!cmd->pipe && !pipe->redir && (!ft_strcmp(pipe->full_cmd[0], "cat") \
+		|| !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && \
+		(!pipe->full_cmd[1] || !ft_strcmp(pipe->full_cmd[1], "-e")))
+		pipe->wait = 1;
+	ft_pipeadd_back(&(cmd->pipe), pipe);
+	free_split(sp2);
+	return (1);
+}
+
 int	save_cmds(t_cmd *cmd)
 {
 	int		i;
@@ -97,14 +110,8 @@ int	save_cmds(t_cmd *cmd)
 		sp2 = save_cmd_redir(sp[i], sp2, &j, &(pipe->redir));
 		pipe->full_cmd = subsplit(sp2, 0, j);
 		pipe->path = get_path(sp2[0], cmd->env);
-		if (error_pipe_redir(pipe) != 0)
+		if (!ft_fin_cmds(pipe, cmd, sp2))
 			return (g_shell.quit_status);
-		if (!cmd->pipe && !pipe->redir && (!ft_strcmp(pipe->full_cmd[0], "cat") \
-			|| !ft_strcmp(pipe->full_cmd[0], "/bin/cat")) && \
-			(!pipe->full_cmd[1] || !ft_strcmp(pipe->full_cmd[1], "-e")))
-			pipe->wait = 1;
-		ft_pipeadd_back(&(cmd->pipe), pipe);
-		free_split(sp2);
 	}
 	free_split(sp);
 	return (0);
