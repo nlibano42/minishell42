@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 16:00:02 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:41:39 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,32 @@ typedef struct s_shell
 t_shell	g_shell;
 
 //main.c
+
+//save_cmds.c
 int		save_cmds(t_cmd *cmd);
+char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir);
+int		error_pipe_redir(t_pipe *pipe);
+int		count_redirections(char *s);
+
+//save_redir.c
+void	save_redir(char *str, char *next, int *flag, t_redir *redir);
+void	save_redir_append(char *str, char *next, int *flag, t_redir *redir);
+void	save_redir_write(char *str, char *next, int *flag, t_redir *redir);
+void	save_redir_read(char *str, char *next, int *flag, t_redir *redir);
+void	save_redir_readline(char *str, char *next, int *flag, t_redir *redir);
+
+//empty_or_delete_redir.c
+char	**delete_redirection(char *sp, int *len);
+int		save_empty(t_cmd *cmd);
+char	**fill_empty(void);
+int		delete_redir_len(char **s, int *len);
+int		init_redir_size(t_pipe **pipe);
 
 //init.c
 void	init_cmd(t_cmd *cmd);
 void	init_quotes_flags(t_quotes *quotes);
 t_redir	init_redirection(char *file, char *type, char *key);
-int	init_minishell(int argc, char **argv, char **env, t_cmd	*cmd);
+int		init_minishell(int argc, char **argv, char **env, t_cmd	*cmd);
 
 //checks.c
 void	check_quotes_flags(t_quotes *quotes, char c);
@@ -106,12 +125,12 @@ int		check_spaces(char *readl);
 int		export_check(char *val);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 int		is_digit(char *s);
-void	ft_status(int status);
-void	ft_status_heredoc(int status);
 
 //check3.c
 int		is_fin_redirection(char *s);
 void	redirections_find_space(char *s, int i, int *j);
+void	ft_status(int status);
+void	ft_status_heredoc(int status);
 
 //utils.c
 char	*find_change_str(char *s, t_env *env);

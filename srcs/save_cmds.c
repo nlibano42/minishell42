@@ -3,62 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   save_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:49:16 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 01:09:30 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:41:08 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-
-int	delete_redir_len(char **s, int *len)
-{
-	int	i;
-
-	*len = 0;
-	i = -1;
-	while (s[++i])
-	{
-		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || \
-			!ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
-		{
-			i++;
-			continue ;
-		}
-		(*len)++;
-	}
-	return (*len);
-}
-
-char	**delete_redirection(char *sp, int *len)
-{
-	int		i;
-	int		j;
-	char	**res;
-	char	**s;
-
-	s = ft_split(sp, '\n');
-	res = (char **)malloc(sizeof(char *) * (delete_redir_len(s, len) + 1));
-	if (!res)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (s[++i])
-	{
-		if (!ft_strcmp(s[i], "<") || !ft_strcmp(s[i], "<<") || \
-			!ft_strcmp(s[i], ">") || !ft_strcmp(s[i], ">>"))
-		{
-			i++;
-			continue ;
-		}
-		res[j] = ft_strtrim(s[i], " ");
-		j++;
-	}
-	res[j] = NULL;
-	free_split(s);
-	return (res);
-}
 
 int	count_redirections(char *s)
 {
@@ -79,92 +31,6 @@ int	count_redirections(char *s)
 	return (count);
 }
 
-char	**fill_empty(void)
-{
-	char	**s;
-
-	s = (char **)malloc(sizeof(char *) * 2);
-	if (!s)
-		return (NULL);
-	s[0] = ft_strdup("");
-	s[1] = NULL;
-	return (s);
-}
-
-int	save_empty(t_cmd *cmd)
-{
-	t_pipe	*pipe;
-
-	pipe = ft_newpipe();
-	pipe->full_cmd = fill_empty();
-	pipe->path = ft_strdup("");
-	ft_pipeadd_back(&(cmd->pipe), pipe);
-	return (0);
-}
-
-int	init_redir_size(t_pipe **pipe)
-{
-	if ((*pipe)->num_redi > 0)
-	{
-		(*pipe)->redir = malloc(sizeof(t_redir) * ((*pipe)->num_redi + 1));
-		if (!(*pipe)->redir)
-			return (1);
-	}
-	return (0);
-}
-
-void	save_redir_readline(char *str, char *next, int *flag, t_redir *redir)
-{
-	if (!ft_strcmp(str, "<<"))
-	{
-		*redir = init_redirection(NULL, "readl", ft_deletequotes(next));
-		redir->fd = 1;
-		*flag = 1;
-	}
-}
-
-void	save_redir_read(char *str, char *next, int *flag, t_redir *redir)
-{
-	char	*aux;
-
-	if (!ft_strcmp(str, "<"))
-	{
-		*redir = init_redirection(ft_deletequotes(next), "read", NULL);
-		aux = ft_deletequotes(next);
-		redir->fd = open_file(aux, 'r');
-		free(aux);
-		*flag = 1;
-	}
-}
-
-void	save_redir_write(char *str, char *next, int *flag, t_redir *redir)
-{
-	char	*aux;
-
-	if (!ft_strcmp(str, ">"))
-	{
-		*redir = init_redirection(ft_deletequotes(next), "write", NULL);
-		aux = ft_deletequotes(next);
-		redir->fd = open_file(aux, 'w');
-		free(aux);
-		*flag = 1;
-	}
-}
-
-void	save_redir_append(char *str, char *next, int *flag, t_redir *redir)
-{
-	char	*aux;
-
-	if (!ft_strcmp(str, ">>"))
-	{
-		*redir = init_redirection(ft_deletequotes(next), "append", NULL);
-		aux = ft_deletequotes(next);
-		redir->fd = open_file(aux, 'a');
-		free(aux);
-		*flag = 1;
-	}
-}
-
 int	error_pipe_redir(t_pipe *pipe)
 {
 	char	*tmp;
@@ -180,14 +46,6 @@ int	error_pipe_redir(t_pipe *pipe)
 		return (g_shell.quit_status = 127);
 	}
 	return (0);
-}
-
-void	save_redir(char *str, char *next, int *flag, t_redir *redir)
-{
-	save_redir_readline(str, next, flag, redir);
-	save_redir_read(str, next, flag, redir);
-	save_redir_write(str, next, flag, redir);
-	save_redir_append(str, next, flag, redir);
 }
 
 char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir)

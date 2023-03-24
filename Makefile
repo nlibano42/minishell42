@@ -6,7 +6,7 @@
 #    By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/15 03:58:55 by nlibano-          #+#    #+#              #
-#    Updated: 2023/03/23 18:24:54 by jdasilva         ###   ########.fr        #
+#    Updated: 2023/03/24 16:30:42 by jdasilva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ SRCS	= main.c\
 		expand_utils.c\
 		here_doc.c\
 		save_cmds.c\
+		save_redir.c\
+		empty_or_delete_redir.c\
 		
 # Compiler options
 CC			= gcc
