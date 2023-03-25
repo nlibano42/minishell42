@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:02:57 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:30:33 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_status(int status)
 			g_shell.quit_status = 131;
 	}
 	if (WIFEXITED(status))
-	{	
+	{
 		if (g_shell.quit_status == 256)
 			g_shell.quit_status = 1;
 		else if (status == 256)

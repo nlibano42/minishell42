@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 18:13:59 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:10:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		save_cmds(t_cmd *cmd);
 char	**save_cmd_redir(char *s, char **sp, int *j, t_redir **pipe_redir);
 int		error_pipe_redir(t_pipe *pipe);
 int		count_redirections(char *s);
-int		ft_fin_cmds(t_pipe *pipe, t_cmd *cmd, char **sp2);
+int		ft_fin_cmds(t_pipe *pipe, t_cmd *cmd, char **sp2, char **sp);
 
 //save_redir.c
 void	save_redir(char *str, char *next, int *flag, t_redir *redir);
@@ -108,7 +108,7 @@ char	**delete_redirection(char *sp, int *len);
 int		save_empty(t_cmd *cmd);
 char	**fill_empty(void);
 int		delete_redir_len(char **s, int *len);
-int		init_redir_size(t_pipe **pipe);
+int		init_redir_size(t_pipe **pipe, char **sp);
 
 //init.c
 void	init_cmd(t_cmd *cmd);

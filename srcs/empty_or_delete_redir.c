@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   empty_or_delete_redir.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:28:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/24 16:40:28 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:40:40 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,17 @@ int	delete_redir_len(char **s, int *len)
 	return (*len);
 }
 
-int	init_redir_size(t_pipe **pipe)
+int	init_redir_size(t_pipe **pipe, char **sp)
 {
 	if ((*pipe)->num_redi > 0)
 	{
 		(*pipe)->redir = malloc(sizeof(t_redir) * ((*pipe)->num_redi + 1));
 		if (!(*pipe)->redir)
+		{
+			ft_pipedelone(*pipe);
+			free_split(sp);
 			return (1);
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:02:45 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:30:46 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_exit(t_cmd *cmd)
 				return ;
 		}
 		else
-			g_shell.quit_status = 127;
+			g_shell.quit_status = 0;
 	}
 	ft_lstclear(&(cmd->env));
 	ft_close_exit(cmd);
