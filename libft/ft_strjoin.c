@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:54:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/02/17 16:39:53 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:30:42 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	lens2 = ft_strlen(s2);
 	dst = (char *)malloc(sizeof(char) * (lens1 + lens2 + 1));
 	if (!dst)
+	{
+		free(s1);
+		free(s2);
 		return (0);
+	}
 	ft_strlcpy(dst, s1, lens1 + 1);
 	ft_strlcat(&dst[lens1], s2, lens2 + 1);
 	free(s1);

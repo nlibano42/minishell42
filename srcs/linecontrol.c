@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/25 18:22:28 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:26:00 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,20 @@ void	dollar_exchange(char *s, int *i, t_quotes *quotes, t_env *env)
 	if (s[*i] == '$' && find_str(s[*i + 1], "\"\'") == 1 \
 		&& quotes->flag_s == 0 && quotes->flag_d == 0)
 	{
+		if (quotes->join_str)
+			free(quotes->join_str);
 		quotes->join_str = ft_strdup("");
 		quotes->join_str = change_env_val(s, env, i, quotes->join_str);
 	}
 	else if (s[*i] == '$' && quotes->flag_s == 0 && \
 		find_str(s[*i + 1], "|\"\'$>< ") == 0)
 	{
+		if (quotes->join_str)
+			free(quotes->join_str);
+		quotes->join_str = ft_strdup("");
 		if (s[*i + 1] == '?')
-		{	
-			quotes->join_str = ft_strdup("");
 			quotes->join_str = change_quitvalue(s, i, quotes->join_str);
-		}
 		else if (s[*i + 1] != ' ' && s[*i + 1])
-		{
-			quotes->join_str = ft_strdup("");
 			quotes->join_str = change_env_val(s, env, i, quotes->join_str);
-		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 01:54:26 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 00:33:02 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:54:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	delete_env(t_cmd *cmd, t_pipe *pipex, t_env *before, int *i)
 	char	*name;
 
 	name = ft_deletequotes(pipex->full_cmd[*i]);
-	if (export_check(ft_strdup(name)) == 0)
+	if (export_check(ft_strdup(name), ft_strdup(name), "unset") == 0)
 	{
 		env = cmd->env;
 		while (env)

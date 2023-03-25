@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 22:25:17 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:06:33 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,41 @@ int	check_spaces(char *readl)
 	return (1);
 }
 
-int	export_check(char *val)
+int	export_check_null(char *val, char *str, char *cmd)
+{
+	if (!val)
+	{
+		free(val);
+		return (error_export(str, cmd));
+	}
+	return (0);
+}
+
+int	export_check(char *val, char *str, char *cmd)
 {
 	int		i;
 
-	if (!ft_strcmp(val, "="))
-		return (error_export(val));
+	if (export_check_null(val, str, cmd) != 0)
+		return (1);
 	i = -1;
 	while (val[++i])
 	{
 		if (val[i] != '_')
 		{
 			if (isalnum(val[i]) == 0)
-				return (error_export(val));
+			{
+				free(val);
+				return (error_export(str, cmd));
+			}
 		}
 	}
+	if (ft_isdigit(val[0]))
+	{
+		free(val);
+		return (error_export(str, cmd));
+	}
 	free(val);
+	free(str);
 	return (0);
 }
 
