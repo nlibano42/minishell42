@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:10:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:18:01 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,10 @@ void	ft_status(int status)
 	{
 		if (g_shell.quit_status == 256)
 			g_shell.quit_status = 1;
-//		else if (status == 19968)
-//			g_shell.quit_status = 1;
 		else if (status == 256)
-		{
-			if (!ft_strcmp(pipe->full_cmd[0], "$?") && !ft_strcmp(pipe->full_cmd[1], "+") && !ft_strcmp(pipe->full_cmd[2], "$?"))
-				g_shell.quit_status = WEXITSTATUS(status) + 126;
-		}
+			g_shell.quit_status = WEXITSTATUS(status) + 126;
 		else
-		{
-printf ("-----------------> %d\n", WEXITSTATUS(status));
 			g_shell.quit_status = WEXITSTATUS(status);
-		}
 	}
 }
 
