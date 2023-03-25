@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:22:03 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 17:34:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:16:09 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	cd_no_argumnets(t_cmd *cmd)
 	chdir(pwd);
 	free(oldpwd);
 	free(pwd);
-	return (0);
+	return (g_shell.quit_status = 0);
 }
 
 void	cd_dot_get_pwd(t_cmd *cmd, char **pwd, char **oldpwd)
