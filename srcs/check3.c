@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 17:25:28 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:10:50 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_fin_redirection(char *str)
 	return (0);
 }
 
-void	ft_status(int status, t_pipe *pipe)
+void	ft_status(int status)
 {	
 	if (WIFSIGNALED(status))
 	{

@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 17:19:51 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:10:38 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int		is_digit(char *s);
 //check3.c
 int		is_fin_redirection(char *s);
 void	redirections_find_space(char *s, int i, int *j);
-void	ft_status(int status, t_pipe *pipe);
+void	ft_status(int status);
 void	ft_status_heredoc(int status);
 
 //utils.c
