@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:40:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:20:27 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:49:41 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ int	error_open_file(char *str)
 	return (g_shell.quit_status = 1);
 }
 
-int	error_export(char *str)
+int	error_export(char *str, char *cmd)
 {
-	ft_putstr_fd("minishel: export: ", 2);
-	ft_putstr_fd("\'", 2);
+	ft_putstr_fd("minishel: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": \'", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\'", 2);
 	ft_putstr_fd(": not a valid identifier\n", 2);
+	free(str);
 	return (g_shell.quit_status = 1, 1);
 }

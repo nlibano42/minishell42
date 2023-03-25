@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:10:38 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:50:47 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int		check_init_params(int argc, char **argv);
 
 //checks2.c
 int		check_spaces(char *readl);
-int		export_check(char *val);
+int		export_check(char *val, char *str, char *cmd);
 void	ft_control(char *readl, t_quotes *quotes, int i);
 int		is_digit(char *s);
 
@@ -152,7 +152,7 @@ int		redirections_error(char *s, int num);
 //error2.c
 void	error_cd_relative_path(char *str);
 int		error_open_file(char *str);
-int		error_export(char *str);
+int		error_export(char *str, char *cmd);
 
 //split.c
 char	**split(char const *s, char c);
