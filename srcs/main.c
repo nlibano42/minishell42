@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 04:04:34 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 16:01:19 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:10:49 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+int	check_minishell(t_cmd *cmd)
+{
+	if (check_spaces(cmd->readl) || is_quotes_opened(cmd->readl) \
+				|| is_fin_redirection(cmd->readl) || is_open_pipe(cmd->readl) \
+					|| line_parse(cmd, cmd->env))
+		return (1);
+	return (0);
+}
+
+void	run_minishell(t_cmd *cmd)
+{	
+	count_pipe(cmd, cmd->cmd_line);
+	if (save_cmds(cmd) == 0)
+		pipex_main(cmd);
+	free_all(cmd);
+}
 
 int	main(int argc, char **argv, char **env)
 {	
@@ -18,13 +35,6 @@ int	main(int argc, char **argv, char **env)
 
 	if (init_minishell(argc, argv, env, &cmd))
 		return (1);
-/*	if (check_init_params(argc, argv))
-		return (1);
-	g_shell.pid = 0;
-	init_cmd(&cmd);
-	init_env(&(cmd.env), env);
-	ft_signal();
-*/
 	while (1)
 	{
 		cmd.save_stdin = dup(STDIN_FILENO);
@@ -35,17 +45,10 @@ int	main(int argc, char **argv, char **env)
 			ft_exit(&cmd);
 		if (ft_strlen(cmd.readl) > 0)
 		{
-			if (check_spaces(cmd.readl) || is_quotes_opened(cmd.readl) \
-				|| is_fin_redirection(cmd.readl) || is_open_pipe(cmd.readl) \
-					|| line_parse(&cmd, cmd.env))
+			if (check_minishell(&cmd))
 				continue ;
 			else
-			{
-				count_pipe(&cmd, cmd.cmd_line);
-				if (save_cmds(&cmd) == 0)
-					pipex_main(&cmd);
-				free_all(&cmd);
-			}
+				run_minishell(&cmd);
 			close_stdin_stdout(&cmd);
 		}
 	}

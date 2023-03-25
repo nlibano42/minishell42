@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 14:07:37 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:18:01 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_status(int status)
 			g_shell.quit_status = 131;
 	}
 	if (WIFEXITED(status))
-	{	
+	{
 		if (g_shell.quit_status == 256)
 			g_shell.quit_status = 1;
 		else if (status == 256)
