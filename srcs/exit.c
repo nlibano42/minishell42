@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 23:56:49 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:35:00 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_exit(t_cmd *cmd)
 			if (exit_argument(cmd->pipe->full_cmd, i) == 1)
 				return ;
 		}
-		else
+		else	
 			g_shell.quit_status = 0;
 	}
 	ft_lstclear(&(cmd->env));

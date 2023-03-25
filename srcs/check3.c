@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 00:53:39 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:25:28 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_fin_redirection(char *str)
 	return (0);
 }
 
-void	ft_status(int status)
+void	ft_status(int status, t_pipe *pipe)
 {	
 	if (WIFSIGNALED(status))
 	{
@@ -61,16 +61,20 @@ void	ft_status(int status)
 	}
 	if (WIFEXITED(status))
 	{
-//printf("WIFEXITED(status): %d\n", WIFEXITED(status));
-		g_shell.quit_status = WIFEXITED(status);
-//		if (g_shell.quit_status == 256)
-//			g_shell.quit_status = 1;
+		if (g_shell.quit_status == 256)
+			g_shell.quit_status = 1;
 //		else if (status == 19968)
 //			g_shell.quit_status = 1;
-//		else if (status == 256)
-//			g_shell.quit_status = WEXITSTATUS(status) + 126;
-//		else
-//			g_shell.quit_status = WEXITSTATUS(status);
+		else if (status == 256)
+		{
+			if (!ft_strcmp(pipe->full_cmd[0], "$?") && !ft_strcmp(pipe->full_cmd[1], "+") && !ft_strcmp(pipe->full_cmd[2], "$?"))
+				g_shell.quit_status = WEXITSTATUS(status) + 126;
+		}
+		else
+		{
+printf ("-----------------> %d\n", WEXITSTATUS(status));
+			g_shell.quit_status = WEXITSTATUS(status);
+		}
 	}
 }
 

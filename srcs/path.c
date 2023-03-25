@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:51:55 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/23 22:16:55 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:38:28 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_execve(t_cmd *cmd, t_pipe *pipes)
 	char	*print_cmd;
 
 	if (!pipes->full_cmd[0])
-		exit(g_shell.quit_status = 0);
+		exit(0);
 	print_cmd = ft_deletequotes(pipes->full_cmd[0]);
 	char_env = tab_env(cmd->env);
 	p = pipes->path;
@@ -59,7 +59,7 @@ int	is_builtin(char *s)
 			!ft_strcmp(s, "pwd") || !ft_strcmp(s, "export") || \
 			!ft_strcmp(s, "unset") || !ft_strcmp(s, "env") || \
 			!ft_strcmp(s, "exit"))
-		return (g_shell.quit_status = 0, 1);
+		return (1);
 	else
 		return (0);
 }
