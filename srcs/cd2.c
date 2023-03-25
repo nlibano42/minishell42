@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 23:44:07 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 00:51:02 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:15:58 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	cd_dot_get_path(char *pwd, char **tmp, int i)
 {
 	if (pwd[i] == '/')
 	{
+		free(*tmp);
 		if (i == 0)
 			*tmp = ft_strdup("/");
 		else

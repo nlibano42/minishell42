@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:07:35 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/20 11:31:50 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:28:59 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*change_env_val(char *s, t_env *env, int *i, char *join_str)
 	char	*str;
 	int		fin;
 	char	*val;
+	char	*tmp;
 
 	str = NULL;
 	if (*i != 0)
@@ -85,9 +86,11 @@ char	*change_env_val(char *s, t_env *env, int *i, char *join_str)
 	else
 		val = ft_strdup(ft_lstfind_env_val(env, str));
 	join_str = ft_strjoin(join_str, val);
-	free (str);
 	if (s[*i + 1])
-		join_str = ft_strjoin(join_str, \
-		ft_substr(s, *i + 1, ft_strlen(s) - 1));
+	{
+		tmp = ft_substr(s, *i + 1, ft_strlen(s) - 1);
+		join_str = ft_strjoin(join_str, tmp);
+	}
+	free (str);
 	return (join_str);
 }

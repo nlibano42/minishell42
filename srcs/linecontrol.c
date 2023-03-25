@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:33:38 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/25 18:22:28 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:48:40 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	*expand_dolar(char **str, t_env *env, t_quotes *quotes)
 	i = -1;
 	while (s[++i])
 	{
+		if (quotes->join_str)
+			free(quotes->join_str);
 		check_quotes_flags(quotes, s[i]);
 		dollar_exchange(s, &i, quotes, env);
 		if (quotes->join_str && ft_strcmp(s, quotes->join_str))
