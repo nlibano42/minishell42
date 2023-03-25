@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 01:03:59 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 14:06:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:00:14 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_exit(t_cmd *cmd)
 				return ;
 		}
 		else
-			g_shell.quit_status = 127;
+			g_shell.quit_status = 0;
 	}
 	ft_lstclear(&(cmd->env));
 	ft_close_exit(cmd);
@@ -66,6 +66,6 @@ int	exit_argument(char	**full_cmd, int num)
 	else
 	{
 		g_shell.quit_status = ft_atoi(full_cmd[1]);
-		return (0);
+		return (g_shell.quit_status);
 	}
 }
