@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:54:37 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/25 20:00:16 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:06:33 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	export_check(char *val, char *str, char *cmd)
 			}
 		}
 	}
-	if (!is_digit(val))
+	if (ft_isdigit(val[0]))
 	{
 		free(val);
 		return (error_export(str, cmd));
