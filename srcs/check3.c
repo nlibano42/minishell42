@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:08:56 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/24 21:06:05 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/25 00:53:39 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ void	ft_status(int status)
 			g_shell.quit_status = 131;
 	}
 	if (WIFEXITED(status))
-	{	
-		if (g_shell.quit_status == 256)
-			g_shell.quit_status = 1;
-		else if (status == 19968)
-			g_shell.quit_status = 1;
-		else if (status == 256)
-			g_shell.quit_status = WEXITSTATUS(status) + 126;
-		else
-			g_shell.quit_status = WEXITSTATUS(status);
+	{
+//printf("WIFEXITED(status): %d\n", WIFEXITED(status));
+		g_shell.quit_status = WIFEXITED(status);
+//		if (g_shell.quit_status == 256)
+//			g_shell.quit_status = 1;
+//		else if (status == 19968)
+//			g_shell.quit_status = 1;
+//		else if (status == 256)
+//			g_shell.quit_status = WEXITSTATUS(status) + 126;
+//		else
+//			g_shell.quit_status = WEXITSTATUS(status);
 	}
 }
 
