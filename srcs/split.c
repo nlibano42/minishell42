@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:00:11 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/16 18:01:13 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:47:46 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ char	**subsplit(char **sp, int start, int len)
 {
 	char	**s;
 	int		i;
+	char	*cmd;
+	char	*str;
 
 	s = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!s)
@@ -107,9 +109,16 @@ char	**subsplit(char **sp, int start, int len)
 	i = 0;
 	while (--len >= 0)
 	{
-		s[i] = ft_strtrim(sp[start], " ");
+		cmd = ft_deletequotes(sp[0]);
+		str = ft_strtrim(sp[start], " ");
+		if (!is_builtin(cmd))
+			s[i] = ft_deletequotes(str);
+		else
+			s[i] = ft_strdup(str);
+		free(str);
 		i++;
 		start++;
+		free(cmd);
 	}
 	s[i] = NULL;
 	return (s);
