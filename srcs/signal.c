@@ -6,7 +6,7 @@
 /*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 05:01:42 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 19:00:08 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:52:27 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	show_readline(void)
 void	sighandler(int sig)
 {
 	if (sig == SIGQUIT && g_shell.pid == 0)
-		show_readline();
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
 	else if (sig == SIGINT && g_shell.pid == 0)
 	{
 		printf("\n");

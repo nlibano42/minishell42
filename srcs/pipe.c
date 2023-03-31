@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:09:05 by jdasilva          #+#    #+#             */
-/*   Updated: 2023/03/25 18:25:18 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:30:02 by jdasilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_notpipe(t_cmd *cmd)
 	}
 	waitpid(num_pid, &status, 0);
 	ft_status(status);
+	if (!ft_strcmp(cmd->pipe->full_cmd[0], "expr") && g_shell.quit_status != 0)
+		g_shell.quit_status = 1;
 	g_shell.pid = 0;
 	ft_suppress_output(0);
 }
