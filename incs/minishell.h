@@ -6,7 +6,7 @@
 /*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:20:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/25 19:50:47 by nlibano-         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:24:57 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_shell
 {
 	int				quit_status;
 	int				pid;
-	struct termios	save;
 }	t_shell;
 
 t_shell	g_shell;
