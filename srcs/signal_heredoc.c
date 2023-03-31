@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdasilva <jdasilva@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nlibano- <nlibano-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:03:30 by nlibano-          #+#    #+#             */
-/*   Updated: 2023/03/23 20:17:51 by jdasilva         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:16:45 by nlibano-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_signal_heredoc(void)
 void	sighandler_heredoc(int sig)
 {
 	if (sig == SIGINT && g_shell.pid == 2)
+	{
+		printf("\n");
 		exit(g_shell.quit_status = 1);
+	}
 	if (sig == SIGQUIT && g_shell.pid == 2)
 		rl_redisplay();
 }
